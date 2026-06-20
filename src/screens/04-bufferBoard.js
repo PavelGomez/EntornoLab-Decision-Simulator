@@ -1,0 +1,192 @@
+import { state } from '../state.js';
+import { T } from '../i18n.js';
+import { renderNavFooter } from './helpers.js';
+import { renderProfessorPanel } from '../professor.js';
+
+export async function mountScreen04(container, caseData, nav) {
+  const st = state.get();
+
+  if (st.professorMode) {
+    container.appendChild(renderProfessorPanel(caseData, nav));
+  }
+
+  const titleEl = document.createElement('h1');
+  titleEl.className = 'screen-title';
+  titleEl.textContent = T.screenTitles[4];
+  container.appendChild(titleEl);
+
+  const subtitleEl = document.createElement('p');
+  subtitleEl.className = 'screen-subtitle';
+  subtitleEl.textContent = T.s4_selectBuffers;
+  container.appendChild(subtitleEl);
+
+  const hintEl = document.createElement('p');
+  hintEl.style.cssText = 'font-size:var(--text-sm);color:var(--color-muted);margin-bottom:var(--sp-4);';
+  hintEl.textContent = T.s4_selectHint;
+  container.appendChild(hintEl);
+
+  // Max-reached warning
+  const maxWarning = document.createElement('div');
+  maxWarning.className = 'validation-msg';
+  maxWarning.id = 'max-warning';
+  maxWarning.textContent = T.s4_maxReached;
+  container.appendChild(maxWarning);
+
+  const bufferList = document.createElement('div');
+  bufferList.className = 'buffer-list';
+
+  // Track current selections
+  let selectedBuffers = [...(st.s4_selectedBuffers || [])];
+  let bufferDetails = { ...(st.s4_bufferDetails || {}) };
+
+  const potenciaOptions = Object.entries(T.potencia).map(([v, l]) => ({ value: v, label: l }));
+  const duracionOptions = Object.entries(T.duracion).map(([v, l]) => ({ value: v, label: l }));
+  const costoOptions = Object.entries(T.costo).map(([v, l]) => ({ value: v, label: l }));
+
+  caseData.availableBuffers.forEach(buf => {
+    const isSelected = selectedBuffers.includes(buf.id);
+    const det = bufferDetails[buf.id] || {};
+
+    const bufCard = document.createElement('div');
+    bufCard.className = `buffer-card${isSelected ? ' selected' : ''}`;
+    bufCard.dataset.bufferId = buf.id;
+
+    // Header with checkbox
+    const bufHeader = document.createElement('div');
+    bufHeader.className = 'buffer-card-header';
+    const checkId = `buf-${buf.id}`;
+    bufHeader.innerHTML = `
+      <input type="checkbox" id="${checkId}" ${isSelected ? 'checked' : ''} style="width:18px;height:18px;accent-color:var(--color-navy);flex-shrink:0;">
+      <label for="${checkId}" style="font-weight:var(--weight-semibold);cursor:pointer;font-size:var(--text-base);">${buf.label}</label>
+    `;
+    bufCard.appendChild(bufHeader);
+
+    // Axis details (shown when selected)
+    const bufDetails = document.createElement('div');
+    bufDetails.className = 'buffer-card-details';
+
+    // Cost unit badge (read-only)
+    const costUnitBadge = document.createElement('p');
+    costUnitBadge.style.cssText = 'font-size:var(--text-xs);color:var(--color-muted);margin-bottom:var(--sp-4);';
+    costUnitBadge.innerHTML = `<strong>${T.s4_costUnit}:</strong> ${T.costUnits[buf.costUnit] || buf.costUnit} &nbsp;<span style="opacity:.6">(${T.s4_costUnitHint})</span>`;
+    bufDetails.appendChild(costUnitBadge);
+
+    // Potencia axis
+    bufDetails.appendChild(createAxisGroup('potencia', buf.id, T.s4_potencia, potenciaOptions, det.potencia));
+    // Duracion axis
+    bufDetails.appendChild(createAxisGroup('duracion', buf.id, T.s4_duracion, duracionOptions, det.duracion));
+    // Costo axis
+    bufDetails.appendChild(createAxisGroup('costo', buf.id, T.s4_costo, costoOptions, det.costo));
+
+    bufCard.appendChild(bufDetails);
+    bufferList.appendChild(bufCard);
+
+    // Checkbox listener
+    const checkbox = bufHeader.querySelector('input[type=checkbox]');
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        if (selectedBuffers.length >= 2) {
+          checkbox.checked = false;
+          maxWarning.classList.add('show');
+          return;
+        }
+        selectedBuffers.push(buf.id);
+        bufCard.classList.add('selected');
+        maxWarning.classList.remove('show');
+      } else {
+        selectedBuffers = selectedBuffers.filter(id => id !== buf.id);
+        bufCard.classList.remove('selected');
+        maxWarning.classList.remove('show');
+      }
+      saveAndValidate();
+    });
+
+    // Axis option listeners (event delegation on bufDetails)
+    bufDetails.addEventListener('click', (e) => {
+      const axisOption = e.target.closest('.axis-option');
+      if (!axisOption) return;
+      const axis = axisOption.dataset.axis;
+      const value = axisOption.dataset.value;
+      if (!axis || !value) return;
+
+      // Update visual selection
+      bufDetails.querySelectorAll(`.axis-option[data-axis="${axis}"]`).forEach(opt => {
+        opt.classList.remove('checked');
+        const inp = opt.querySelector('input');
+        if (inp) inp.checked = false;
+      });
+      axisOption.classList.add('checked');
+      const inp = axisOption.querySelector('input');
+      if (inp) inp.checked = true;
+
+      // Update details
+      if (!bufferDetails[buf.id]) bufferDetails[buf.id] = {};
+      bufferDetails[buf.id][axis] = value;
+      saveAndValidate();
+    });
+  });
+
+  container.appendChild(bufferList);
+
+  // Nav footer
+  const footer = renderNavFooter({
+    showBack: true,
+    onBack: nav.onBack,
+    onNext: nav.onNext,
+    nextDisabled: true,
+    nextLabel: T.continue,
+  });
+  container.appendChild(footer);
+
+  const nextBtn = footer.querySelector('.btn-primary');
+
+  function saveAndValidate() {
+    state.set({
+      s4_selectedBuffers: selectedBuffers,
+      s4_bufferDetails: bufferDetails,
+    });
+    validate();
+  }
+
+  function validate() {
+    if (selectedBuffers.length === 0) {
+      nextBtn.disabled = true;
+      return false;
+    }
+    // All selected buffers must have all 3 axes
+    const allComplete = selectedBuffers.every(bid => {
+      const det = bufferDetails[bid] || {};
+      return det.potencia && det.duracion && det.costo;
+    });
+    nextBtn.disabled = !allComplete;
+    return allComplete;
+  }
+
+  validate();
+}
+
+function createAxisGroup(axisKey, bufId, axisLabel, options, currentValue) {
+  const group = document.createElement('div');
+  group.className = 'axis-group';
+
+  const label = document.createElement('div');
+  label.className = 'axis-label';
+  label.textContent = axisLabel;
+  group.appendChild(label);
+
+  const optionsEl = document.createElement('div');
+  optionsEl.className = 'axis-options';
+
+  options.forEach(opt => {
+    const pill = document.createElement('div');
+    pill.className = `axis-option${currentValue === opt.value ? ' checked' : ''}`;
+    pill.dataset.axis = axisKey;
+    pill.dataset.value = opt.value;
+    pill.dataset.bufId = bufId;
+    pill.innerHTML = `<input type="radio" name="${axisKey}-${bufId}" value="${opt.value}" ${currentValue === opt.value ? 'checked' : ''}><span>${opt.label}</span>`;
+    optionsEl.appendChild(pill);
+  });
+
+  group.appendChild(optionsEl);
+  return group;
+}
