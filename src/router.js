@@ -1,6 +1,7 @@
 import { state } from './state.js';
 import { mountScreen } from './screens/index.js';
 import { T } from './i18n.js';
+import { openEbtaModal } from './ebtaModal.js';
 
 const TOTAL_SCREENS = 10;
 
@@ -33,9 +34,36 @@ export function renderProgressBar(container, currentScreen) {
   label.className = 'progress-label';
   label.textContent = T.screenLabel(currentScreen, TOTAL_SCREENS);
 
+  // Enlace persistente E-BTA/R (visible en todas las pantallas 1-10)
+  const ebtaBtn = document.createElement('button');
+  ebtaBtn.className = 'ebtar-btn';
+  ebtaBtn.type = 'button';
+  ebtaBtn.setAttribute('aria-label', '¿Qué es E-BTA/R?');
+  ebtaBtn.innerHTML =
+    '<span class="ebtar-full">\u00bfQu\u00e9 es E-BTA/R?</span>' +
+    '<span class="ebtar-short">E-BTA/R</span>';
+  ebtaBtn.addEventListener('click', openEbtaModal);
+
   bar.appendChild(steps);
   bar.appendChild(label);
+  bar.appendChild(ebtaBtn);
   return bar;
+}
+
+/**
+ * Renders the landing page (screen 0) — no case data needed.
+ * onStart(caseOrder) is called when the participant clicks "Comenzar".
+ */
+export async function renderLanding(onStart) {
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+
+  const container = document.createElement('div');
+  container.className = 'screen screen--landing';
+  app.appendChild(container);
+
+  await mountScreen(0, container, null, { onStart });
+  window.scrollTo(0, 0);
 }
 
 export async function navigate(caseData, targetScreen) {

@@ -1,3 +1,4 @@
+import { mountScreen00 } from './00-landing.js';
 import { mountScreen01 } from './01-briefing.js';
 import { mountScreen02 } from './02-clasificacion.js';
 import { mountScreen03 } from './03-impacto.js';
@@ -10,6 +11,7 @@ import { mountScreen09 } from './09-revision.js';
 import { mountScreen10 } from './10-export.js';
 
 const SCREENS = {
+  0: mountScreen00,
   1: mountScreen01,
   2: mountScreen02,
   3: mountScreen03,

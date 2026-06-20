@@ -2,7 +2,7 @@ const STORAGE_KEY = 'entornolab_v1_state';
 
 const defaultState = () => ({
   caseId: null,
-  currentScreen: 1,
+  currentScreen: 0, // 0 = portada; 1-10 = flujo del simulador
   postInject: false,
   selectedInjectId: null,
   professorMode: false,
