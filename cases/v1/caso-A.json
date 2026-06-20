@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "1.0",
+  "caseId": "venezuela-fintech-A-001",
+  "title": "Vala Pagos enfrenta un cambio regulatorio acelerado en un entorno cambiario tensionado",
+  "order": "A",
+  "role": "ancla",
+  "estimatedMinutes": 180,
+  "context": {
+    "sector": "fintech de pagos y remesas",
+    "country": "VE",
+    "size": "media",
+    "dominantEventType": ["subito-discreto", "cascada"],
+    "dominantChannel": "regulatorio-legal",
+    "secondaryChannel": "legitimidad"
+  },
+  "initialSignal": "El viernes a las 17:30, un borrador de circular del regulador del sistema de pagos empieza a circular por WhatsApp entre operadores del sector. El texto no está publicado en gaceta, no tiene número de resolución y nadie lo confirma oficialmente, pero tres detalles coinciden con rumores de las últimas dos semanas: exige a las plataformas de pago no bancarias constituir un fideicomiso de respaldo en moneda local por el 100% de los saldos de los usuarios, prohíbe la custodia de saldos denominados en divisas fuera del sistema bancario, y fija un plazo de cumplimiento de 90 días. La dirección de Vala recibe el borrador a las 18:10 del mismo viernes.",
+  "briefing": "§1. La empresa. Vala Pagos es una fintech venezolana de cinco años, con 118 empleados y cerca de 800.000 usuarios activos mensuales. Su producto es un monedero digital que permite (a) pagar y cobrar en bolívares con comisión baja, (b) mantener un saldo de valor estable mediante custodia de dólares a través de un aliado, y (c) recibir remesas desde Colombia y Estados Unidos por un corredor propio. El 62% de su margen proviene del corredor de remesas y de las comisiones sobre saldos en divisas; el pago en bolívares es casi sin margen y opera como gancho de adquisición. Vala depende críticamente de tres relaciones: un banco patrocinador que le da acceso al sistema de compensación local, un banco corresponsal en el exterior que liquida el corredor de remesas, y una autorización vigente del regulador que la habilita como operador de pagos no bancario. Pierde cualquiera de las tres y el negocio se detiene en cuestión de días, no de meses. La empresa cerró su última ronda de inversión hace dieciocho meses y su caja operativa, sin ser holgada, le da margen para uno o dos movimientos costosos, no para varios en paralelo.\n\n§2. Mapa de actores. El regulador del sistema de pagos es la institución que emite la circular y la que otorga (o revoca) la autorización de Vala. Por encima de él hay un ministerio del área económica que define la orientación política y que en los últimos meses ha oscilado entre promover la inclusión financiera digital y endurecer el control sobre los flujos en divisas. Un actor que conviene observar es la comisión legislativa de economía: su vocero más visible ha mantenido hasta ahora una posición ambivalente sobre las fintech —elogia su alcance, pero ha advertido en público que «no pueden operar como bancos en la sombra»—. Su posición no está fijada y puede inclinarse. Completan el mapa el banco patrocinador (interesado en no exponerse a sanción por asociación), el banco corresponsal en el exterior (sensible al riesgo de cumplimiento y al de-risking), el usuario final (que valora la estabilidad del saldo más que cualquier otra cosa) y un competidor directo, descrito en §5.\n\n§3. Antecedente análogo. Hace catorce meses, en un país vecino de la región, una fintech comparable —monedero más corredor de remesas— enfrentó una norma casi idéntica: respaldo total de saldos y prohibición de custodia de divisas fuera de la banca. La empresa la impugnó por vía judicial argumentando retroactividad y desproporción. El proceso sigue abierto y se considera la referencia regional sobre hasta dónde puede llegar este tipo de exigencia. Los operadores locales, incluida Vala, lo siguen de cerca porque el sentido del fallo —cuando llegue— marcará el techo y el piso de lo exigible. Hasta hoy, el caso opera como un argumento de defensa: «ni siquiera allá lo han resuelto».\n\n§4. Contexto político-económico (tres datos del caso). Primero: la economía está fuertemente dolarizada de facto en las transacciones de mayor valor, mientras los salarios y buena parte del consumo masivo siguen en moneda local, lo que hace de la estabilidad del saldo la propuesta de valor central de Vala. Segundo: el acceso a banca corresponsal internacional es escaso y se ha contraído por el riesgo reputacional del país, de modo que el corredor de remesas de Vala descansa sobre una sola relación corresponsal difícil de reemplazar. Tercero: la política regulatoria hacia el sector ha sido de alta variabilidad —ciclos de apertura y endurecimiento sin previo aviso—, por lo que el mercado descuenta que cualquier borrador puede volverse exigible de un día para otro. La señal inicial llega sobre este telón de fondo.\n\n§5. El competidor. PagoYa es el competidor más directo de Vala: producto similar, base de usuarios algo menor, pero con dos diferencias relevantes. Tiene menos exposición al corredor de divisas (su margen depende más del pago local y de servicios a comercios) y ha venido construyendo, sin anunciarlo, una relación más cercana con el regulador, participando en mesas técnicas y contratando a un exfuncionario del área. En las últimas semanas, voceros de PagoYa han dejado entrever en foros del sector que «el cumplimiento temprano será una ventaja competitiva, no una carga». Vala ha leído esos mensajes como postura, no como plan concreto.\n\n§6. La decisión. La dirección de Vala debe decidir, en los próximos siete días, cómo responde al borrador de circular antes de que se confirme o se descarte. Las opciones no son excluyentes y van desde no hacer nada visible y esperar la versión oficial, hasta anunciar cumplimiento voluntario anticipado, constituir parcialmente el fideicomiso, migrar la custodia de divisas dentro del perímetro bancario sacrificando margen, activar la relación institucional para pedir gradualidad, o alguna combinación. Cada movimiento consume recursos escasos y compromete posiciones difíciles de revertir. La decisión debe formularse como una frase E-BTA/R defendible ante el comité directivo, que sesiona en siete días. El comité no premia el optimismo ni la prudencia por sí mismas: exige saber qué se protege, qué se sacrifica, con qué buffer, a qué costo y bajo qué indicadores se revisará la apuesta si el escenario cambia.",
+  "availableBuffers": [
+    {
+      "id": "cash_reserve_fx",
+      "label": "Reserva de caja en divisas",
+      "channelsAddressed": ["financiero", "operacional"],
+      "costUnit": "caja",
+      "notesForFacilitator": "Buffer real pero agotable: alcanza para constituir parcialmente el fideicomiso o sostener una migración de custodia durante 1-2 rondas, no más. Si se consume aquí, no estará disponible para un segundo shock. Su canal es financiero/operacional; es ilusorio si el participante lo usa para 'comprar' legitimidad o relación regulatoria, que no se compran con caja."
+    },
+    {
+      "id": "regulatory_relationship",
+      "label": "Relación institucional con el regulador",
+      "channelsAddressed": ["regulatorio-legal", "legitimidad"],
+      "costUnit": "capital_politico",
+      "notesForFacilitator": "Buffer fuerte si se activa temprano y con perfil técnico (pedir gradualidad, ofrecer datos, co-diseñar la transición); ilusorio o perverso si se activa tarde o como presión, porque el regulador no puede aparecer cediendo bajo presión. El costo es capital político que se gasta una sola vez por ciclo."
+    },
+    {
+      "id": "product_modularity",
+      "label": "Modularidad del producto (separar custodia de divisas del resto)",
+      "channelsAddressed": ["modelo-de-negocio", "operacional"],
+      "costUnit": "tiempo",
+      "notesForFacilitator": "Buffer sobre el modelo de negocio: permite cumplir sacrificando solo la pieza expuesta (custodia de divisas) sin tumbar el monedero ni el corredor. Costo en tiempo de ingeniería: no se activa en 90 días si no estaba pre-diseñado. Su potencia depende de cuán acoplado esté el saldo en divisas al resto del producto."
+    },
+    {
+      "id": "user_trust",
+      "label": "Confianza de la base de usuarios",
+      "channelsAddressed": ["legitimidad", "modelo-de-negocio"],
+      "costUnit": "legitimidad",
+      "notesForFacilitator": "Buffer en el canal de legitimidad: una base que confía tolera un cambio de reglas si se comunica bien y absorbe una corrida si no. Es agotable y no regenerable a corto plazo: cada uso de la confianza (cambiar términos, congelar saldos, comunicar mal) la consume. Costo medido en uso futuro de la confianza, no en caja."
+    }
+  ],
+  "uncertaintySources": ["ocurrencia", "duracion", "actor"],
+  "injects": [
+    {
+      "id": "court_ruling",
+      "trigger": "facilitator",
+      "text": "Llega una sentencia en el caso análogo de la región: el tribunal valida la exigencia de respaldo de saldos y solo modera el plazo. La noticia circula de inmediato entre los reguladores locales, que ahora tienen un precedente para acelerar y endurecer la circular. El argumento de defensa 'ni siquiera allá lo han resuelto' deja de estar disponible.",
+      "latentInformation": "El briefing menciona en §3 que el caso análogo está abierto y que su fallo marcará el techo de lo exigible; el inject revela hacia dónde cae ese fallo, información latente desde el inicio.",
+      "primaryUncertaintyAffected": "ocurrencia",
+      "facilitatorPrompt": "Antes del inject, ¿la decisión del grupo descansaba en que el plazo o la exigencia podían ablandarse? Ese supuesto acaba de caer."
+    },
+    {
+      "id": "competitor_move",
+      "trigger": "facilitator",
+      "text": "PagoYa anuncia públicamente cumplimiento anticipado y total del fideicomiso, se presenta como 'la fintech que protege tu dinero' y captura cobertura mediática favorable y un guiño del regulador. La presión ya no es solo legal: cualquier movimiento de Vala se leerá ahora en contraste con un competidor que se posicionó primero como el actor responsable.",
+      "latentInformation": "El briefing anticipa en §5 que PagoYa venía construyendo cercanía con el regulador y señalando que el cumplimiento temprano sería ventaja competitiva; el inject revela que esa postura era plan.",
+      "primaryUncertaintyAffected": "actor",
+      "facilitatorPrompt": "El movimiento del competidor cambia el canal dominante de regulatorio a legitimidad. ¿El buffer elegido sirve en el canal que ahora manda?"
+    },
+    {
+      "id": "political_alignment",
+      "trigger": "facilitator",
+      "text": "El vocero de la comisión legislativa de economía fija por fin su posición y la alinea con la exigencia del regulador: declara públicamente que las fintech 'no pueden seguir operando como bancos en la sombra' y pide aplicar la circular sin gradualidad. La ventana para negociar plazos por la vía institucional se estrecha y la relación con el regulador, si se usa ahora, puede leerse como presión política.",
+      "latentInformation": "El briefing identifica en §2 al vocero como un actor de posición ambivalente que podía inclinarse; el inject revela hacia dónde se inclinó.",
+      "primaryUncertaintyAffected": "actor",
+      "facilitatorPrompt": "El buffer 'relación institucional' acaba de cambiar de signo. ¿Sigue siendo buffer o se volvió pasivo —o perverso— en este nuevo escenario?"
+    }
+  ],
+  "facilitatorNotes": "Caso ancla. Cubre los cuatro tipos de evento (la circular es súbita y a la vez cascada: regulatorio → financiero → legitimidad; la erosión del acceso corresponsal es acumulativa; la dimensión política activa legitimidad). Cubre los cinco canales y ofrece buffers con costo en cuatro unidades distintas (caja, capital político, tiempo, legitimidad). El error más frecuente en ronda 1 es tratar la 'relación con el regulador' como buffer todo-terreno sin nombrar su costo en capital político ni su dependencia del momento de activación. Recomendación de inject: usar 'court_ruling' con grupos que apostaron a que el plazo se ablandaría; 'competitor_move' con grupos que ignoraron el canal de legitimidad; 'political_alignment' con grupos que pusieron todo su peso en la relación institucional."
+}

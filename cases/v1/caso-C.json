@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "1.0",
+  "caseId": "venezuela-plataforma-C-001",
+  "title": "Rauda y la denuncia que se volvió viral: legitimidad bajo asedio",
+  "order": "C",
+  "role": "portable",
+  "estimatedMinutes": 60,
+  "context": {
+    "sector": "plataforma de reparto (economía de aplicaciones)",
+    "country": "VE",
+    "size": "media",
+    "dominantEventType": ["legitimidad", "cascada"],
+    "dominantChannel": "legitimidad",
+    "secondaryChannel": "operacional"
+  },
+  "initialSignal": "Un video de cuarenta segundos se vuelve viral el sábado en la noche: un repartidor de Rauda, accidentado en moto bajo la lluvia, relata a cámara que siguió trabajando porque la app le descuenta el bono si rechaza pedidos, y que no tiene ningún tipo de cobertura. El clip acumula cientos de miles de reproducciones en horas, con el hashtag del nombre de la empresa convertido en tendencia. El lunes la dirección de Rauda llega a la oficina con el tema ya instalado en la conversación pública y la pregunta de varios medios en el correo: '¿qué van a hacer?'.",
+  "briefing": "§1. La empresa. Rauda es una plataforma venezolana de reparto a domicilio (comida, farmacia, mercado) con cerca de 9.000 repartidores activos y operación en las tres principales ciudades del país. Su propuesta de valor es velocidad y cobertura; su modelo descansa en repartidores clasificados como colaboradores independientes, sin relación laboral formal, remunerados por pedido más bonos por desempeño. El margen es estrecho y la confianza —de usuarios, comercios aliados y repartidores— es el activo que sostiene el ecosistema.\n\n§2. Los repartidores. Los repartidores no son empleados, pero tampoco están desorganizados: existen grupos de mensajería con miles de miembros donde se coordinan, comparan ingresos y, cada cierto tiempo, hablan de 'apagar la app' un día como medida de presión. Hasta ahora esas conversaciones no habían pasado a la acción coordinada a gran escala, pero la estructura para hacerlo está y los líderes informales son identificables. El sistema de bonos que penaliza el rechazo de pedidos —el mismo que menciona el video— es una fuente recurrente de queja interna.\n\n§3. Los actores políticos. La economía de aplicaciones ha entrado en el radar político. Una parlamentaria con visibilidad en temas laborales ha venido señalando en redes que 'la precarización digital no puede quedar fuera de la ley' y ha buscado casos emblemáticos para impulsar el tema. No ha fijado posición sobre Rauda en particular, pero el caso que necesitaba podría haberle llegado solo.\n\n§4. El contexto regulatorio. No existe todavía en el país un marco específico para el trabajo en plataformas: los repartidores caen en una zona gris entre el colaborador independiente y el trabajador dependiente. El órgano del trabajo ha comentado de manera informal que 'observa el fenómeno' y que una clasificación como relación laboral cambiaría por completo la estructura de costos del sector. Nada de eso es norma; es señal.\n\n§5. El activo en juego. Para Rauda, la legitimidad no es un adorno: usuarios que dejan de pedir por vergüenza social, comercios aliados que no quieren asociar su marca a la polémica y repartidores que se sienten traicionados son, los tres, vías por las que la crisis de reputación se convierte en crisis operativa y financiera. El video tocó el canal de legitimidad; la pregunta es por dónde se propaga.\n\n§6. La decisión. La dirección de Rauda debe decidir, en las próximas 72 horas, cómo responde antes de que la narrativa se fije sin ella: emitir un comunicado y un gesto inmediato (fondo de apoyo, seguro de accidentes), revisar de fondo el sistema de bonos que está en el centro de la denuncia, abrir una mesa con los repartidores, esperar a que el ciclo mediático baje, o una combinación. Cada movimiento compromete recursos y posiciones, y algunos son difíciles de revertir una vez anunciados. La decisión debe formularse como frase E-BTA/R defendible. Caso portable: se trabaja con el marco ya conocido.",
+  "availableBuffers": [
+    {
+      "id": "user_goodwill",
+      "label": "Buena voluntad de la base de usuarios",
+      "channelsAddressed": ["legitimidad", "modelo-de-negocio"],
+      "costUnit": "legitimidad",
+      "notesForFacilitator": "Buffer en el canal dominante: una base de usuarios que valora el servicio puede sostener a Rauda durante el ciclo mediático si percibe una respuesta auténtica. Agotable y de doble filo: un gesto que se lea como lavado de imagen consume la buena voluntad en lugar de reponerla."
+    },
+    {
+      "id": "support_fund_cash",
+      "label": "Caja para un fondo de apoyo o seguro de accidentes",
+      "channelsAddressed": ["financiero", "legitimidad"],
+      "costUnit": "caja",
+      "notesForFacilitator": "Buffer financiero que compra una respuesta tangible (cobertura, fondo). Real pero acotado: ataca el síntoma del video, no la causa estructural (el sistema de bonos). Ilusorio si se presenta como solución de fondo siendo un gesto; potente si se enmarca como primer paso de una revisión real."
+    },
+    {
+      "id": "rider_relationship",
+      "label": "Relación con los repartidores líderes",
+      "channelsAddressed": ["operacional", "legitimidad"],
+      "costUnit": "capital_politico",
+      "notesForFacilitator": "Buffer sobre el canal operacional/legitimidad: el crédito acumulado con los líderes informales puede prevenir el paro y canalizar la queja. Costo en capital político interno, que se gasta una vez. Perverso si se usa para cooptar líderes en vez de atender el reclamo; entonces acelera el conflicto."
+    },
+    {
+      "id": "model_flexibility",
+      "label": "Flexibilidad del modelo para revisar bonos y clasificación",
+      "channelsAddressed": ["modelo-de-negocio", "regulatorio-legal"],
+      "costUnit": "tiempo",
+      "notesForFacilitator": "Buffer sobre el modelo de negocio: rediseñar el esquema de bonos o pilotar una figura de protección ataca la causa estructural y se adelanta al riesgo regulatorio. Costo en tiempo (de producto, legal y operación) y, potencialmente, en margen. No se activa en 72 horas como solución completa; sí como compromiso creíble."
+    }
+  ],
+  "uncertaintySources": ["magnitud", "duracion", "actor"],
+  "injects": [
+    {
+      "id": "courier_strike",
+      "trigger": "facilitator",
+      "text": "Los grupos de repartidores convocan un 'apagón' de la app por 48 horas en las tres ciudades, sumándose a la indignación del video. La adhesión es alta el primer día. La crisis de reputación se volvió crisis operativa: comercios sin reparto, usuarios sin servicio, cobertura sobre 'la plataforma paralizada'.",
+      "latentInformation": "El briefing describe en §2 la estructura de coordinación de los repartidores y las conversaciones recurrentes sobre 'apagar la app'; el inject revela que la estructura latente se activa.",
+      "primaryUncertaintyAffected": "actor",
+      "facilitatorPrompt": "¿La decisión asumía que los repartidores eran público y no actor con capacidad de cambiar el escenario? Ese supuesto acaba de caer."
+    },
+    {
+      "id": "political_position",
+      "trigger": "facilitator",
+      "text": "La parlamentaria de temas laborales toma el caso de Rauda como bandera, lo nombra en una intervención pública y anuncia que impulsará una norma para clasificar a los repartidores de plataformas como trabajadores dependientes. El asunto deja de ser un ciclo mediático y entra en la agenda legislativa.",
+      "latentInformation": "El briefing identifica en §3 a la parlamentaria que buscaba un caso emblemático para impulsar el tema; el inject revela que encontró el caso y fijó posición.",
+      "primaryUncertaintyAffected": "actor",
+      "facilitatorPrompt": "El buffer 'relación con repartidores' y el de 'caja' operan en un canal; el riesgo se acaba de mudar al regulatorio-legal. ¿La decisión sigue cubriendo el canal dominante?"
+    },
+    {
+      "id": "regulator_inquiry",
+      "trigger": "facilitator",
+      "text": "El órgano del trabajo anuncia que abre una averiguación sobre Rauda a raíz del caso viral y solicita información sobre la relación con los repartidores. Lo que era 'observación informal' se vuelve expediente. Cualquier gesto público de Rauda será ahora también una declaración ante un proceso abierto.",
+      "latentInformation": "El briefing advierte en §4 que el órgano del trabajo 'observaba el fenómeno' y que una reclasificación cambiaría la estructura de costos; el inject revela que la observación se vuelve acción.",
+      "primaryUncertaintyAffected": "duracion",
+      "facilitatorPrompt": "Con un expediente abierto, ¿la 'buena voluntad de usuarios' sigue siendo el buffer relevante, o el canal dominante se desplazó y exige otro?"
+    }
+  ],
+  "facilitatorNotes": "Caso portable de otro sector. Tipo de evento dominante: legitimidad (con cascada legitimidad → operacional → regulatorio-legal), lo que completa la biblioteca: Caso A entra por regulatorio-legal, Caso B por modelo de negocio, Caso C por legitimidad. Útil para contrastar un evento cuyo canal dominante es intangible y cuyos efectos monetarios son indirectos pero estructurales. El error frecuente es resolverlo como problema de comunicación (un buen comunicado) sin tocar la causa estructural (el sistema de bonos), lo que el inject 'courier_strike' o 'regulator_inquiry' deja en evidencia. Buffers en cuatro unidades: legitimidad, caja, capital político, tiempo."
+}

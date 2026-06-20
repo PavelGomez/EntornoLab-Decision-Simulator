@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "1.0",
+  "caseId": "venezuela-consumo-B-001",
+  "title": "Provista y el umbral de quiebra del modelo: cuando el cliente ya no alcanza",
+  "order": "B",
+  "role": "transferencia",
+  "estimatedMinutes": 60,
+  "context": {
+    "sector": "alimentos de consumo masivo",
+    "country": "VE",
+    "size": "media",
+    "dominantEventType": ["acumulativo"],
+    "dominantChannel": "modelo-de-negocio",
+    "secondaryChannel": "financiero"
+  },
+  "initialSignal": "El informe de ventas del trimestre llega con un dato que ya no se puede leer como ruido: la presentación estrella de Provista —el producto que sostiene el 55% del volumen— cayó por debajo del punto en que un hogar de su segmento objetivo puede comprarla con regularidad. No es una mala semana; es la tercera caída trimestral consecutiva y la rotación en los puntos de venta de barrio se desplomó. El gerente general lo resume en una frase: 'No es que vendamos menos; es que nuestro cliente ya no es nuestro cliente'.",
+  "briefing": "§1. La empresa. Provista produce alimentos básicos empacados (harinas, pastas y enlatados de marca propia) y es un actor mediano con tres décadas en el mercado venezolano. Su modelo siempre fue volumen: una presentación grande, precio accesible, marca confiable y distribución capilar en abastos y bodegas de barrio. Ese modelo asume un cliente que compra la presentación grande de forma recurrente. Esa asunción es la que está fallando.\n\n§2. El canal. Provista no vende directo al consumidor: depende de una red de distribuidores y de un distribuidor mayorista que mueve cerca del 40% de su volumen hacia el canal tradicional. Ese distribuidor ha venido reduciendo el espacio que le da a las presentaciones grandes de Provista porque rotan cada vez más lento, y ha empezado a privilegiar marcas con presentaciones pequeñas y mayor rotación. La relación es de años pero no es incondicional.\n\n§3. El umbral y el contexto. La caída no es un shock súbito: es la acumulación de meses de erosión del poder adquisitivo del segmento objetivo de Provista, que cruzó el punto en que la presentación grande dejó de caber en el presupuesto semanal del hogar. El gobierno ha señalado en distintos momentos su intención de intervenir el precio de la canasta básica —a veces con control, a veces con subsidio focalizado—, sin que la categoría de Provista esté hoy regulada, pero con la categoría 'en la mira'. Cualquier intervención cambiaría de golpe la ecuación de margen.\n\n§4. El competidor. Una marca rival más pequeña viene probando, en algunas zonas, presentaciones reducidas a un precio que sí cabe en el bolsillo del segmento, sacrificando margen unitario por rotación. Todavía no lo ha escalado a nivel nacional, pero los datos de Provista en esas zonas muestran que donde el rival lanzó la presentación pequeña, su propia caída fue más pronunciada.\n\n§5. La decisión. La dirección de Provista debe decidir, en las próximas dos semanas, cómo responde a un cliente que cruzó el umbral: reformular hacia presentaciones pequeñas sacrificando margen unitario y eficiencia logística, sostener la presentación grande quemando caja en precio para no ceder anaquel, reposicionar hacia un segmento de mayor poder adquisitivo abandonando su base histórica, o renegociar con el canal. La decisión debe formularse como frase E-BTA/R defendible. Este es el segundo caso del taller y se trabaja con menos andamiaje: el grupo ya conoce el marco.",
+  "availableBuffers": [
+    {
+      "id": "brand_loyalty",
+      "label": "Lealtad de marca acumulada",
+      "channelsAddressed": ["legitimidad", "modelo-de-negocio"],
+      "costUnit": "legitimidad",
+      "notesForFacilitator": "Buffer en legitimidad: la marca tiene crédito con el consumidor que permite, por ejemplo, lanzar una presentación pequeña sin que se lea como 'achicar para encarecer'. Agotable: si el cambio se percibe como reduflación encubierta, la confianza se gasta y no vuelve pronto."
+    },
+    {
+      "id": "format_reformulation",
+      "label": "Capacidad de reformular presentación y empaque",
+      "channelsAddressed": ["modelo-de-negocio", "operacional"],
+      "costUnit": "tiempo",
+      "notesForFacilitator": "Buffer sobre el modelo de negocio: rediseñar a presentación pequeña ataca directamente el canal dominante. Costo en tiempo de ingeniería de producto y línea; no se activa de un trimestre a otro si la planta no es flexible. Su potencia depende de la flexibilidad de empaque instalada."
+    },
+    {
+      "id": "price_cash_buffer",
+      "label": "Caja para sostener precio de la presentación grande",
+      "channelsAddressed": ["financiero"],
+      "costUnit": "caja",
+      "notesForFacilitator": "Buffer financiero clásico y agotable: permite no subir precio (o subsidiarlo) para defender anaquel durante 1-2 trimestres. No resuelve el problema estructural —el cliente cruzó el umbral—; compra tiempo. Ilusorio si se usa como estrategia y no como puente."
+    },
+    {
+      "id": "channel_relationship",
+      "label": "Relación con la red de distribución",
+      "channelsAddressed": ["operacional", "modelo-de-negocio"],
+      "costUnit": "capital_politico",
+      "notesForFacilitator": "Buffer en el canal operacional: la relación de años con el distribuidor puede sostener el espacio en anaquel mientras se reformula. Costo en capital político/comercial: pedir un favor al canal hoy consume crédito para negociaciones futuras. Perverso si se usa para forzar la presentación grande que el canal ya no quiere mover."
+    }
+  ],
+  "uncertaintySources": ["magnitud", "duracion", "actor"],
+  "injects": [
+    {
+      "id": "distributor_exit",
+      "trigger": "facilitator",
+      "text": "El distribuidor mayorista comunica que dejará de cargar la presentación grande de Provista a partir del próximo ciclo: la rotación no le justifica el espacio. Sin ese canal, el 40% del volumen queda en el aire en cuestión de semanas. El problema ya no es solo de margen futuro; es de acceso al mercado ahora.",
+      "latentInformation": "El briefing advierte en §2 que el distribuidor venía reduciendo el espacio a las presentaciones grandes y que la relación no era incondicional; el inject revela que el repliegue se vuelve salida.",
+      "primaryUncertaintyAffected": "actor",
+      "facilitatorPrompt": "¿La decisión asumía que el canal aguantaría mientras Provista decidía con calma? Ese supuesto acaba de caer."
+    },
+    {
+      "id": "competitor_downsize",
+      "trigger": "facilitator",
+      "text": "El competidor escala a nivel nacional su presentación pequeña a un precio que sí cabe en el presupuesto del segmento, con una campaña de 'el tamaño que sí alcanza'. Captura góndola y conversación. Provista, si reacciona ahora, lo hará como seguidor.",
+      "latentInformation": "El briefing señala en §4 que el rival ya probaba la presentación pequeña en zonas y que ahí la caída de Provista era mayor; el inject revela que el rival decidió escalar.",
+      "primaryUncertaintyAffected": "magnitud",
+      "facilitatorPrompt": "El movimiento mueve el peso del canal financiero al de modelo de negocio. ¿El buffer elegido opera en el canal que ahora manda?"
+    },
+    {
+      "id": "price_control_signal",
+      "trigger": "facilitator",
+      "text": "El gobierno anuncia que la categoría de Provista entra en un esquema de precio regulado con margen tope. Sostener la presentación grande quemando caja deja de ser viable: el margen ya no lo fija la empresa. La intervención cambia la ecuación de un día para otro.",
+      "latentInformation": "El briefing advierte en §3 que la categoría estaba 'en la mira' del Estado y que una intervención cambiaría la ecuación de margen; el inject revela que la intervención ocurre.",
+      "primaryUncertaintyAffected": "duracion",
+      "facilitatorPrompt": "El buffer 'caja para sostener precio' acaba de perder su canal: con margen regulado, ¿sigue siendo buffer o se volvió contexto?"
+    }
+  ],
+  "facilitatorNotes": "Caso de transferencia, ciclo comprimido (45-60 min, menos andamiaje). Tipo de evento dominante: acumulativo —el 'evento' es el cruce del umbral, no la erosión lenta—, lo que contrasta deliberadamente con la circular súbita del Caso A y entrena la demarcación. Canal dominante: modelo de negocio (con financiero secundario). El error frecuente es tratar el problema como financiero (defender precio con caja) cuando el canal dominante es el modelo de negocio (el cliente cambió). Buffers en cuatro unidades: legitimidad, tiempo, caja, capital político."
+}

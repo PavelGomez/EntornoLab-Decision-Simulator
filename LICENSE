@@ -1,0 +1,22 @@
+Copyright (c) 2026 Pável Gómez / IESA
+
+EntornoLab — Simulador de decisión bajo incertidumbre.
+Material educativo del curso "Análisis del Entorno" (PAG Global Online, IESA).
+
+Todos los derechos reservados.
+
+Se permite el uso de este software y de los casos incluidos con fines
+educativos dentro del IESA y por parte del autor. La reproducción,
+distribución o modificación con otros fines requiere autorización previa
+y por escrito del titular de los derechos.
+
+Los casos contenidos en cases/ son obras de ficción con fines didácticos.
+Cualquier semejanza de empresas, personas o instituciones con entidades
+reales es coincidencia y no implica afirmación de hechos sobre ellas.
+
+EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO.
+
+---
+Nota: si prefieres una licencia abierta (p. ej. MIT para el código y
+CC BY-NC 4.0 para los casos), reemplaza este archivo. Los repos hermanos
+MacroLab y MercaLab pueden alinearse al mismo criterio.
