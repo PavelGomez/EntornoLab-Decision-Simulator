@@ -39,30 +39,66 @@ export async function mountScreen00(container, _caseData, nav) {
   landing.className = 'landing';
 
   // ---- Encabezado ----
-  const header = document.createElement('div');
+  const header = document.createElement('header');
   header.className = 'landing-header';
   header.innerHTML = `
     <div class="landing-logo">EntornoLab</div>
-    <p class="landing-tagline">Simulador de decisi\u00f3n bajo incertidumbre</p>
-    <p class="landing-intro">
-      Tres casos del entorno venezolano para practicar el marco E-BTA/R:
-      clasificar el evento, elegir y valorar un buffer, formular la frase de decisi\u00f3n
-      y revisarla cuando llega nueva informaci\u00f3n.
-    </p>
-    <button class="landing-ebta-btn" id="landing-ebta-btn">\u00bfQu\u00e9 es E-BTA/R?</button>
+    <p class="landing-tagline">Laboratorio de decisi\u00f3n bajo incertidumbre</p>
+    <p class="landing-course">An\u00e1lisis del Entorno \u00b7 PAG Global Online \u00b7 IESA</p>
+    <button class="landing-ebta-btn" id="landing-ebta-btn" type="button">\u00bfQu\u00e9 es E-BTA/R?</button>
   `;
   landing.appendChild(header);
 
-  // ---- Orientaci\u00f3n ----
-  const guidance = document.createElement('div');
-  guidance.className = 'case-guidance';
-  guidance.textContent = 'Empieza por el Caso A si es tu primera vez o si har\u00e1s el memo. Usa B o C para practicar la transferencia del marco a otros sectores.';
-  landing.appendChild(guidance);
+  // ---- Descripci\u00f3n ----
+  const intro = document.createElement('section');
+  intro.className = 'landing-intro-section';
+  intro.innerHTML = `
+    <p class="landing-intro">
+      EntornoLab te permite experimentar un ciclo completo de decisi\u00f3n bajo el marco
+      E-BTA/R: clasificar el evento, elegir y valorar un buffer, formular la frase
+      estrat\u00e9gica y, cuando llega un inject que revela informaci\u00f3n latente, revisar
+      todo el recorrido con lo que ahora sabes.
+    </p>
+  `;
+  landing.appendChild(intro);
 
-  // ---- Tarjetas de caso ----
+  // ---- Nota de honestidad ----
+  const honesty = document.createElement('div');
+  honesty.className = 'landing-honesty';
+  honesty.setAttribute('role', 'note');
+  honesty.innerHTML = `
+    <div class="landing-honesty-icon" aria-hidden="true">\u24d8</div>
+    <div>
+      <strong>Este simulador no punt\u00faa ni eval\u00faa.</strong>
+      Captura tu razonamiento para que lo puedas discutir con el facilitador.
+      Lo que se eval\u00faa en el curso es el razonamiento, no el resultado.
+    </div>
+  `;
+  landing.appendChild(honesty);
+
+  // ---- Datos pr\u00e1cticos ----
+  const practicos = document.createElement('ul');
+  practicos.className = 'landing-practicos';
+  practicos.innerHTML = `
+    <li>\u2248\u200a10 pantallas, navegaci\u00f3n lineal paso a paso.</li>
+    <li>Tiempo estimado seg\u00fan el caso elegido (ver tarjetas abajo).</li>
+    <li>El recorrido termina en un PDF que es el insumo de tu memo.</li>
+  `;
+  landing.appendChild(practicos);
+
+  // ---- Selecci\u00f3n de caso ----
+  const caseSection = document.createElement('section');
+  caseSection.className = 'landing-case-section';
+
+  const caseHeading = document.createElement('p');
+  caseHeading.className = 'case-guidance';
+  caseHeading.textContent = 'Empieza por el Caso A si es tu primera vez o si har\u00e1s el memo. Usa B o C para practicar la transferencia del marco a otros sectores.';
+  caseSection.appendChild(caseHeading);
+
   const cardsWrapper = document.createElement('div');
   cardsWrapper.className = 'case-cards';
-  landing.appendChild(cardsWrapper);
+  caseSection.appendChild(cardsWrapper);
+  landing.appendChild(caseSection);
 
   function renderCards() {
     cardsWrapper.innerHTML = '';
@@ -88,7 +124,7 @@ export async function mountScreen00(container, _caseData, nav) {
 
       card.addEventListener('click', () => {
         selectedOrder = cfg.order;
-        renderCards(); // re-render to update selection visual
+        renderCards();
       });
 
       cardsWrapper.appendChild(card);
@@ -100,14 +136,22 @@ export async function mountScreen00(container, _caseData, nav) {
   // ---- Bot\u00f3n Comenzar ----
   const startRow = document.createElement('div');
   startRow.className = 'landing-start-row';
+
   const startBtn = document.createElement('button');
   startBtn.className = 'btn btn-primary btn-start';
   startBtn.textContent = 'Comenzar \u2192';
   startBtn.type = 'button';
   startRow.appendChild(startBtn);
+
   landing.appendChild(startRow);
 
-  // ---- Wire up ----
+  // ---- Pie de p\u00e1gina ----
+  const footer = document.createElement('footer');
+  footer.className = 'landing-footer';
+  footer.textContent = 'Dise\u00f1o y direcci\u00f3n: P\u00e1vel G\u00f3mez \u00b7 IESA';
+  landing.appendChild(footer);
+
+  // ---- Montar y conectar ----
   container.appendChild(landing);
 
   landing.querySelector('#landing-ebta-btn').addEventListener('click', openEbtaModal);
