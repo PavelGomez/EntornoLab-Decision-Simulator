@@ -1,5 +1,19 @@
 import { T } from './i18n.js';
 
+/**
+ * Elige 'e' o 'y' según la norma española:
+ * 'e' antes de palabras que empiezan por sonido /i/
+ * (grafía 'i' o 'hi' sin seguir 'e', p.ej. 'hielo' lleva 'y').
+ * Si el valor está vacío, devuelve 'e' porque el placeholder es 'I2'.
+ */
+function conjY(word) {
+  const w = String(word || '').trim().toLowerCase();
+  if (!w) return 'e'; // vacío → placeholder empieza por I
+  if (w.startsWith('i')) return 'e';
+  if (w.startsWith('hi') && !w.startsWith('hie')) return 'e';
+  return 'y';
+}
+
 function slot(value, label) {
   if (value && String(value).trim()) {
     return `<strong class="phrase-slot-filled">${String(value).trim()}</strong>`;
@@ -56,7 +70,7 @@ sobre el canal ${slot(C_val, 'C: canal dominante')},
 protegemos ${slot(protects, 'X: qué se protege')}
 mediante el buffer ${slot(B_val, 'B: buffer con p/d/c')},
 sacrificamos parcialmente ${slot(sacrifices, 'Y: qué se sacrifica')},
-monitoreamos ${slot(i1, 'I1: indicador 1')} e ${slot(i2, 'I2: indicador 2')},
+monitoreamos ${slot(i1, 'I1: indicador 1')} ${conjY(i2)} ${slot(i2, 'I2: indicador 2')},
 y revisamos la decisión si se cruza el umbral: ${slot(threshold, 'T: umbral de revisión')}.`;
   } else {
     // Plain text for PDF
@@ -69,7 +83,7 @@ y revisamos la decisión si se cruza el umbral: ${slot(threshold, 'T: umbral de 
     const I1 = textSlot(i1, 'I1');
     const I2 = textSlot(i2, 'I2');
     const Thr = textSlot(threshold, 'umbral');
-    return `Dado el evento ${E}, que abre la incertidumbre ${U} sobre el canal ${C}, protegemos ${X} mediante el buffer ${B}, sacrificamos parcialmente ${Y}, monitoreamos ${I1} e ${I2}, y revisamos la decisión si se cruza el umbral: ${Thr}.`;
+    return `Dado el evento ${E}, que abre la incertidumbre ${U} sobre el canal ${C}, protegemos ${X} mediante el buffer ${B}, sacrificamos parcialmente ${Y}, monitoreamos ${I1} ${conjY(i2)} ${I2}, y revisamos la decisión si se cruza el umbral: ${Thr}.`;
   }
 }
 
