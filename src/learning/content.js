@@ -45,16 +45,16 @@ export const TERM_DEFS = GLOSSARY.reduce((acc, g) => { acc[g.key] = { term: g.te
 // ── Orientación rápida por pantalla (sección 8) ──
 export const ORIENTACION = [
   null,
-  { p: 1, name: 'Briefing y dossier', funcion: 'entender el caso y sus datos.', primerPaso: 'lee la señal inicial y abre el dossier (financieros, actores).', limite: 'no decidas todavía; primero comprende.', cierre: 'ten claro qué decisión se te pide y en qué plazo.' },
-  { p: 2, name: 'Clasificación', funcion: 'demarcar el evento.', primerPaso: 'pregunta si es evento o factor.', limite: 'no asignes tipo sin criterio.', cierre: 'tipo(s) + criterio + fuente principal de incertidumbre.' },
-  { p: 3, name: 'Mapa de impacto', funcion: 'nombrar por dónde golpea.', primerPaso: 'identifica el canal dominante.', limite: 'no digas "afecta a todo".', cierre: 'dominante, secundario y segunda ronda.' },
-  { p: 4, name: 'Buffer Board', funcion: 'elegir y costear la protección.', primerPaso: 'revisa la economía de cada buffer.', limite: 'no llames buffer a lo que no tiene canal ni costo.', cierre: 'hasta 2 buffers con potencia, duración, costo y unidad.' },
-  { p: 5, name: 'Trade-off', funcion: 'hacer explícito el costo.', primerPaso: 'nombra qué proteges.', limite: 'no lo plantees como dilema absoluto.', cierre: 'protejo / sacrifico / riesgo residual.' },
-  { p: 6, name: 'Decisión y frase', funcion: 'formular la decisión.', primerPaso: 'arma la frase E-BTA/R con lo capturado.', limite: 'que sea completa y consistente.', cierre: 'una frase defendible ante un comité.' },
-  { p: 7, name: 'Indicadores', funcion: 'definir cómo revisarás.', primerPaso: 'elige dos señales medibles.', limite: 'no dejes el umbral vago.', cierre: 'I1, I2 y un umbral T específico.' },
-  { p: 8, name: 'Inject', funcion: 'recibir información latente.', primerPaso: 'léela con atención.', limite: 'desde aquí no se vuelve atrás.', cierre: 'identifica qué cambia.' },
-  { p: 9, name: 'Revisión', funcion: 'reabrir la decisión.', primerPaso: 'localiza el supuesto que la sostenía.', limite: 'no ajustes al margen; reabre.', cierre: 'mantengo / abandono / invierto + nueva frase + clasifica si fue bucle simple o doble bucle. (En modo wargame: anticipa la réplica del actor, recíbela y haz una segunda revisión.)' },
-  { p: 10, name: 'Export', funcion: 'llevarte el razonamiento.', primerPaso: 'genera el PDF.', limite: 'no es un puntaje, es tu insumo.', cierre: 'úsalo para el memo.' },
+  { p: 1, name: 'Briefing y dossier', funcion: 'entender el caso y sus datos.', primerPaso: 'lee la señal inicial y abre el dossier (financieros, actores).', limite: 'no decidas todavía; primero comprende.', cierre: 'ten claro qué decisión se te pide y en qué plazo.', terms: ['dossier'] },
+  { p: 2, name: 'Clasificación', funcion: 'demarcar el evento.', primerPaso: 'pregunta si es evento o factor.', limite: 'no asignes tipo sin criterio.', cierre: 'tipo(s) + criterio + fuente principal de incertidumbre.', terms: ['evento', 'factor', 'demarcacion', 'incertidumbre'] },
+  { p: 3, name: 'Mapa de impacto', funcion: 'nombrar por dónde golpea.', primerPaso: 'identifica el canal dominante.', limite: 'no digas "afecta a todo".', cierre: 'dominante, secundario y segunda ronda.', terms: ['canal', 'canal-dominante', 'segunda-ronda'] },
+  { p: 4, name: 'Buffer Board', funcion: 'elegir y costear la protección.', primerPaso: 'revisa la economía de cada buffer.', limite: 'no llames buffer a lo que no tiene canal ni costo.', cierre: 'hasta 2 buffers con potencia, duración, costo y unidad.', terms: ['buffer', 'ejes-buffer', 'unidades-costo', 'buffer-ilusorio'] },
+  { p: 5, name: 'Trade-off', funcion: 'hacer explícito el costo.', primerPaso: 'nombra qué proteges.', limite: 'no lo plantees como dilema absoluto.', cierre: 'protejo / sacrifico / riesgo residual.', terms: ['trade-off', 'riesgo-residual'] },
+  { p: 6, name: 'Decisión y frase', funcion: 'formular la decisión.', primerPaso: 'arma la frase E-BTA/R con lo capturado.', limite: 'que sea completa y consistente.', cierre: 'una frase defendible ante un comité.', terms: ['frase'] },
+  { p: 7, name: 'Indicadores', funcion: 'definir cómo revisarás.', primerPaso: 'elige dos señales medibles.', limite: 'no dejes el umbral vago.', cierre: 'I1, I2 y un umbral T específico.', terms: ['indicador', 'umbral'] },
+  { p: 8, name: 'Inject', funcion: 'recibir información latente.', primerPaso: 'léela con atención.', limite: 'desde aquí no se vuelve atrás.', cierre: 'identifica qué cambia.', terms: ['inject'] },
+  { p: 9, name: 'Revisión', funcion: 'reabrir la decisión.', primerPaso: 'localiza el supuesto que la sostenía.', limite: 'no ajustes al margen; reabre.', cierre: 'mantengo / abandono / invierto + nueva frase + clasifica si fue bucle simple o doble bucle. (En modo wargame: anticipa la réplica del actor, recíbela y haz una segunda revisión.)', terms: ['revision', 'inject'] },
+  { p: 10, name: 'Export', funcion: 'llevarte el razonamiento.', primerPaso: 'genera el PDF.', limite: 'no es un puntaje, es tu insumo.', cierre: 'úsalo para el memo.', terms: [] },
 ];
 
 // ── Definiciones del doble bucle (Pantalla 9 y Guía de uso) ──

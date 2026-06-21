@@ -170,6 +170,9 @@ export function generatePdf(caseData, st) {
     addLabel('Supuesto que mantengo:'); addText(sanitize(st.s9_maintains));
     addLabel('Supuesto que abandono:'); addText(sanitize(st.s9_abandons));
     addLabel('Supuesto que invierto:'); addText(sanitize(st.s9_inverts));
+    const loopLabelPdf = st.s9_loopType === 'doble' ? 'Doble bucle' : st.s9_loopType === 'simple' ? 'Bucle simple' : '—';
+    addLabel('Tipo de revisión:'); addText(sanitize(loopLabelPdf));
+    if (st.s9_loopWhy) { addLabel('¿Por qué? (bucle):'); addText(sanitize(st.s9_loopWhy)); }
 
     addSection('Frase E-BTA/R Revisada');
     const revisedFields = getPhraseFields(st, caseData, true);
@@ -282,6 +285,8 @@ ${buffersHtml || '<div class="value">—</div>'}
 <div class="label">Supuesto que mantengo</div><div class="value">${escHtml(st.s9_maintains) || '—'}</div>
 <div class="label">Supuesto que abandono</div><div class="value">${escHtml(st.s9_abandons) || '—'}</div>
 <div class="label">Supuesto que invierto</div><div class="value">${escHtml(st.s9_inverts) || '—'}</div>
+<div class="label">Tipo de revisión</div><div class="value">${st.s9_loopType === 'doble' ? 'Doble bucle' : st.s9_loopType === 'simple' ? 'Bucle simple' : '—'}</div>
+<div class="label">¿Por qué? (bucle)</div><div class="value">${escHtml(st.s9_loopWhy) || '—'}</div>
 
 <h2>Frase E-BTA/R Revisada</h2>
 <div class="phrase">${revisedHtml}</div>

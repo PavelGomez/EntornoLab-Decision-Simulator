@@ -1,7 +1,7 @@
 import { state } from './state.js';
 import { mountScreen } from './screens/index.js';
 import { T } from './i18n.js';
-import { openLearning, setStartHook } from './learning/center.js';
+import { openLearning, setStartHook, renderOrientacion } from './learning/center.js';
 
 const TOTAL_SCREENS = 10;
 
@@ -156,6 +156,12 @@ export async function render(caseData) {
     },
     navigate: (n) => navigate(caseData, n),
   });
+
+  // Tarjeta "Orientación rápida" al inicio de cada pantalla del recorrido (1–10)
+  if (screen >= 1 && screen <= 10) {
+    const orient = renderOrientacion(screen);
+    if (orient) container.insertBefore(orient, container.firstChild);
+  }
 
   // Scroll to top
   window.scrollTo(0, 0);

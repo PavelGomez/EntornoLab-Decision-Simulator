@@ -3,6 +3,7 @@ import { T } from '../i18n.js';
 import { renderProfessorPanel } from '../professor.js';
 import { assemblePhrase, getPhraseFields } from '../ebtaPhrase.js';
 import { escapeHtml } from './helpers.js';
+import { INJECT_GLOSS } from '../learning/content.js';
 
 export async function mountScreen08(container, caseData, nav) {
   const st = state.get();
@@ -17,6 +18,12 @@ export async function mountScreen08(container, caseData, nav) {
   titleEl.style.color = 'var(--color-inject)';
   titleEl.textContent = T.screenTitles[8];
   container.appendChild(titleEl);
+
+  // Glosa del anglicismo en su primera aparición (Pantalla 8).
+  const glossEl = document.createElement('p');
+  glossEl.className = 'screen-subtitle';
+  glossEl.innerHTML = `<strong>Inject (inyección de información).</strong> ${INJECT_GLOSS}`;
+  container.appendChild(glossEl);
 
   // Point of no return warning
   const warningEl = document.createElement('div');

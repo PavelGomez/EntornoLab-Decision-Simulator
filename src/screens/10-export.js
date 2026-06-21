@@ -184,11 +184,14 @@ export async function mountScreen10(container, caseData, nav) {
   injectSection.appendChild(injectCard);
   summary.appendChild(injectSection);
 
-  // S9 - Supuestos
+  // S9 - Supuestos + clasificación de bucle
+  const loopLabel = st.s9_loopType === 'doble' ? 'Doble bucle' : st.s9_loopType === 'simple' ? 'Bucle simple' : '—';
   summary.appendChild(createExportSection('Revisión forzada — Supuestos', [
     { label: 'Supuesto que mantengo', value: st.s9_maintains || '—' },
     { label: 'Supuesto que abandono', value: st.s9_abandons || '—' },
-    { label: 'Supuesto que invierto', value: st.s9_inverts || '—' }
+    { label: 'Supuesto que invierto', value: st.s9_inverts || '—' },
+    { label: 'Tipo de revisión', value: loopLabel },
+    { label: '¿Por qué? (bucle)', value: st.s9_loopWhy || '—' }
   ]));
 
   // Revised phrase

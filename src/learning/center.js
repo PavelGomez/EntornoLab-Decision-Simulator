@@ -9,7 +9,7 @@
  * Rutas por hash: #aprender/<seccion> y #aprender/componentes/<id>.
  */
 import { state } from '../state.js';
-import { SECTIONS, COMPONENTES, GLOSSARY, TERM_DEFS, cycleDiagramSVG } from './content.js';
+import { SECTIONS, COMPONENTES, GLOSSARY, TERM_DEFS, ORIENTACION, cycleDiagramSVG } from './content.js';
 
 let _overlay = null;
 let _contentEl = null;
@@ -236,6 +236,43 @@ function _onDocClick(e) {
 }
 export function closeTermPopover() {
   if (_pop) { _pop.remove(); _pop = null; }
+}
+
+/**
+ * Tarjeta "Orientación rápida" para una pantalla del recorrido (1–10):
+ * Función · Primer paso · Límite · Cierre, más los términos del marco como
+ * enlaces con tooltip (no pierden el estado del recorrido).
+ */
+export function renderOrientacion(p) {
+  const o = ORIENTACION[p];
+  if (!o) return null;
+  const card = document.createElement('div');
+  card.className = 'orient-card';
+  card.innerHTML = `
+    <div class="orient-title">Orientación rápida · P${o.p} · ${o.name}</div>
+    <div class="orient-grid">
+      <div class="orient-item"><strong>Función:</strong> ${o.funcion}</div>
+      <div class="orient-item"><strong>Primer paso:</strong> ${o.primerPaso}</div>
+      <div class="orient-item"><strong>Límite:</strong> ${o.limite}</div>
+      <div class="orient-item"><strong>Cierre:</strong> ${o.cierre}</div>
+    </div>
+  `;
+  if (o.terms && o.terms.length) {
+    const termsRow = document.createElement('div');
+    termsRow.className = 'orient-item';
+    termsRow.style.marginTop = 'var(--sp-3)';
+    const lead = document.createElement('strong');
+    lead.textContent = 'Términos: ';
+    termsRow.appendChild(lead);
+    o.terms.forEach((key, i) => {
+      const def = TERM_DEFS[key];
+      if (!def) return;
+      if (i > 0) termsRow.appendChild(document.createTextNode(' · '));
+      termsRow.appendChild(makeTermLink(def.term, key));
+    });
+    card.appendChild(termsRow);
+  }
+  return card;
 }
 
 /**
