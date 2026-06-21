@@ -11,7 +11,7 @@
 import { state } from '../state.js';
 import { SECTIONS, COMPONENTES, GLOSSARY, TERM_DEFS, ORIENTACION } from './content.js';
 import {
-  cycleDiagram, pathStrip, phraseAnatomy, channelsDiagram, bufferAxes, actorsMap, sectionIcon,
+  cycleDiagram, pathStrip, phraseAnatomy, channelsDiagram, bufferAxes, actorsMap,
 } from './graphics.js';
 
 // Sustituye los tokens de gráficos ({{CYCLE}}, etc.) por los SVG autorados.
@@ -113,7 +113,7 @@ function navLink(sectionKey, label) {
   a.className = 'lc-navlink';
   a.type = 'button';
   a.dataset.section = sectionKey;
-  a.innerHTML = `${sectionIcon(sectionKey)}<span>${label}</span>`;
+  a.textContent = label;
   a.addEventListener('click', () => openLearning(sectionKey));
   return a;
 }
@@ -125,7 +125,7 @@ function buildComponentesMenu() {
   btn.className = 'lc-navlink lc-dropdown-toggle';
   btn.type = 'button';
   btn.dataset.section = 'componentes';
-  btn.innerHTML = `${sectionIcon('componentes')}<span>Componentes</span> <span aria-hidden="true">&#9662;</span>`;
+  btn.innerHTML = `Componentes <span aria-hidden="true">&#9662;</span>`;
   const menu = document.createElement('div');
   menu.className = 'lc-dropdown-menu';
   COMPONENTES.forEach(c => {

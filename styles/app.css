@@ -15,9 +15,15 @@ body { font-family: var(--font); font-size: var(--fs-body); line-height: var(--l
   gap: var(--sp-3); height: 52px; padding: 0 var(--sp-4);
   border-bottom: 1px solid rgba(255,255,255,.10);
 }
-.topbar-brand { font-size: var(--text-sm); font-weight: var(--weight-bold); color: #fff; letter-spacing: .01em; white-space: nowrap; }
+/* Wordmark de marca (clickeable → Inicio). La versión vive en el pie. */
+.topbar-brand { background: none; border: none; cursor: pointer; font-family: inherit; font-size: var(--text-lg); font-weight: var(--weight-bold); color: #fff; letter-spacing: -.01em; white-space: nowrap; padding: 0; }
+.topbar-brand:hover { color: rgba(255,255,255,.85); }
 .topbar-right { display: flex; align-items: center; gap: var(--sp-3); min-width: 0; }
 .topbar-counter { font-size: var(--text-sm); color: rgba(255,255,255,.78); white-space: nowrap; }
+.topbar-author { display: none; }
+@media (min-width: 900px) {
+  .topbar-author { display: inline-block; font-size: var(--text-xs); color: rgba(255,255,255,.62); border: 1px solid rgba(255,255,255,.20); border-radius: var(--radius-pill); padding: 3px 10px; white-space: nowrap; }
+}
 .topbar-ebtar {
   background: transparent; border: 1px solid rgba(255,255,255,.32); cursor: pointer;
   font-family: inherit; font-size: var(--text-sm); color: #fff;
@@ -589,13 +595,15 @@ details.dossier-consult-panel[open] > .dossier-consult-summary::after { content:
   white-space: nowrap; padding: var(--sp-2) 0;
 }
 .lc-nav { display: flex; flex: 1; flex-wrap: wrap; gap: var(--sp-1); align-items: center; }
+/* Ítems de navegación como botones definidos (píldora) sobre la barra navy */
 .lc-navlink {
-  background: none; border: none; color: rgba(255,255,255,.82); font-family: inherit;
-  font-size: var(--text-sm); cursor: pointer; padding: var(--sp-2) var(--sp-3);
-  border-radius: var(--radius-pill); transition: background .15s, color .15s; white-space: nowrap;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.22);
+  color: rgba(255,255,255,.9); font-family: inherit; font-weight: var(--weight-semibold);
+  font-size: var(--text-sm); cursor: pointer; padding: 6px var(--sp-3);
+  border-radius: var(--radius-pill); transition: all .15s; white-space: nowrap;
 }
-.lc-navlink:hover { background: rgba(255,255,255,.12); color: #fff; }
-.lc-navlink.active { background: var(--steel); color: #fff; }
+.lc-navlink:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.55); color: #fff; }
+.lc-navlink.active { background: var(--steel); border-color: var(--steel); color: #fff; }
 .lc-dropdown { position: relative; }
 .lc-dropdown-menu {
   display: none; position: absolute; top: 100%; left: 0; z-index: 5; min-width: 220px;
