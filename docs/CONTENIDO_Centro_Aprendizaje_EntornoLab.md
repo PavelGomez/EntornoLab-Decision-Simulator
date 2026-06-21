@@ -35,7 +35,19 @@ Diseño y dirección académica: **Pável Gómez**.
 
 **Un ejemplo en una línea.** "Dado el alza súbita del alquiler (evento), que abre incertidumbre de magnitud sobre el canal financiero, protejo el flujo de caja con una reserva (buffer), sacrifico parte del margen, vigilo las ventas semanales y reviso si caen más de 15%." Eso es una decisión defendible y revisable: eso es lo que aquí se practica. (Ver más en **Ejemplos**.)
 
-> **Antes de empezar.** Recorre **El marco E-BTA/R** y, si quieres, los **Componentes**. Cuando estés listo, elige un caso y pulsa **Iniciar recorrido**.
+## Cómo está organizado este sitio (mapa y lógica de navegación)
+EntornoLab es **autocontenido**: todo lo que necesitas está aquí, sin documentos aparte. Desde la **barra superior**, siempre visible, puedes recorrer en cualquier momento:
+
+- **El marco E-BTA/R** — qué es, su base teórica y el ciclo completo, con diagrama.
+- **Componentes** — una página por pieza: Evento, Canales, Buffer, Incertidumbre, Trade-off, Acción e indicadores, Revisión (cada una: qué es, base teórica, cómo se reconoce, error frecuente y ejemplo).
+- **Ejemplos** — una decisión resuelta paso a paso.
+- **Casos** — los tres escenarios disponibles (A, B, C).
+- **Guía de uso** — las 10 pantallas, las reglas y las modalidades (tabletop y wargame).
+- **Glosario** y **Referencias** — vocabulario del marco y su base bibliográfica.
+
+Y el botón **Iniciar recorrido** te lleva a la **ruta de decisión**: 10 pantallas, lineal, que termina en un PDF (el insumo de tu memo). **Dos reglas de navegación** que conviene tener claras desde ya: (1) puedes **consultar cualquier sección de referencia mientras decides**, sin perder tu progreso; (2) una vez que aparece el **inject**, **no se vuelve atrás** —la revisión es reapertura, no edición—. Esa es, justamente, la disciplina que el laboratorio entrena.
+
+> **Antes de empezar.** Recorre **El marco E-BTA/R** y, si quieres, los **Componentes**. Cuando estés listo, elige un caso abajo y pulsa **Iniciar recorrido**.
 
 ---
 

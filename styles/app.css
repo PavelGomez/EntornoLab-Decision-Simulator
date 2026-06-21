@@ -717,3 +717,57 @@ details.dossier-consult-panel[open] > .dossier-consult-summary::after { content:
 }
 
 /* La barra superior y de progreso se ocultan tras el overlay del centro (z-index) */
+
+/* ============================================================
+   Barra superior con todas las secciones + gráficos (v1.3)
+   ============================================================ */
+/* La barra muestra la navegación completa; en móvil colapsa tras hamburguesa */
+.topbar { gap: var(--sp-3); }
+.topbar-nav { display: flex; align-items: center; gap: 2px; flex: 1 1 auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.topbar-nav::-webkit-scrollbar { display: none; }
+.topbar-nav .lc-navlink { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.topbar .lc-ico { flex-shrink: 0; }
+.topbar-right { margin-left: auto; }
+.topbar-start { font-size: var(--text-sm); padding: 8px 16px; white-space: nowrap; }
+.topbar-burger {
+  display: none; background: transparent; border: 1px solid rgba(255,255,255,.32); color: #fff;
+  width: 38px; height: 36px; border-radius: var(--radius-md); cursor: pointer; font-size: 18px;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .topbar-burger { display: inline-flex; }
+  .topbar-start { display: none; }
+  .topbar-nav {
+    position: absolute; top: 52px; left: 0; right: 0; z-index: 115;
+    flex-direction: column; align-items: stretch; gap: var(--sp-1);
+    background: var(--navy); padding: var(--sp-2);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 10px 24px rgba(0,0,0,.28);
+    max-height: 76vh; overflow-y: auto; display: none;
+  }
+  .topbar.open .topbar-nav { display: flex; }
+  .topbar-nav .lc-dropdown-menu { position: static; box-shadow: none; margin: var(--sp-1) 0 var(--sp-1) var(--sp-5); }
+}
+
+/* Figuras SVG: escalan por viewBox; las anchas permiten scroll horizontal */
+.svg-figure { margin: var(--sp-5) 0; }
+.svg-figure svg { width: 100%; height: auto; display: block; }
+.svg-figure--wide { overflow-x: auto; }
+.svg-figure--wide svg { min-width: 560px; }
+
+/* Anatomía de la frase E-BTA/R (chips) */
+.ebta-anatomy { margin: var(--sp-5) 0; }
+.ebta-frase { line-height: 1.9; font-size: 1.05rem; color: var(--ink); }
+.ebta-anatomy .chip { padding: 2px 8px; border-radius: var(--radius-pill); font-weight: 600; white-space: nowrap; display: inline-block; }
+.ebta-leyenda { color: var(--muted); font-size: .9rem; margin-top: var(--sp-2); }
+
+/* Glifo de sector en la tarjeta de caso */
+.case-card-glyph { display: inline-flex; vertical-align: middle; color: var(--steel); margin-right: 2px; }
+.case-card-glyph svg { width: 18px; height: 18px; }
+.case-card.selected .case-card-glyph { color: var(--navy); }
+
+/* Acerca de en la portada (mismo ritmo que el centro de aprendizaje) */
+.landing-about { max-width: var(--measure); margin: 0 auto var(--sp-6); }
+.landing-about p { font-size: var(--fs-body); line-height: var(--lh); color: var(--ink); margin-bottom: var(--sp-4); }
+.landing-about .lc-list li { font-size: var(--fs-body); line-height: var(--lh); color: var(--ink); }

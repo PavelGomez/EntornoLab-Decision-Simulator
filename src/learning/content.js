@@ -122,7 +122,8 @@ export const COMPONENTES = [
       <p><strong>Base teórica.</strong> Análisis de mecanismos de transmisión (la cadena causal evento → efecto) y de stakeholders/sistemas: el impacto no es difuso, viaja por canales nombrables.</p>
       <p><strong>Cómo se reconoce.</strong> Pregunta "¿por dónde me pega primero y con más fuerza?". Si no puedes nombrar el canal dominante, no has completado el mapa de impacto. Mapea también la <strong>segunda ronda</strong> (a qué canal salta después).</p>
       <p><strong>Error frecuente.</strong> Decir "me afecta en todo". Eso no es análisis; es ansiedad. El rigor está en jerarquizar.</p>
-      <p><strong>Ejemplo.</strong> Una crisis reputacional entra por <strong>legitimidad</strong>, pero su segunda ronda puede ser <strong>operacional</strong> (un paro) o <strong>regulatorio</strong> (un expediente).</p>`,
+      <p><strong>Ejemplo.</strong> Una crisis reputacional entra por <strong>legitimidad</strong>, pero su segunda ronda puede ser <strong>operacional</strong> (un paro) o <strong>regulatorio</strong> (un expediente).</p>
+      {{CHANNELS}}`,
   },
   {
     id: 'buffer', nav: 'Buffer', title: 'Buffer (B)',
@@ -132,7 +133,8 @@ export const COMPONENTES = [
       <p><strong>Base teórica.</strong> La resiliencia empresarial se construye por <strong>redundancia</strong> (prima de seguro) o <strong>flexibilidad</strong> (que además rinde en la operación diaria) (Sheffi &amp; Rice); la literatura de resiliencia distingue resistir, absorber, adaptarse y transformar (Holling, 1973; Woods, 2003), y las capacidades dinámicas añaden detectar, aprovechar y transformar recursos (Teece, Pisano &amp; Shuen, 1997). Un buffer no es inventario pasivo: es capacidad con costo para sostener decisiones bajo estrés (y puede crear rigideces o falsa seguridad).</p>
       <p><strong>Cómo se reconoce.</strong> Si puedes nombrar canal + costo, es buffer; si no, es ilusión. Cuidado con el <strong>buffer-trampa</strong>: el que parece fuerte pero es ilusorio o perverso según el momento o el canal (p. ej., una relación institucional usada tarde, que se lee como presión).</p>
       <p><strong>Error frecuente.</strong> Llamar buffer a cualquier recurso ("tenemos marca", "tenemos experiencia") sin nombrar sobre qué canal opera ni qué cuesta activarlo.</p>
-      <p><strong>Ejemplo.</strong> Una reserva de caja protege el canal financiero, cuesta en caja y se agota en 1–2 rondas: buffer real pero limitado.</p>`,
+      <p><strong>Ejemplo.</strong> Una reserva de caja protege el canal financiero, cuesta en caja y se agota en 1–2 rondas: buffer real pero limitado.</p>
+      {{BUFFER_AXES}}`,
   },
   {
     id: 'incertidumbre', nav: 'Incertidumbre', title: 'Incertidumbre (U)',
@@ -141,7 +143,8 @@ export const COMPONENTES = [
       <p><strong>Base teórica.</strong> Riesgo vs incertidumbre (Knight, 1921) y los marcos VUCA/TUNA: la incertidumbre se modela como escenarios, no como un dato puntual (Oriesek &amp; Schwarz, 2021; Ramirez &amp; Wilkinson, 2016).</p>
       <p><strong>Cómo se reconoce.</strong> Nombra la <strong>fuente principal</strong> que pesa sobre tu decisión. No todas las incertidumbres importan igual; una suele dominar.</p>
       <p><strong>Error frecuente.</strong> Tratar el futuro como conocido ("seguro que pasa X") o como totalmente opaco ("no se puede saber nada"). Ambos extremos evitan el trabajo de poner bandas.</p>
-      <p><strong>Ejemplo.</strong> En un cambio regulatorio, la fuente principal puede ser la <strong>ocurrencia</strong> (¿se publica la norma?) y la secundaria la <strong>duración</strong> (¿el plazo se prorroga?).</p>`,
+      <p><strong>Ejemplo.</strong> En un cambio regulatorio, la fuente principal puede ser la <strong>ocurrencia</strong> (¿se publica la norma?) y la secundaria la <strong>duración</strong> (¿el plazo se prorroga?).</p>
+      {{ACTORS}}`,
   },
   {
     id: 'trade-off', nav: 'Trade-off', title: 'Trade-off (T)',
@@ -172,6 +175,33 @@ export const COMPONENTES = [
   },
 ];
 
+// ── Cuerpo de la home / sección Inicio (about + mapa del sitio + gráficos) ──
+// Los tokens {{CYCLE}}, {{PHRASE}}, {{STRIP}} los sustituye el renderer por los
+// gráficos SVG autorados. Se usa tanto en la portada (raíz) como en la sección
+// Inicio del centro de aprendizaje.
+export const HOME_BODY = `
+  <p><strong>Para qué sirve.</strong> EntornoLab entrena una habilidad concreta del directivo: tomar una decisión defendible cuando el entorno cambia y la información es incompleta. No enseña a "adivinar el futuro"; enseña a <strong>estructurar una decisión bajo incertidumbre</strong> de modo que pueda explicarse, sostenerse ante un comité y revisarse cuando llega información nueva.</p>
+  <p><strong>Qué hace.</strong> Te acompaña por un ciclo completo de decisión sobre un caso real-ista: clasificas el evento, mapeas su impacto, eliges y valoras un buffer, formulas una decisión táctica con indicadores, y —cuando aparece un <em>inject</em> que revela información que estaba latente— <strong>revisas todo el recorrido</strong> con lo que ahora sabes. El resultado es un PDF con tu razonamiento, insumo de tu memo.</p>
+  <p><strong>Objetivos de aprendizaje.</strong> Al terminar serás capaz de: (1) distinguir un evento emergente de un factor estructural; (2) nombrar el canal por el que un evento golpea y anticipar su segunda ronda; (3) identificar buffers reales —no ilusorios— y costear su activación; (4) formular una decisión como frase E-BTA/R defendible; (5) definir indicadores y umbrales de revisión; y (6) <strong>reabrir</strong> tu decisión ante información nueva, distinguiendo qué supuesto mantienes, cuál abandonas y cuál inviertes.</p>
+  <p><strong>Cómo lo logra.</strong> Mediante un ciclo guiado y la disciplina del marco <strong>E-BTA/R</strong>, más un mecanismo deliberado: el <em>inject</em> introduce asimetría de información entre rondas y fuerza una revisión genuina. El simulador <strong>no te puntúa ni te dice si "acertaste"</strong>: captura tu razonamiento para que tú y el facilitador lo discutan. Lo que se evalúa es el razonamiento, no el resultado.</p>
+  <p><strong>Qué te aporta.</strong> Una gramática portátil para decidir bajo incertidumbre que puedes llevar a tu propia organización; práctica en hacer explícito lo que normalmente queda implícito (qué proteges, qué sacrificas, a qué costo); y un entregable —la frase E-BTA/R y el memo— que es, en sí mismo, una pieza de comunicación ejecutiva.</p>
+  <p><strong>Un ejemplo en una línea.</strong> "Dado el alza súbita del alquiler (evento), que abre incertidumbre de magnitud sobre el canal financiero, protejo el flujo de caja con una reserva (buffer), sacrifico parte del margen, vigilo las ventas semanales y reviso si caen más de 15%." Eso es una decisión defendible y revisable: eso es lo que aquí se practica. (Ver más en <strong>Ejemplos</strong>.)</p>
+  {{CYCLE}}
+  {{PHRASE}}
+  <h3 class="lc-h3">Cómo está organizado este sitio (mapa y lógica de navegación)</h3>
+  <p>EntornoLab es <strong>autocontenido</strong>: todo lo que necesitas está aquí, sin documentos aparte. Desde la <strong>barra superior</strong>, siempre visible, puedes recorrer en cualquier momento:</p>
+  <ul class="lc-list">
+    <li><strong>El marco E-BTA/R</strong> — qué es, su base teórica y el ciclo completo, con diagrama.</li>
+    <li><strong>Componentes</strong> — una página por pieza: Evento, Canales, Buffer, Incertidumbre, Trade-off, Acción e indicadores, Revisión (cada una: qué es, base teórica, cómo se reconoce, error frecuente y ejemplo).</li>
+    <li><strong>Ejemplos</strong> — una decisión resuelta paso a paso.</li>
+    <li><strong>Casos</strong> — los tres escenarios disponibles (A, B, C).</li>
+    <li><strong>Guía de uso</strong> — las 10 pantallas, las reglas y las modalidades (tabletop y wargame).</li>
+    <li><strong>Glosario</strong> y <strong>Referencias</strong> — vocabulario del marco y su base bibliográfica.</li>
+  </ul>
+  <p>Y el botón <strong>Iniciar recorrido</strong> te lleva a la <strong>ruta de decisión</strong>: 10 pantallas, lineal, que termina en un PDF (el insumo de tu memo). <strong>Dos reglas de navegación</strong> que conviene tener claras desde ya: (1) puedes <strong>consultar cualquier sección de referencia mientras decides</strong>, sin perder tu progreso; (2) una vez que aparece el <strong>inject</strong>, <strong>no se vuelve atrás</strong> —la revisión es reapertura, no edición—. Esa es, justamente, la disciplina que el laboratorio entrena.</p>
+  {{STRIP}}
+  <blockquote class="lc-quote"><strong>Antes de empezar.</strong> Recorre <strong>El marco E-BTA/R</strong> y, si quieres, los <strong>Componentes</strong>. Cuando estés listo, elige un caso abajo y pulsa <strong>Iniciar recorrido</strong>.</blockquote>`;
+
 // ── Secciones de primer nivel ──
 export const SECTIONS = {
   inicio: {
@@ -179,13 +209,7 @@ export const SECTIONS = {
     html: `
       <p class="lc-lead">Laboratorio de decisión bajo incertidumbre</p>
       <p class="lc-meta">Análisis del Entorno · PAG Global Online · IESA · 2026 · Diseño y dirección académica: <strong>Pável Gómez</strong>.</p>
-      <p><strong>Para qué sirve.</strong> EntornoLab entrena una habilidad concreta del directivo: tomar una decisión defendible cuando el entorno cambia y la información es incompleta. No enseña a "adivinar el futuro"; enseña a <strong>estructurar una decisión bajo incertidumbre</strong> de modo que pueda explicarse, sostenerse ante un comité y revisarse cuando llega información nueva.</p>
-      <p><strong>Qué hace.</strong> Te acompaña por un ciclo completo de decisión sobre un caso real-ista: clasificas el evento, mapeas su impacto, eliges y valoras un buffer, formulas una decisión táctica con indicadores, y —cuando aparece un <em>inject</em> que revela información que estaba latente— <strong>revisas todo el recorrido</strong> con lo que ahora sabes. El resultado es un PDF con tu razonamiento, insumo de tu memo.</p>
-      <p><strong>Objetivos de aprendizaje.</strong> Al terminar serás capaz de: (1) distinguir un evento emergente de un factor estructural; (2) nombrar el canal por el que un evento golpea y anticipar su segunda ronda; (3) identificar buffers reales —no ilusorios— y costear su activación; (4) formular una decisión como frase E-BTA/R defendible; (5) definir indicadores y umbrales de revisión; y (6) <strong>reabrir</strong> tu decisión ante información nueva, distinguiendo qué supuesto mantienes, cuál abandonas y cuál inviertes.</p>
-      <p><strong>Cómo lo logra.</strong> Mediante un ciclo guiado y la disciplina del marco <strong>E-BTA/R</strong>, más un mecanismo deliberado: el <em>inject</em> introduce asimetría de información entre rondas y fuerza una revisión genuina. El simulador <strong>no te puntúa ni te dice si "acertaste"</strong>: captura tu razonamiento para que tú y el facilitador lo discutan. Lo que se evalúa es el razonamiento, no el resultado.</p>
-      <p><strong>Qué te aporta.</strong> Una gramática portátil para decidir bajo incertidumbre que puedes llevar a tu propia organización; práctica en hacer explícito lo que normalmente queda implícito (qué proteges, qué sacrificas, a qué costo); y un entregable —la frase E-BTA/R y el memo— que es, en sí mismo, una pieza de comunicación ejecutiva.</p>
-      <p><strong>Un ejemplo en una línea.</strong> "Dado el alza súbita del alquiler (evento), que abre incertidumbre de magnitud sobre el canal financiero, protejo el flujo de caja con una reserva (buffer), sacrifico parte del margen, vigilo las ventas semanales y reviso si caen más de 15%." Eso es una decisión defendible y revisable: eso es lo que aquí se practica. (Ver más en <strong>Ejemplos</strong>.)</p>
-      <blockquote class="lc-quote"><strong>Antes de empezar.</strong> Recorre <strong>El marco E-BTA/R</strong> y, si quieres, los <strong>Componentes</strong>. Cuando estés listo, elige un caso y pulsa <strong>Iniciar recorrido</strong>.</blockquote>`,
+      ${HOME_BODY}`,
   },
   marco: {
     nav: 'El marco E-BTA/R', title: 'El marco E-BTA/R', anchor: 'marco',
@@ -199,6 +223,7 @@ export const SECTIONS = {
       <p>El <strong>inject (inyección de información)</strong> revela información latente que no estaba disponible al momento de la decisión inicial. No es una noticia nueva inventada: es algo que el caso ya contenía y que ahora pesa. <span class="lc-footnote">${INJECT_GLOSS}</span></p>
       <h3 class="lc-h3">La frase canónica</h3>
       <blockquote class="lc-quote"><em>Dado el evento <strong>E</strong>, que abre la incertidumbre <strong>U</strong> sobre el canal <strong>C</strong>, protejo <strong>X</strong> mediante el buffer <strong>B</strong> (potencia, duración, costo), sacrifico parcialmente <strong>Y</strong>, monitoreo <strong>I1</strong> e <strong>I2</strong>, y reviso la decisión si se cruza el umbral <strong>T</strong>.</em></blockquote>
+      {{PHRASE}}
       <h3 class="lc-h3">Base teórica (de dónde viene)</h3>
       <p>E-BTA/R no se inventa de cero: condensa, en un formato operativo para el aula, las tradiciones de la decisión bajo incertidumbre que sostienen el rediseño del curso.</p>
       <ul class="lc-list">
@@ -242,6 +267,7 @@ export const SECTIONS = {
     nav: 'Guía de uso', title: 'Guía de uso', anchor: 'guia',
     html: `
       <p><strong>El recorrido tiene 10 pantallas, lineales:</strong> 1) Briefing y dossier del caso · 2) Clasificación del evento · 3) Mapa de impacto · 4) Buffer Board · 5) Trade-off · 6) Decisión y frase E-BTA/R · 7) Indicadores y umbral · 8) <strong>Inject</strong> (punto de no retorno) · 9) Revisión forzada · 10) Export (PDF).</p>
+      {{STRIP}}
       <h3 class="lc-h3">Reglas</h3>
       <ul class="lc-list">
         <li>No puedes avanzar con campos obligatorios vacíos.</li>
