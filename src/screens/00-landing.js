@@ -126,6 +126,37 @@ export async function mountScreen00(container, _caseData, nav) {
   startRow.appendChild(startBtn);
   body.appendChild(startRow);
 
+  // ---- Caso de evaluación (entrega final) — diferenciado ----
+  const evalSection = document.createElement('section');
+  evalSection.className = 'landing-eval-section';
+  evalSection.innerHTML = `
+    <div class="eval-divider"></div>
+    <h2 class="eval-title">Caso de evaluación (entrega final)</h2>
+    <p class="eval-note">El Caso 3 es la entrega final, individual y deliberadamente más compleja. También accesible directamente por <code>?caso=3</code>.</p>
+    <div class="case-card case-card--eval">
+      <div class="case-card-badge"><span class="case-card-glyph">${sectorGlyph('3')}</span> Caso 3 · Entrega final</div>
+      <div class="case-card-title">Envases del Centro · Manufactura de empaques</div>
+      <div class="case-card-desc">“Tres frentes a la vez —un insumo crítico, un cliente que se enfría y una controversia comunitaria—, con una sola caja y una semana para decidir.”</div>
+      <div class="case-card-role">Jerarquiza bajo presión y defiende cuál es EL evento; formula una frase E-BTA/R sostenible ante la junta.</div>
+      <div class="case-card-meta"><span class="case-card-meta-item">~120 min</span></div>
+    </div>
+  `;
+  const evalRow = document.createElement('div');
+  evalRow.className = 'landing-start-row';
+  const evalBtn = document.createElement('button');
+  evalBtn.className = 'btn btn-dark btn-start';
+  evalBtn.type = 'button';
+  evalBtn.textContent = 'Iniciar caso de evaluación →';
+  evalRow.appendChild(evalBtn);
+  evalSection.appendChild(evalRow);
+  body.appendChild(evalSection);
+
+  evalBtn.addEventListener('click', async () => {
+    evalBtn.disabled = true;
+    evalBtn.textContent = 'Cargando…';
+    await nav.onStart('3');
+  });
+
   // ---- Pie de página ----
   const footer = document.createElement('footer');
   footer.className = 'landing-footer';

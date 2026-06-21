@@ -1,0 +1,181 @@
+{
+  "schemaVersion": "1.1",
+  "caseId": "venezuela-empaques-final-001",
+  "title": "Envases del Centro: tres frentes a la vez",
+  "order": "3",
+  "role": "final",
+  "estimatedMinutes": 120,
+  "context": {
+    "sector": "manufactura de empaques (preformas PET y tapas)",
+    "country": "VE",
+    "size": "media",
+    "dominantEventType": ["subito-discreto", "acumulativo", "cascada", "legitimidad"],
+    "dominantChannel": "en competencia (a jerarquizar)",
+    "secondaryChannel": "multiple"
+  },
+  "initialSignal": "En una misma semana se juntan tres cosas. El lunes, una resolución modifica el régimen de importación de la resina PET —el insumo crítico de Envases del Centro—, con un sobrecosto inmediato y demoras de despacho en aduana de varias semanas. El miércoles, el gerente comercial confirma que el cliente ancla (una embotelladora que representa el 45% de las ventas) volvió a recortar su pedido mensual, el cuarto recorte consecutivo, y desliza que 'está evaluando opciones'. El jueves, un grupo de vecinos publica un video sobre los efluentes de la planta y convoca a una asamblea. La dirección debe presentarse el lunes siguiente ante la junta con un plan.",
+  "briefing": "§1. La empresa. Envases del Centro, C.A. es un fabricante venezolano de empaques plásticos —preformas PET y tapas— para la industria de alimentos y bebidas, con 220 empleados y una planta en la región central. Su negocio es de volumen y precisión: márgenes estrechos, contratos de suministro y poca tolerancia a la interrupción. Tres relaciones la sostienen: el suministro de resina, su cartera de clientes industriales y la licencia para operar la planta. Las tres están tensionadas esta semana, y la caja alcanza para uno o dos movimientos costosos, no para atender los tres frentes en paralelo.\n\n§2. El insumo crítico. La resina PET es importada y representa cerca del 60% del costo del producto. Envases del Centro la compra a un único proveedor extranjero con el que tiene años de relación; no existe hoy un sustituto nacional de calidad y volumen suficientes, aunque se habla de uno en el mercado. El acceso a divisas para importar es limitado y depende de una sola relación bancaria. Cualquier cambio en el costo o el calendario de la resina golpea de inmediato la operación y el margen.\n\n§3. El cliente ancla. Una embotelladora regional es el cliente más grande: el 45% de las ventas. Su propia demanda viene cayendo y, con ella, sus pedidos a Envases del Centro: este es el cuarto recorte mensual consecutivo. La caída de la embotelladora responde a su propia demanda deprimida, no a un problema de calidad de Envases. Internamente se sabe que estudia dos caminos que serían letales: internalizar la producción de preformas o migrar a un competidor que le ofrezca mejor precio. La caída sostenida no es nueva; lo nuevo es que el pedido se acerca al punto en que el contrato deja de cubrir los costos fijos de la línea dedicada a ese cliente —y una línea que no cubre sus fijos pasa de activo a lastre—.\n\n§4. La controversia comunitaria. La planta vierte efluentes tratados a un cauce cercano. Una comunidad vecina, en contexto de escasez de agua, viene reclamando desde hace meses por olores y por el uso del recurso; hasta ahora el reclamo era difuso. El video que circula esta semana le da forma y convoca a una asamblea. El ente ambiental ha 'observado' el tema sin actuar formalmente. Envases tiene crédito con la zona —es de los pocos empleadores formales—, pero ese crédito no es eterno. Una remediación real de los efluentes es posible, pero cuesta caja y tiempo de ingeniería que esta semana están comprometidos en los otros frentes. Es un reclamo de legitimidad que, si escala, puede tocar permisos y, con ellos, la operación misma.\n\n§5. Contexto y actores. Completan el mapa: el proveedor extranjero de resina (sensible al desabastecimiento global y al riesgo de cobro), la banca que da acceso a divisas (frágil), un competidor que aparentemente aseguró suministro de resina y podría capturar al cliente ancla, el ente ambiental (con potestad de abrir expediente) y la junta directiva, que exige un plan el lunes. Ningún actor, por sí solo, define el desenlace; la combinación, sí.\n\n§6. La decisión. La dirección debe decidir, con una sola caja y una semana, cómo responde a tres frentes que compiten: asegurar la resina (operación), retener o sustituir al cliente ancla (modelo de negocio), y contener la controversia comunitaria (legitimidad). No puede cubrirlos todos por igual: tiene que jerarquizar cuál es **el** evento que define la trayectoria, cuál canal manda, qué protege y qué sacrifica, y cómo sabrá si su apuesta se equivocó. La tentación de la junta será pedir 'que se atiendan los tres'; el trabajo del directivo es mostrar, con criterio, por qué eso fragmentaría la caja y dejaría los tres a medias, y cuál frente protege primero y por qué. La decisión se formula como frase E-BTA/R defendible ante la junta, con su trade-off, sus indicadores y su umbral de revisión.",
+  "availableBuffers": [
+    {
+      "id": "resin_inventory",
+      "label": "Inventario de seguridad de resina",
+      "channelsAddressed": ["operacional", "modelo-de-negocio"],
+      "costUnit": "tiempo",
+      "notesForFacilitator": "Buffer operacional: el stock existente da semanas de producción mientras se resuelve la importación. Costo en tiempo (se agota) y en caja inmovilizada. No resuelve el sobrecosto estructural; compra tiempo."
+    },
+    {
+      "id": "fx_cash",
+      "label": "Reserva de caja en divisas",
+      "channelsAddressed": ["financiero", "operacional"],
+      "costUnit": "caja",
+      "notesForFacilitator": "Buffer financiero agotable: permite pagar el sobrecosto de la resina o financiar una jugada (no las tres). Si se gasta aquí, no estará para retener al cliente ni para la comunidad."
+    },
+    {
+      "id": "anchor_client_relationship",
+      "label": "Relación y contrato con el cliente ancla",
+      "channelsAddressed": ["modelo-de-negocio"],
+      "costUnit": "capital_politico",
+      "notesForFacilitator": "Buffer comercial/relacional: renegociar volumen, plazos o co-inversión. Potente si se activa con propuesta de valor; perverso si se usa para presionar a un cliente que ya evalúa irse. Costo en capital comercial."
+    },
+    {
+      "id": "regulator_relationship",
+      "label": "Relación con el ente ambiental",
+      "channelsAddressed": ["regulatorio-legal", "legitimidad"],
+      "costUnit": "capital_politico",
+      "notesForFacilitator": "Buffer institucional: anticiparse con un plan de remediación ante el ente evita el expediente. Potente si es temprano y técnico; ilusorio si se activa cuando el caso ya escaló. Costo en capital político."
+    },
+    {
+      "id": "community_trust",
+      "label": "Confianza de la comunidad",
+      "channelsAddressed": ["legitimidad"],
+      "costUnit": "legitimidad",
+      "notesForFacilitator": "Buffer de legitimidad: el crédito acumulado con la comunidad (empleo local, programas) permite abrir diálogo en vez de confrontación. Agotable y no regenerable a corto plazo; un mal manejo lo destruye."
+    }
+  ],
+  "uncertaintySources": ["ocurrencia", "magnitud", "actor", "duracion"],
+  "injects": [
+    {
+      "id": "anchor_client_exit",
+      "trigger": "facilitator",
+      "text": "La embotelladora anuncia que internalizará la producción de preformas en seis meses y, mientras tanto, recorta el pedido un 40% adicional. El 45% de las ventas deja de ser un riesgo latente y pasa a ser una pérdida programada. El frente del cliente ancla se vuelve el más urgente.",
+      "latentInformation": "El briefing advierte en §3 que la embotelladora estudiaba internalizar o migrar y que la caída se acercaba al punto de ruptura; el inject revela que la decisión se tomó.",
+      "primaryUncertaintyAffected": "actor",
+      "facilitatorPrompt": "¿La decisión inicial tomaba el frente del cliente como secundario? Acaba de volverse el dominante. ¿El buffer elegido sirve en el canal de modelo de negocio?"
+    },
+    {
+      "id": "environmental_inquiry",
+      "trigger": "facilitator",
+      "text": "Tras la asamblea, el ente ambiental anuncia una inspección formal y la posible suspensión temporal del permiso de vertido. La controversia de legitimidad se vuelve riesgo regulatorio-legal con potencial de parar la planta. Cualquier gesto público de la empresa será ahora también una declaración ante un proceso.",
+      "latentInformation": "El briefing señala en §4 que el ente ambiental 'observaba' el tema y que el reclamo podía tocar permisos; el inject revela que la observación se vuelve acción.",
+      "primaryUncertaintyAffected": "actor",
+      "facilitatorPrompt": "El canal dominante se desplaza a regulatorio-legal/legitimidad. ¿La confianza de la comunidad sigue siendo el buffer relevante, o hace falta activar la relación con el ente?"
+    },
+    {
+      "id": "resin_shock",
+      "trigger": "facilitator",
+      "text": "El proveedor extranjero comunica que, por desabastecimiento global, sube el precio y prioriza otros mercados: el próximo despacho se retrasa y encarece más. El inventario de seguridad pasa de 'colchón cómodo' a 'cuenta regresiva'. El frente de la operación se vuelve crítico.",
+      "latentInformation": "El briefing advierte en §2 que se depende de un único proveedor y que no hay sustituto nacional suficiente; el inject revela que la dependencia se vuelve escasez.",
+      "primaryUncertaintyAffected": "magnitud",
+      "facilitatorPrompt": "El buffer 'inventario de resina' acaba de acortar su duración. ¿La caja alcanza para resina y para los otros frentes, o hay que elegir?"
+    }
+  ],
+  "replies": [
+    {
+      "id": "competitor_captures_client",
+      "trigger": "facilitator",
+      "text": "Segunda etapa: un competidor que aseguró suministro de resina ofrece a la embotelladora un contrato estable y se perfila para quedarse con la cuenta. Reaccionar ahora sobre el cliente ancla es hacerlo como segundo, no como primero.",
+      "latentInformation": "El briefing menciona en §5 a un competidor que aparentemente aseguró resina y podría capturar al cliente; esta réplica revela que se movió.",
+      "primaryUncertaintyAffected": "actor",
+      "facilitatorPrompt": "Réplica del actor: ¿tu decisión revisada anticipaba que el competidor jugaría? ¿Cambia tu jerarquía de frentes?"
+    },
+    {
+      "id": "community_politicized",
+      "trigger": "facilitator",
+      "text": "Segunda etapa: la asamblea consigue que una autoridad local tome el caso como bandera; la controversia deja de ser vecinal y entra en la agenda pública. La ventana para resolver con diálogo técnico se estrecha.",
+      "latentInformation": "El briefing identifica en §4 y §5 el reclamo comunitario y el ente ambiental como actores que podían escalar; esta réplica revela la politización.",
+      "primaryUncertaintyAffected": "actor",
+      "facilitatorPrompt": "Réplica del actor: la legitimidad se volvió política. ¿El buffer de confianza comunitaria basta, o el costo ya es de capital político?"
+    }
+  ],
+  "facilitatorNotes": "Caso final, individual y deliberadamente más complejo: tres frentes simultáneos (operacional/resina, modelo de negocio/cliente ancla, legitimidad/comunidad) que compiten por una sola caja. La primera dificultad es de demarcación: ¿cuál es EL evento? Defensa válida de varias respuestas, siempre que el participante jerarquice con criterio y nombre el canal dominante elegido. El error central es intentar cubrir los tres frentes por igual (la caja no alcanza) o no jerarquizar. Cubre los cuatro tipos de evento y los cinco canales; ofrece buffers en las cuatro unidades de costo. Buffers-trampa: 'sustituir la resina por proveedor nacional' (ilusorio: calidad/volumen insuficiente, §2) y 'usar el contrato para presionar al cliente' (perverso, acelera su salida). Para la evaluación individual, el facilitador puede disparar el inject que corresponda al frente que el participante subestimó, y usar las réplicas (replies) como segunda etapa para los memos más avanzados.",
+  "dossier": {
+    "_visibility": "company, actors, uncertainties, bufferEconomics, constraints y plausibleMoves son visibles al participante. facilitatorAnalysis NO se muestra al participante.",
+    "company": {
+      "founded": "Más de 20 años",
+      "employees": 220,
+      "usersOrCustomers": "Cartera de clientes industriales de alimentos y bebidas",
+      "financials": [
+        {"metric": "Ingresos anuales", "value": "US$ 26 M", "note": "Equivalente; negocio de volumen, márgenes estrechos"},
+        {"metric": "Margen operativo", "value": "8%", "note": "Sensible al costo de la resina"},
+        {"metric": "Resina PET en el costo del producto", "value": "≈ 60%", "note": "Insumo importado, proveedor único"},
+        {"metric": "Peso del cliente ancla", "value": "45% de las ventas", "note": "Embotelladora con 4 recortes mensuales consecutivos"},
+        {"metric": "Caja disponible", "value": "US$ 3,8 M", "note": "Alcanza para 1–2 movimientos costosos, no para tres frentes"},
+        {"metric": "Inventario de resina", "value": "≈ 6 semanas", "note": "Colchón operativo antes de depender del próximo despacho"}
+      ],
+      "revenueMix": [
+        {"stream": "Cliente ancla (embotelladora)", "shareOfMargin": "≈ 45% de ventas"},
+        {"stream": "Procesadoras de alimentos medianas", "shareOfMargin": "≈ 40%"},
+        {"stream": "Exportación regional y otros", "shareOfMargin": "≈ 15%"}
+      ],
+      "keyDependencies": [
+        "Proveedor extranjero único de resina PET",
+        "Una sola relación bancaria para acceso a divisas",
+        "Permiso de vertido de efluentes (licencia para operar)"
+      ]
+    },
+    "actors": [
+      {"actor": "Cliente ancla (embotelladora)", "interest": "Reducir costos; asegurar su propia operación", "leverage": "Alta (45% de las ventas)", "publicStance": "Recorta pedidos; evalúa internalizar o migrar", "predictability": "Media-baja"},
+      {"actor": "Proveedor extranjero de resina", "interest": "Colocar producto en mercados que paguen y cobren", "leverage": "Alta (insumo crítico, único)", "publicStance": "Sensible al desabastecimiento global", "predictability": "Media"},
+      {"actor": "Banca (acceso a divisas)", "interest": "Limitar exposición", "leverage": "Alta (habilita la importación)", "publicStance": "Frágil", "predictability": "Media"},
+      {"actor": "Comunidad vecina", "interest": "Agua y ambiente; ser escuchada", "leverage": "Media-alta (puede escalar y politizar)", "publicStance": "Reclamo que se está organizando", "predictability": "Baja"},
+      {"actor": "Ente ambiental", "interest": "Cumplimiento; evitar costo político", "leverage": "Alta (puede abrir expediente y suspender permiso)", "publicStance": "Observa sin actuar (por ahora)", "predictability": "Media"},
+      {"actor": "Competidor", "interest": "Capturar al cliente ancla", "leverage": "Media-alta si aseguró resina", "publicStance": "Silencioso", "predictability": "Media"}
+    ],
+    "uncertainties": [
+      {"source": "actor", "question": "¿El cliente ancla se va, internaliza o renegocia?", "scenarios": [
+        {"scenario": "Internaliza / migra", "band": "≈ 45%", "impact": "Pérdida programada del 45% de ventas"},
+        {"scenario": "Renegocia si hay propuesta de valor", "band": "≈ 40%", "impact": "Retención parcial con menor margen"},
+        {"scenario": "Mantiene el statu quo", "band": "≈ 15%", "impact": "Alivio temporal, problema latente"}
+      ]},
+      {"source": "magnitud", "question": "¿Cuánto encarece y se retrasa la resina?", "scenarios": [
+        {"scenario": "Sobrecosto y demora moderados", "band": "≈ 55%", "impact": "El inventario aguanta; se absorbe con caja"},
+        {"scenario": "Escasez global aguda", "band": "≈ 45%", "impact": "El inventario se vuelve cuenta regresiva"}
+      ]},
+      {"source": "actor", "question": "¿La controversia comunitaria escala a lo regulatorio/político?", "scenarios": [
+        {"scenario": "Escala (inspección/politización)", "band": "Plausible", "impact": "Riesgo de suspensión del permiso"},
+        {"scenario": "Se contiene con diálogo", "band": "Plausible", "impact": "Costo en legitimidad acotado"}
+      ]}
+    ],
+    "bufferEconomics": [
+      {"id": "resin_inventory", "capacity": "≈ 6 semanas de producción", "activationCost": "Tiempo (se agota) + caja inmovilizada", "depletion": "6 semanas (menos si sube la demanda)", "leadTime": "Inmediato", "residual": "No resuelve el sobrecosto estructural; compra tiempo"},
+      {"id": "fx_cash", "capacity": "US$ 3,8 M", "activationCost": "Consume caja 1:1", "depletion": "1–2 movimientos", "leadTime": "Inmediato", "residual": "Si se gasta en resina, no está para cliente ni comunidad"},
+      {"id": "anchor_client_relationship", "capacity": "Años de relación + contrato", "activationCost": "Capital comercial", "depletion": "Se gasta si se usa como presión", "leadTime": "Semanas (renegociación)", "residual": "Perverso si el cliente ya decidió irse"},
+      {"id": "regulator_relationship", "capacity": "Interlocución técnica con el ente", "activationCost": "Capital político", "depletion": "Una vez por ciclo", "leadTime": "Potente si temprano; ilusorio si tarde", "residual": "Usado tarde, se lee como presión"},
+      {"id": "community_trust", "capacity": "Crédito por empleo local y trayectoria", "activationCost": "Uso de la legitimidad", "depletion": "Agotable, no regenerable a corto plazo", "leadTime": "Inmediato en diálogo", "residual": "Un mal manejo lo destruye"}
+    ],
+    "constraints": [
+      "Una semana para presentar plan a la junta.",
+      "La caja (US$ 3,8 M) no cubre los tres frentes en paralelo.",
+      "Resina: proveedor único, sin sustituto nacional suficiente, divisas limitadas.",
+      "El cliente ancla (45%) está a un paso de irse.",
+      "El permiso de vertido es condición para operar."
+    ],
+    "plausibleMoves": [
+      {"id": "M1", "label": "Asegurar resina (importar con sobrecosto / más inventario)", "note": "Protege la operación; quema caja necesaria para otros frentes."},
+      {"id": "M2", "label": "Volcar esfuerzo a retener/renegociar al cliente ancla", "note": "Ataca el 45% de ventas; arriesgado si el cliente ya decidió."},
+      {"id": "M3", "label": "Contener la controversia comunitaria con diálogo y remediación", "note": "Protege la licencia para operar; no resuelve resina ni cliente."},
+      {"id": "M4", "label": "Diversificar la cartera para reducir dependencia del 45%", "note": "Estructural; no llega a tiempo para la próxima factura."},
+      {"id": "M5", "label": "Anticiparse al ente ambiental con un plan de remediación", "note": "Convierte un riesgo regulatorio en gesto proactivo; cuesta capital político y caja."}
+    ]
+  },
+  "facilitatorAnalysis": {
+    "noDominantOption": "Ninguna jugada cubre los tres frentes: la caja alcanza para uno o dos. M1 protege la operación pero deja al cliente y a la comunidad expuestos; M2 apuesta a un cliente que quizá ya decidió; M3 protege el permiso pero no la operación. La dificultad es de jerarquización bajo recursos insuficientes: el participante debe elegir cuál frente es EL evento dominante y defender por qué.",
+    "tradeoffMap": "Caja protege operación/financiero pero no compra legitimidad ni retención de cliente; capital político protege lo regulatorio/comunitario pero se gasta una vez; tiempo (inventario) protege la operación pero no resuelve lo estructural. Toda elección deja dos frentes con riesgo residual nombrado.",
+    "injectInteractions": [
+      {"inject": "anchor_client_exit", "undercuts": ["M1", "M3"], "rewards": ["M2", "M4"], "note": "Si el cliente se va, asegurar resina para una demanda que cae pierde sentido; el peso va al modelo de negocio."},
+      {"inject": "environmental_inquiry", "undercuts": ["M2"], "rewards": ["M3", "M5"], "note": "Si el permiso peligra, nada importa más que la licencia para operar; el canal dominante se vuelve regulatorio-legal."},
+      {"inject": "resin_shock", "undercuts": ["M3", "M4"], "rewards": ["M1"], "note": "Si la resina escasea, sin insumo no hay nada que vender; vuelve dominante el canal operacional."}
+    ],
+    "calibration": "Un memo 'Sobresaliente' (1) demarca explícitamente cuál es EL evento entre los tres candidatos y por qué, (2) jerarquiza canales en competencia, (3) cuantifica el costo del buffer elegido contra la caja, (4) nombra los dos frentes que quedan con riesgo residual, y (5) tras el inject + réplica, hace una revisión de doble bucle (cambia la jerarquía de frentes, no solo la táctica). La dimensión ética (la comunidad y el agua) debe tratarse como sustancia."
+  }
+}

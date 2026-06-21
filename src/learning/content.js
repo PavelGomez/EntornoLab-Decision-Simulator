@@ -175,6 +175,61 @@ export const COMPONENTES = [
   },
 ];
 
+// ── Glosario de términos técnicos y en inglés (sección 2 del Glosario) ──
+// Transcrito de docs/Glosario_terminos_tecnicos_y_en_ingles.md. La regla del
+// curso: ningún término en inglés queda sin traducir en su primera aparición.
+export const TECH_GLOSSARY_HTML = `
+  <h3 class="lc-h3">Términos técnicos y en inglés</h3>
+  <p>Traduce y explica, en lenguaje llano, las palabras técnicas y en inglés que aparecen en el simulador, las lecturas y los datos de los casos. No hace falta dominar inglés: cuando veas un término que no reconoces, búscalo aquí. La pronunciación es una guía aproximada en español.</p>
+  <h4 class="lc-h4">1. Términos del marco y del simulador</h4>
+  <dl class="lc-glossary">
+    <dt>E-BTA/R <span class="lc-pron">≈ e-bé-te-á-érre</span></dt><dd>Las cinco piezas del marco: <strong>E</strong>vento, <strong>B</strong>uffer, <strong>T</strong>rade-off, <strong>A</strong>cción táctica, <strong>R</strong>evisión.</dd>
+    <dt>Buffer <span class="lc-pron">≈ BÁ-fer</span></dt><dd><em>Amortiguador / colchón.</em> Capacidad que protege un canal nombrable a un costo de activación medible.</dd>
+    <dt>Buffer Board <span class="lc-pron">≈ BÁ-fer bord</span></dt><dd><em>Tablero de buffers.</em> La pantalla donde eliges y valoras tus buffers (Pantalla 4).</dd>
+    <dt>Trade-off <span class="lc-pron">≈ TREID-of</span></dt><dd><em>Disyuntiva / canje.</em> Toda decisión protege algo a costa de otra cosa (qué protejo, qué sacrifico, qué riesgo queda).</dd>
+    <dt>Inject <span class="lc-pron">≈ ÍN-yect</span></dt><dd><em>Inyección de información.</em> Dato o acontecimiento que el facilitador introduce durante el ejercicio; en EntornoLab revela información que ya estaba latente y obliga a revisar.</dd>
+    <dt>Freeze probe <span class="lc-pron">≈ fríz prob</span></dt><dd><em>Sondeo en pausa.</em> Técnica del wargaming: se "congela" la acción para sondear el razonamiento. El inject funciona como un freeze probe.</dd>
+    <dt>Hot wash <span class="lc-pron">≈ jot uósh</span></dt><dd><em>Repaso en caliente.</em> Conversación estructurada justo después del ejercicio para extraer aprendizajes.</dd>
+    <dt>Wargame / business wargaming <span class="lc-pron">≈ UÓR-gueim</span></dt><dd><em>Juego de guerra (empresarial).</em> Simulación con personas y actores que reaccionan, para probar estrategias y exponer supuestos.</dd>
+    <dt>Tabletop exercise (TTX) <span class="lc-pron">≈ TÉIBOL-tap</span></dt><dd><em>Ejercicio de mesa.</em> Simulación guionada (menos adversarial que un wargame); modalidad por defecto del simulador.</dd>
+    <dt>Briefing <span class="lc-pron">≈ BRÍ-fin</span></dt><dd><em>Informe inicial.</em> El texto que presenta el caso y su señal inicial (Pantalla 1).</dd>
+    <dt>Sensemaking <span class="lc-pron">≈ SENS-meiking</span></dt><dd><em>Construcción de sentido.</em> Convertir señales dispersas y ambiguas en una lectura suficientemente clara para actuar.</dd>
+    <dt>Single-loop / double-loop <span class="lc-pron">≈ SÍNguel / DÁbol lup</span></dt><dd><em>Bucle simple / doble bucle.</em> Simple: corriges la ejecución dentro del marco. Doble: cuestionas el marco mismo (el encuadre).</dd>
+    <dt>Export <span class="lc-pron">≈ ÉX-port</span></dt><dd><em>Exportar.</em> Generar el PDF con tu razonamiento al final del recorrido (Pantalla 10).</dd>
+    <dt>Memo <span class="lc-pron">≈ MÉ-mo</span></dt><dd><em>Memorando.</em> El documento ejecutivo de 1.200–1.500 palabras que es la entrega evaluable.</dd>
+  </dl>
+  <h4 class="lc-h4">2. Conceptos teóricos</h4>
+  <dl class="lc-glossary">
+    <dt>Knightian uncertainty <span class="lc-pron">— Incertidumbre knightiana</span></dt><dd>Situación en que no conocemos bien las probabilidades de los resultados (a diferencia del <em>riesgo</em>, donde sí se conocen).</dd>
+    <dt>Black swan <span class="lc-pron">— Cisne negro</span></dt><dd>Evento de gran impacto, baja anticipación convencional y muy racionalizado después de ocurrido.</dd>
+    <dt>Gray rhino <span class="lc-pron">— Rinoceronte gris</span></dt><dd>Amenaza <strong>visible y probable</strong> que la organización ve venir pero no atiende. La mayoría de las "sorpresas" gerenciales son de este tipo.</dd>
+    <dt>Recognition-primed decision <span class="lc-pron">— Decisión primada por reconocimiento</span></dt><dd>Cómo deciden los expertos bajo presión: reconocen un patrón, imaginan un curso de acción y eligen el primero que "aguanta".</dd>
+    <dt>Real options <span class="lc-pron">— Opciones reales</span></dt><dd>Valorar la flexibilidad (postergar, escalar, abandonar, diversificar) como algo que tiene valor bajo incertidumbre.</dd>
+    <dt>Dynamic capabilities <span class="lc-pron">— Capacidades dinámicas</span></dt><dd>Capacidad de detectar, aprovechar y transformar recursos ante el cambio del entorno.</dd>
+    <dt>Resilience <span class="lc-pron">— Resiliencia</span></dt><dd>Capacidad de resistir, absorber, adaptarse y transformarse ante un golpe.</dd>
+    <dt>Redundancy / flexibility <span class="lc-pron">— Redundancia / flexibilidad</span></dt><dd>Dos formas de construir resiliencia: redundancia (respaldo, "prima de seguro"); flexibilidad (que además rinde en la operación diaria).</dd>
+    <dt>Robust decision-making <span class="lc-pron">— Decisión robusta</span></dt><dd>Buscar estrategias suficientemente buenas a través de <strong>muchos</strong> futuros plausibles, en vez de óptimas para uno solo.</dd>
+    <dt>VUCA / TUNA</dt><dd>Dos formas de nombrar entornos difíciles. VUCA: volátil, incierto (<em>uncertain</em>), complejo, ambiguo. TUNA: turbulento, incierto, novedoso, ambiguo.</dd>
+    <dt>Bayesian updating <span class="lc-pron">— Actualización bayesiana</span></dt><dd>Revisar la credibilidad de hipótesis rivales a medida que llega nueva evidencia, en vez de "ajustar" sin método.</dd>
+    <dt>Stakeholder <span class="lc-pron">— Actor / parte interesada</span></dt><dd>Cualquiera que afecta o es afectado por la decisión (regulador, cliente, comunidad, competidor…).</dd>
+  </dl>
+  <h4 class="lc-h4">3. Términos financieros y de negocio (aparecen en los datos de los casos)</h4>
+  <dl class="lc-glossary">
+    <dt>NPS (Net Promoter Score) <span class="lc-pron">≈ en-pi-és</span></dt><dd><em>Índice de recomendación.</em> Cuánto recomiendan los clientes una marca (de –100 a +100). Ej.: "NPS ≈ +42".</dd>
+    <dt>GMV (Gross Merchandise Value) <span class="lc-pron">≈ ge-eme-uvé</span></dt><dd><em>Valor bruto de mercancía.</em> El valor total de lo transado en una plataforma antes de la comisión. Ej.: "GMV mensual US$ 6,5 M".</dd>
+    <dt>Take rate <span class="lc-pron">≈ TÉIK reit</span></dt><dd><em>Tasa de comisión.</em> El porcentaje del GMV que la plataforma se queda como ingreso. Ej.: "Take rate 18%".</dd>
+    <dt>Burn (cash burn) <span class="lc-pron">≈ bern</span></dt><dd><em>Quema de caja.</em> Cuánto dinero consume la empresa por mes. Ej.: "Quema mensual (burn) US$ 0,9 M".</dd>
+    <dt>Runway <span class="lc-pron">≈ RÁN-uei</span></dt><dd><em>Pista / autonomía de caja.</em> Cuántos meses sobrevive la empresa con la caja actual. Ej.: "Runway ≈ 6 meses".</dd>
+    <dt>Capex (capital expenditure) <span class="lc-pron">≈ KÁP-eks</span></dt><dd><em>Inversión de capital.</em> Dinero invertido en activos (equipos, líneas, infraestructura). Ej.: "US$ 0,8 M de capex".</dd>
+    <dt>Retooling <span class="lc-pron">≈ ri-TÚ-lin</span></dt><dd><em>Reconversión de línea.</em> Adaptar la maquinaria para producir un formato distinto. Ej.: "4–6 meses de retooling".</dd>
+    <dt>De-risking <span class="lc-pron">≈ di-RÍS-kin</span></dt><dd><em>Reducción de riesgo (bancario).</em> Cuando un banco corta relaciones para evitar riesgo reputacional o de cumplimiento.</dd>
+    <dt>Margen bruto / operativo</dt><dd><em>Ganancia</em> antes (bruto) o después (operativo) de los costos de operar, como % de los ingresos. Ej.: "Margen bruto 38%".</dd>
+    <dt>Fideicomiso</dt><dd>Figura legal en la que un tercero custodia fondos para garantizar una obligación. Ej.: "constituir un fideicomiso de respaldo".</dd>
+    <dt>Debida diligencia (due diligence) <span class="lc-pron">≈ diu DÍL-iyens</span></dt><dd><em>Diligencia debida.</em> Obligación de verificar y documentar (p. ej., el origen sostenible de un producto).</dd>
+    <dt>Corredor de remesas</dt><dd>El canal por el que se envían y cobran remesas (dinero que migrantes envían a su país). Ej.: Caso A (fintech).</dd>
+  </dl>
+  <p class="lc-bridge">Si encuentras un término en inglés que no está aquí, avísale al facilitador: lo agregamos. La regla del curso es que ningún término en inglés quede sin traducir la primera vez que aparece.</p>`;
+
 // ── Cuerpo de la home / sección Inicio (about + mapa del sitio + gráficos) ──
 // Los tokens {{CYCLE}}, {{PHRASE}}, {{STRIP}} los sustituye el renderer por los
 // gráficos SVG autorados. Se usa tanto en la portada (raíz) como en la sección
