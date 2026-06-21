@@ -18,7 +18,46 @@ window.addEventListener('popstate', () => {
   }
 });
 
-export function renderProgressBar(container, currentScreen) {
+/**
+ * Barra superior persistente (navy, estilo familia MacroLab).
+ * Es de orientación, NO de navegación libre: no permite saltar a pantallas
+ * posteriores ni volver atrás tras el inject. Muestra la marca + versión,
+ * el enlace al marco E-BTA/R y, donde aplique, el contador de pantalla.
+ */
+export function renderTopBar(currentScreen, { showCounter = true } = {}) {
+  const bar = document.createElement('div');
+  bar.className = 'topbar';
+
+  const brand = document.createElement('div');
+  brand.className = 'topbar-brand';
+  brand.textContent = 'EntornoLab · v1.2';
+
+  const right = document.createElement('div');
+  right.className = 'topbar-right';
+
+  const ebtaBtn = document.createElement('button');
+  ebtaBtn.className = 'topbar-ebtar';
+  ebtaBtn.type = 'button';
+  ebtaBtn.setAttribute('aria-label', '¿Qué es E-BTA/R?');
+  ebtaBtn.innerHTML =
+    '<span class="topbar-ebtar-full">¿Qué es E-BTA/R?</span>' +
+    '<span class="topbar-ebtar-short">E-BTA/R</span>';
+  ebtaBtn.addEventListener('click', openEbtaModal);
+  right.appendChild(ebtaBtn);
+
+  if (showCounter) {
+    const counter = document.createElement('span');
+    counter.className = 'topbar-counter';
+    counter.textContent = T.screenLabel(currentScreen, TOTAL_SCREENS);
+    right.appendChild(counter);
+  }
+
+  bar.appendChild(brand);
+  bar.appendChild(right);
+  return bar;
+}
+
+export function renderProgressBar(currentScreen) {
   const bar = document.createElement('div');
   bar.className = 'progress-bar';
 
@@ -34,29 +73,23 @@ export function renderProgressBar(container, currentScreen) {
   label.className = 'progress-label';
   label.textContent = T.screenLabel(currentScreen, TOTAL_SCREENS);
 
-  // Enlace persistente E-BTA/R (visible en todas las pantallas 1-10)
-  const ebtaBtn = document.createElement('button');
-  ebtaBtn.className = 'ebtar-btn';
-  ebtaBtn.type = 'button';
-  ebtaBtn.setAttribute('aria-label', '¿Qué es E-BTA/R?');
-  ebtaBtn.innerHTML =
-    '<span class="ebtar-full">\u00bfQu\u00e9 es E-BTA/R?</span>' +
-    '<span class="ebtar-short">E-BTA/R</span>';
-  ebtaBtn.addEventListener('click', openEbtaModal);
-
   bar.appendChild(steps);
   bar.appendChild(label);
-  bar.appendChild(ebtaBtn);
   return bar;
 }
 
 /**
  * Renders the landing page (screen 0) — no case data needed.
  * onStart(caseOrder) is called when the participant clicks "Comenzar".
+ * La portada lleva la barra superior persistente (sin contador) y, debajo,
+ * la banda hero navy + el cuerpo sobre el lienzo claro.
  */
 export async function renderLanding(onStart) {
   const app = document.getElementById('app');
   app.innerHTML = '';
+
+  // Barra superior persistente (sin contador de pantalla en la portada)
+  app.appendChild(renderTopBar(0, { showCounter: false }));
 
   const container = document.createElement('div');
   container.className = 'screen screen--landing';
@@ -93,8 +126,9 @@ export async function render(caseData) {
   // Clear and rebuild
   app.innerHTML = '';
 
-  // Progress bar
-  app.appendChild(renderProgressBar(app, screen));
+  // Barra superior persistente (navy) + barra de progreso (familia)
+  app.appendChild(renderTopBar(screen, { showCounter: true }));
+  app.appendChild(renderProgressBar(screen));
 
   // Screen container
   const container = document.createElement('div');
