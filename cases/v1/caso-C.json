@@ -72,5 +72,81 @@
       "facilitatorPrompt": "Con un expediente abierto, ¿la 'buena voluntad de usuarios' sigue siendo el buffer relevante, o el canal dominante se desplazó y exige otro?"
     }
   ],
-  "facilitatorNotes": "Caso portable de otro sector. Tipo de evento dominante: legitimidad (con cascada legitimidad → operacional → regulatorio-legal), lo que completa la biblioteca: Caso A entra por regulatorio-legal, Caso B por modelo de negocio, Caso C por legitimidad. Útil para contrastar un evento cuyo canal dominante es intangible y cuyos efectos monetarios son indirectos pero estructurales. El error frecuente es resolverlo como problema de comunicación (un buen comunicado) sin tocar la causa estructural (el sistema de bonos), lo que el inject 'courier_strike' o 'regulator_inquiry' deja en evidencia. Buffers en cuatro unidades: legitimidad, caja, capital político, tiempo."
+  "facilitatorNotes": "Caso portable de otro sector. Tipo de evento dominante: legitimidad (con cascada legitimidad → operacional → regulatorio-legal), lo que completa la biblioteca: Caso A entra por regulatorio-legal, Caso B por modelo de negocio, Caso C por legitimidad. Útil para contrastar un evento cuyo canal dominante es intangible y cuyos efectos monetarios son indirectos pero estructurales. El error frecuente es resolverlo como problema de comunicación (un buen comunicado) sin tocar la causa estructural (el sistema de bonos), lo que el inject 'courier_strike' o 'regulator_inquiry' deja en evidencia. Buffers en cuatro unidades: legitimidad, caja, capital político, tiempo.",
+  "dossier": {
+    "_visibility": "company, actors, uncertainties, bufferEconomics, constraints y plausibleMoves son visibles al participante. facilitatorAnalysis NO se muestra al participante.",
+    "company": {
+      "founded": "Plataforma joven",
+      "employees": "≈ 180 internos + 9.000 repartidores (colaboradores independientes)",
+      "usersOrCustomers": "≈ 350.000 usuarios activos/mes en 3 ciudades",
+      "financials": [
+        {"metric": "GMV mensual (valor de pedidos)", "value": "US$ 6,5 M", "note": "Comida, farmacia, mercado"},
+        {"metric": "Take rate (ingreso de la plataforma)", "value": "18%", "note": "Ingreso ≈ US$ 1,17 M/mes"},
+        {"metric": "Margen", "value": "Cercano al punto de equilibrio", "note": "EBITDA ligeramente negativo; sensible a costos laborales"},
+        {"metric": "Repartidores activos", "value": "9.000", "note": "Remunerados por pedido + bonos por desempeño"},
+        {"metric": "Caja disponible", "value": "US$ 2,4 M", "note": "Runway acotado; sin ronda reciente"},
+        {"metric": "Costo estimado de reclasificar repartidores como dependientes", "value": "+25% a +35% de la estructura de costos", "note": "Cambiaría el modelo de raíz"}
+      ],
+      "revenueMix": [
+        {"stream": "Comisión sobre pedidos (take rate)", "shareOfMargin": "≈ 78%"},
+        {"stream": "Publicidad y posicionamiento de comercios", "shareOfMargin": "≈ 15%"},
+        {"stream": "Tarifas de servicio al usuario", "shareOfMargin": "≈ 7%"}
+      ],
+      "keyDependencies": [
+        "Repartidores (sin ellos no hay servicio; coordinados informalmente en grupos de miles)",
+        "Comercios aliados (sensibles a asociar su marca a la polémica)",
+        "Confianza de usuarios (el activo que sostiene el ecosistema)"
+      ]
+    },
+    "actors": [
+      {"actor": "Repartidores (y sus líderes informales)", "interest": "Ingresos y condiciones; fin del castigo por rechazo", "leverage": "Alta (pueden 'apagar la app')", "publicStance": "Indignación creciente; estructura de coordinación lista", "predictability": "Media — líderes identificables"},
+      {"actor": "Parlamentaria de temas laborales", "interest": "Bandera política sobre precarización digital", "leverage": "Media-alta (impulsa norma)", "publicStance": "Busca un caso emblemático; aún no fija posición sobre Rauda", "predictability": "Baja — el caso le llegó solo"},
+      {"actor": "Órgano del trabajo", "interest": "Clasificación laboral del fenómeno", "leverage": "Alta (puede abrir expediente)", "publicStance": "'Observa el fenómeno' de modo informal", "predictability": "Media"},
+      {"actor": "Usuarios", "interest": "Servicio confiable sin vergüenza social", "leverage": "Media-alta (dejan de pedir)", "publicStance": "Sensibles al ciclo mediático", "predictability": "Media"},
+      {"actor": "Comercios aliados", "interest": "No asociar su marca a la polémica", "leverage": "Media", "publicStance": "Cautelosos", "predictability": "Media"}
+    ],
+    "uncertainties": [
+      {"source": "magnitud", "question": "¿Cuán grande se vuelve la crisis de reputación?", "scenarios": [
+        {"scenario": "Se desinfla en días", "band": "≈ 35%", "impact": "Un gesto y el ciclo baja"},
+        {"scenario": "Escala y se vuelve operativa", "band": "≈ 65%", "impact": "Paro de repartidores o boicot de usuarios"}
+      ]},
+      {"source": "duracion", "question": "¿El tema se queda en lo mediático o pasa a lo institucional?", "scenarios": [
+        {"scenario": "Ciclo mediático corto", "band": "≈ 40%", "impact": "Riesgo acotado"},
+        {"scenario": "Entra en agenda legislativa/expediente", "band": "≈ 60%", "impact": "Riesgo estructural y permanente"}
+      ]},
+      {"source": "actor", "question": "¿Se coordinan los repartidores y toma posición la parlamentaria?", "scenarios": [
+        {"scenario": "Convocan un 'apagón' de 48 h", "band": "Plausible", "impact": "Crisis operativa en 3 ciudades"},
+        {"scenario": "La parlamentaria toma el caso como bandera", "band": "Plausible", "impact": "Mueve el riesgo al canal regulatorio-legal"}
+      ]}
+    ],
+    "bufferEconomics": [
+      {"id": "user_goodwill", "capacity": "350.000 usuarios; valoran el servicio", "activationCost": "Uso de la buena voluntad (no caja)", "depletion": "Se agota si el gesto se lee como lavado de imagen", "leadTime": "Inmediato", "residual": "Buena voluntad consumida, no repuesta"},
+      {"id": "support_fund_cash", "capacity": "Fondo/seguro tangible para repartidores", "activationCost": "US$ 0,4–0,8 M (gesto) o más si se vuelve estructural", "depletion": "Acotado", "leadTime": "Inmediato", "residual": "Ataca el síntoma del video, no la causa (el sistema de bonos)"},
+      {"id": "rider_relationship", "capacity": "Crédito con los líderes informales", "activationCost": "Capital político interno (se gasta una vez)", "depletion": "Inmediata si se usa para cooptar en vez de atender", "leadTime": "Inmediato", "residual": "Perversa si coopta líderes: acelera el conflicto"},
+      {"id": "model_flexibility", "capacity": "Rediseñar bonos o pilotar protección ataca la causa y se adelanta al riesgo regulatorio", "activationCost": "Tiempo (producto, legal, operación) + posible alza de costos hacia +25/35%", "depletion": "Estructural", "leadTime": "No es solución completa en 72 h; sí compromiso creíble", "residual": "Presión sobre el margen, ya delgado"}
+    ],
+    "constraints": [
+      "Ventana de respuesta: 72 horas antes de que la narrativa se fije.",
+      "Margen cercano al equilibrio: poco espacio para concesiones costosas permanentes.",
+      "Reclasificar repartidores subiría costos 25–35%.",
+      "Los repartidores no son empleados pero sí están organizados y pueden parar."
+    ],
+    "plausibleMoves": [
+      {"id": "M1", "label": "Comunicado + gesto inmediato (fondo/seguro)", "note": "Responde rápido; arriesga leerse como lavado de imagen si no toca la causa."},
+      {"id": "M2", "label": "Revisar de fondo el sistema de bonos", "note": "Ataca la causa; cuesta tiempo y margen."},
+      {"id": "M3", "label": "Abrir una mesa con los repartidores", "note": "Canaliza la queja; gasta crédito con líderes si se percibe como cooptación."},
+      {"id": "M4", "label": "Esperar a que baje el ciclo mediático", "note": "Barato; arriesga que la crisis se vuelva operativa o institucional."},
+      {"id": "M5", "label": "Pilotar un esquema de protección (seguro + revisión de bonos)", "note": "Compromiso creíble; no resuelve todo en 72 h."}
+    ]
+  },
+  "facilitatorAnalysis": {
+    "noDominantOption": "M1 (caja para un gesto) es la trampa: parece resolver pero deja intacta la causa (los bonos que castigan el rechazo). M4 (esperar) es barato pero arriesga que la crisis salte a lo operativo o lo legislativo. El caso es difícil porque el canal dominante (legitimidad) tiene efectos monetarios indirectos pero estructurales, y la solución verdadera (M2/M5) no cabe entera en 72 horas.",
+    "tradeoffMap": "Caja protege la imagen a corto plazo pero no el canal de legitimidad si no hay cambio real. El tiempo de producto/legal protege el modelo pero no está disponible en la ventana. El capital político con los líderes protege lo operativo pero se gasta —y se vuelve perverso si coopta—.",
+    "injectInteractions": [
+      {"inject": "courier_strike", "undercuts": ["M4"], "rewards": ["M2", "M3", "M5"], "note": "El repartidor deja de ser público y se vuelve actor; esperar deja de ser viable."},
+      {"inject": "political_position", "undercuts": ["M1", "M4"], "rewards": ["M2", "M5"], "note": "El riesgo se muda al canal regulatorio-legal; un gesto cosmético ya no alcanza."},
+      {"inject": "regulator_inquiry", "undercuts": ["M1"], "rewards": ["M2", "M5"], "note": "Con expediente abierto, cada gesto público es también una declaración ante un proceso."}
+    ],
+    "calibration": "Un memo 'Sobresaliente' reconoce que la caja para un gesto es ilusoria si no toca el sistema de bonos, y trata la condición del repartidor como sustancia ética, no adorno; nombra el costo de reclasificación (25–35%) como riesgo residual estructural."
+  }
 }

@@ -2,6 +2,7 @@ import { state } from '../state.js';
 import { T } from '../i18n.js';
 import { renderNavFooter } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
+import { renderDossierConsultPanel } from '../dossier.js';
 
 export async function mountScreen03(container, caseData, nav) {
   const st = state.get();
@@ -19,6 +20,10 @@ export async function mountScreen03(container, caseData, nav) {
   subtitleEl.className = 'screen-subtitle';
   subtitleEl.textContent = 'Identifique el canal de impacto y describa las rondas de propagación.';
   container.appendChild(subtitleEl);
+
+  // Panel de consulta del dossier (actores + incertidumbre)
+  const consultPanel = renderDossierConsultPanel(caseData.dossier);
+  if (consultPanel) container.appendChild(consultPanel);
 
   const card = document.createElement('div');
   card.className = 'card';
@@ -93,6 +98,11 @@ export async function mountScreen03(container, caseData, nav) {
 
   container.appendChild(card);
 
+  // Validation message
+  const valMsg = document.createElement('div');
+  valMsg.className = 'nav-validation-msg';
+  container.appendChild(valMsg);
+
   // Nav footer
   const footer = renderNavFooter({
     showBack: true,
@@ -111,6 +121,16 @@ export async function mountScreen03(container, caseData, nav) {
     const i2 = container.querySelector('#impact2').value.trim();
     const valid = !!dom && i1.length > 0 && i2.length > 0;
     nextBtn.disabled = !valid;
+    if (!valid) {
+      const missing = [];
+      if (!dom) missing.push('el canal dominante');
+      if (!i1) missing.push('el impacto de primera ronda');
+      if (!i2) missing.push('el impacto de segunda ronda');
+      valMsg.textContent = `Completa ${missing.join(', ')} antes de continuar.`;
+    } else {
+      valMsg.textContent = '';
+    }
+    valMsg.classList.toggle('show', !valid && (!!dom || !!i1 || !!i2));
     return valid;
   }
 

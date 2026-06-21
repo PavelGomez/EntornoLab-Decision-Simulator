@@ -72,5 +72,80 @@
       "facilitatorPrompt": "El buffer 'caja para sostener precio' acaba de perder su canal: con margen regulado, ¿sigue siendo buffer o se volvió contexto?"
     }
   ],
-  "facilitatorNotes": "Caso de transferencia, ciclo comprimido (45-60 min, menos andamiaje). Tipo de evento dominante: acumulativo —el 'evento' es el cruce del umbral, no la erosión lenta—, lo que contrasta deliberadamente con la circular súbita del Caso A y entrena la demarcación. Canal dominante: modelo de negocio (con financiero secundario). El error frecuente es tratar el problema como financiero (defender precio con caja) cuando el canal dominante es el modelo de negocio (el cliente cambió). Buffers en cuatro unidades: legitimidad, tiempo, caja, capital político."
+  "facilitatorNotes": "Caso de transferencia, ciclo comprimido (45-60 min, menos andamiaje). Tipo de evento dominante: acumulativo —el 'evento' es el cruce del umbral, no la erosión lenta—, lo que contrasta deliberadamente con la circular súbita del Caso A y entrena la demarcación. Canal dominante: modelo de negocio (con financiero secundario). El error frecuente es tratar el problema como financiero (defender precio con caja) cuando el canal dominante es el modelo de negocio (el cliente cambió). Buffers en cuatro unidades: legitimidad, tiempo, caja, capital político.",
+  "dossier": {
+    "_visibility": "company, actors, uncertainties, bufferEconomics, constraints y plausibleMoves son visibles al participante. facilitatorAnalysis NO se muestra al participante.",
+    "company": {
+      "founded": "Tres décadas en el mercado",
+      "employees": 640,
+      "usersOrCustomers": "Cobertura nacional vía canal tradicional (abastos y bodegas)",
+      "financials": [
+        {"metric": "Ingresos anuales", "value": "US$ 42 M", "note": "Equivalente; alimentos básicos empacados"},
+        {"metric": "Margen bruto", "value": "22%", "note": "Margen operativo ≈ 6%"},
+        {"metric": "Caja disponible", "value": "US$ 3,1 M", "note": "Suficiente para subsidiar precio 1–2 trimestres, no más"},
+        {"metric": "Peso de la presentación estrella", "value": "55% del volumen", "note": "Es la que cruzó el umbral de asequibilidad"},
+        {"metric": "Caída de volumen", "value": "−18% en 3 trimestres", "note": "Tercera caída trimestral consecutiva, no estacional"},
+        {"metric": "Precio presentación grande vs. presupuesto semanal del hogar objetivo", "value": "≈ 11% del gasto semanal en alimentos", "note": "Umbral estimado de recompra recurrente: ≤ 7%"}
+      ],
+      "revenueMix": [
+        {"stream": "Presentación grande (estrella)", "shareOfMargin": "≈ 55% del volumen, ≈ 60% del margen"},
+        {"stream": "Línea de pastas", "shareOfMargin": "≈ 25%"},
+        {"stream": "Enlatados de marca propia", "shareOfMargin": "≈ 15%"}
+      ],
+      "keyDependencies": [
+        "Distribuidor mayorista (≈ 40% del volumen hacia el canal tradicional)",
+        "Flexibilidad limitada de la línea de empaque (no admite cambio de formato de un trimestre a otro)",
+        "Marca como activo de confianza del consumidor"
+      ]
+    },
+    "actors": [
+      {"actor": "Distribuidor mayorista", "interest": "Rotación por metro de anaquel", "leverage": "Alta (mueve el 40% del volumen)", "publicStance": "Reduce espacio a las presentaciones grandes", "predictability": "Media — la relación es de años pero no incondicional"},
+      {"actor": "Consumidor del segmento objetivo", "interest": "Que el producto quepa en el presupuesto", "leverage": "Alta (define el modelo)", "publicStance": "Migra a presentaciones pequeñas o a la competencia", "predictability": "Alta tendencia, baja en el momento exacto del cambio"},
+      {"actor": "Estado (regulador de precios)", "interest": "Contener el precio de la canasta básica", "leverage": "Alta (puede fijar margen tope)", "publicStance": "Señala intención de intervenir; categoría 'en la mira'", "predictability": "Baja"},
+      {"actor": "Competidor (marca rival más pequeña)", "interest": "Capturar el segmento con presentación pequeña", "leverage": "Media-alta donde ya lanzó", "publicStance": "Probando presentación reducida por zonas", "predictability": "Media"}
+    ],
+    "uncertainties": [
+      {"source": "magnitud", "question": "¿Cuán profundo es el desplome del poder adquisitivo del segmento?", "scenarios": [
+        {"scenario": "Erosión se estabiliza", "band": "≈ 30%", "impact": "La presentación grande podría recuperar parte del volumen"},
+        {"scenario": "Erosión continúa", "band": "≈ 70%", "impact": "El umbral se aleja más; el modelo de volumen no vuelve"}
+      ]},
+      {"source": "duracion", "question": "¿Una eventual intervención de precios es transitoria o permanente?", "scenarios": [
+        {"scenario": "Control transitorio", "band": "≈ 40%", "impact": "La caja como puente tiene sentido"},
+        {"scenario": "Control persistente", "band": "≈ 60%", "impact": "Defender precio con caja deja de ser viable"}
+      ]},
+      {"source": "actor", "question": "¿Salen el distribuidor y escala el competidor?", "scenarios": [
+        {"scenario": "El distribuidor abandona la presentación grande", "band": "Plausible", "impact": "Pierde acceso al 40% del volumen en semanas"},
+        {"scenario": "El competidor escala la presentación pequeña a nivel nacional", "band": "Plausible", "impact": "Provista reacciona como seguidor"}
+      ]}
+    ],
+    "bufferEconomics": [
+      {"id": "brand_loyalty", "capacity": "Marca con crédito de confianza; recompra histórica alta", "activationCost": "Uso futuro de la confianza", "depletion": "Se agota si el cambio se lee como reduflación encubierta", "leadTime": "Inmediato en comunicación", "residual": "Pérdida de confianza no regenerable a corto plazo"},
+      {"id": "format_reformulation", "capacity": "Rediseñar a presentación pequeña ataca el canal dominante", "activationCost": "US$ 0,8 M de capex + 4–6 meses de retooling de línea", "depletion": "Permanente una vez instalada", "leadTime": "No se activa en un trimestre si la planta no es flexible", "residual": "Menor margen unitario; mayor complejidad logística"},
+      {"id": "price_cash_buffer", "capacity": "US$ 3,1 M para subsidiar precio", "activationCost": "Consume caja 1:1", "depletion": "1–2 trimestres", "leadTime": "Inmediato", "residual": "No resuelve el problema estructural; compra tiempo"},
+      {"id": "channel_relationship", "capacity": "Relación de años con el distribuidor", "activationCost": "Capital político/comercial (se gasta)", "depletion": "Inmediata si se fuerza un producto que el canal no quiere mover", "leadTime": "Inmediato", "residual": "Perversa si se usa para sostener la presentación grande que ya no rota"}
+    ],
+    "constraints": [
+      "La línea de empaque no es flexible: cambiar de formato toma 4–6 meses.",
+      "La caja (US$ 3,1 M) cubre 1–2 trimestres de subsidio de precio, no más.",
+      "El distribuidor mueve el 40% del volumen y ya reduce espacio.",
+      "La categoría está 'en la mira' de un eventual control de precios."
+    ],
+    "plausibleMoves": [
+      {"id": "M1", "label": "Reformular hacia presentaciones pequeñas", "note": "Ataca el canal dominante, pero exige capex y tiempo de línea."},
+      {"id": "M2", "label": "Sostener la presentación grande quemando caja en precio", "note": "Defiende anaquel a corto plazo; no resuelve el cambio del cliente."},
+      {"id": "M3", "label": "Reposicionar hacia un segmento de mayor poder adquisitivo", "note": "Abandona la base histórica; apuesta arriesgada."},
+      {"id": "M4", "label": "Renegociar con el canal para sostener espacio mientras se reformula", "note": "Gana tiempo; gasta crédito comercial."},
+      {"id": "M5", "label": "Portafolio dual (grande + pequeña) por zonas", "note": "Hedge, pero dispersa recursos escasos."}
+    ]
+  },
+  "facilitatorAnalysis": {
+    "noDominantOption": "M2 (caja en precio) es la trampa: parece defender el negocio pero solo compra tiempo, y si llega el control de precios pierde su canal. M1 ataca la causa pero no llega en un trimestre. La dificultad está en que el canal dominante (modelo de negocio) no se arregla con el buffer más disponible (caja).",
+    "tradeoffMap": "Caja protege el canal financiero (precio) pero no el del modelo de negocio (el cliente cambió). Tiempo de ingeniería de producto protege el modelo de negocio pero no está disponible a corto plazo. La marca protege legitimidad pero se gasta si el cambio se percibe como engaño.",
+    "injectInteractions": [
+      {"inject": "distributor_exit", "undercuts": ["M2"], "rewards": ["M1", "M4"], "note": "Sin el canal, defender precio en un anaquel que ya no existe no sirve."},
+      {"inject": "competitor_downsize", "undercuts": ["M2", "M3"], "rewards": ["M1", "M5"], "note": "El competidor mueve el peso al modelo de negocio; reaccionar como seguidor es costoso."},
+      {"inject": "price_control_signal", "undercuts": ["M2"], "rewards": ["M1", "M3"], "note": "Con margen regulado, la caja para sostener precio pierde su canal: se vuelve contexto."}
+    ],
+    "calibration": "Un memo 'Sobresaliente' distingue explícitamente canal de negocio de canal financiero y reconoce que la caja es puente, no solución; cuantifica el umbral de asequibilidad (≤ 7% del gasto semanal) como criterio de demarcación."
+  }
 }

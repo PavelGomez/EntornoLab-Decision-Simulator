@@ -72,5 +72,87 @@
       "facilitatorPrompt": "El buffer 'relación institucional' acaba de cambiar de signo. ¿Sigue siendo buffer o se volvió pasivo —o perverso— en este nuevo escenario?"
     }
   ],
-  "facilitatorNotes": "Caso ancla. Cubre los cuatro tipos de evento (la circular es súbita y a la vez cascada: regulatorio → financiero → legitimidad; la erosión del acceso corresponsal es acumulativa; la dimensión política activa legitimidad). Cubre los cinco canales y ofrece buffers con costo en cuatro unidades distintas (caja, capital político, tiempo, legitimidad). El error más frecuente en ronda 1 es tratar la 'relación con el regulador' como buffer todo-terreno sin nombrar su costo en capital político ni su dependencia del momento de activación. Recomendación de inject: usar 'court_ruling' con grupos que apostaron a que el plazo se ablandaría; 'competitor_move' con grupos que ignoraron el canal de legitimidad; 'political_alignment' con grupos que pusieron todo su peso en la relación institucional."
+  "facilitatorNotes": "Caso ancla. Cubre los cuatro tipos de evento (la circular es súbita y a la vez cascada: regulatorio → financiero → legitimidad; la erosión del acceso corresponsal es acumulativa; la dimensión política activa legitimidad). Cubre los cinco canales y ofrece buffers con costo en cuatro unidades distintas (caja, capital político, tiempo, legitimidad). El error más frecuente en ronda 1 es tratar la 'relación con el regulador' como buffer todo-terreno sin nombrar su costo en capital político ni su dependencia del momento de activación. Recomendación de inject: usar 'court_ruling' con grupos que apostaron a que el plazo se ablandaría; 'competitor_move' con grupos que ignoraron el canal de legitimidad; 'political_alignment' con grupos que pusieron todo su peso en la relación institucional.",
+  "dossier": {
+    "_visibility": "company, actors, uncertainties, bufferEconomics, constraints y plausibleMoves son visibles al participante (render como tablas/acordeones). facilitatorAnalysis NO se muestra al participante.",
+    "company": {
+      "founded": "Hace 5 años",
+      "employees": 118,
+      "usersOrCustomers": "≈ 800.000 usuarios activos/mes",
+      "financials": [
+        {"metric": "Ingresos anuales", "value": "US$ 14,2 M", "note": "Equivalente; mezcla de comisiones en bolívares y divisas"},
+        {"metric": "Margen bruto", "value": "38%", "note": "62% del margen proviene de remesas + comisiones sobre saldos en divisas"},
+        {"metric": "Caja operativa disponible", "value": "US$ 5,4 M", "note": "Última ronda hace 18 meses (Serie A US$ 12 M)"},
+        {"metric": "Quema mensual (burn)", "value": "US$ 0,9 M/mes", "note": "Runway ≈ 6 meses sin ingresos extraordinarios"},
+        {"metric": "Saldos de usuarios en divisas bajo custodia", "value": "US$ 18,0 M", "note": "Es el 100% de esto lo que la circular exige respaldar en fideicomiso"},
+        {"metric": "Volumen mensual del corredor de remesas", "value": "US$ 9,0 M", "note": "Comisión media 1,8%; descansa en una sola relación corresponsal"}
+      ],
+      "revenueMix": [
+        {"stream": "Corredor de remesas", "shareOfMargin": "≈ 41%"},
+        {"stream": "Comisiones sobre saldos en divisas", "shareOfMargin": "≈ 21%"},
+        {"stream": "Pagos en bolívares (gancho)", "shareOfMargin": "≈ 6%"},
+        {"stream": "Servicios a comercios y otros", "shareOfMargin": "≈ 32%"}
+      ],
+      "keyDependencies": [
+        "Banco patrocinador (acceso al sistema de compensación local)",
+        "Banco corresponsal único en el exterior (liquida el corredor de remesas)",
+        "Autorización vigente del regulador como operador de pagos no bancario"
+      ]
+    },
+    "actors": [
+      {"actor": "Regulador del sistema de pagos", "interest": "Estabilidad y control de flujos en divisas", "leverage": "Alta (otorga/revoca la autorización)", "publicStance": "Emite la circular; no puede aparecer cediendo bajo presión", "predictability": "Media"},
+      {"actor": "Ministerio del área económica", "interest": "Oscila entre inclusión financiera y control cambiario", "leverage": "Alta (orienta al regulador)", "publicStance": "Ambivalente en los últimos meses", "predictability": "Baja"},
+      {"actor": "Vocero de la comisión legislativa de economía", "interest": "Capital político en el tema fintech", "leverage": "Media (influye, no decide)", "publicStance": "Ambivalente: elogia el alcance pero advierte 'bancos en la sombra'", "predictability": "Baja — puede inclinarse"},
+      {"actor": "Banco patrocinador", "interest": "No exponerse a sanción por asociación", "leverage": "Alta (puede cortar el acceso)", "publicStance": "Cauteloso", "predictability": "Media-alta"},
+      {"actor": "Banco corresponsal (exterior)", "interest": "Evitar riesgo de cumplimiento y de-risking", "leverage": "Alta (es único y difícil de reemplazar)", "publicStance": "Sensible a la reputación-país", "predictability": "Media"},
+      {"actor": "Usuario final", "interest": "Estabilidad del saldo por encima de todo", "leverage": "Media (puede correr en masa)", "publicStance": "Confía hoy; volátil ante mala comunicación", "predictability": "Media"},
+      {"actor": "PagoYa (competidor)", "interest": "Capturar la posición de 'actor responsable'", "leverage": "Media", "publicStance": "Señala que el cumplimiento temprano es ventaja", "predictability": "Media"}
+    ],
+    "uncertainties": [
+      {"source": "ocurrencia", "question": "¿Se publica la circular tal como circula el borrador?", "scenarios": [
+        {"scenario": "Se publica casi idéntica", "band": "≈ 60%", "impact": "Plazo de 90 días firme; presión máxima"},
+        {"scenario": "Se modera el alcance o el plazo", "band": "≈ 25%", "impact": "Margen para gradualidad"},
+        {"scenario": "Se congela o se descarta", "band": "≈ 15%", "impact": "Quien gastó recursos por anticipado pierde"}
+      ]},
+      {"source": "duracion", "question": "¿El plazo de 90 días se mantiene o se prorroga?", "scenarios": [
+        {"scenario": "Firme", "band": "≈ 55%", "impact": "La modularización (10–14 sem) no llega holgada"},
+        {"scenario": "Prórroga parcial", "band": "≈ 45%", "impact": "Abre la opción de cumplimiento escalonado"}
+      ]},
+      {"source": "actor", "question": "¿Cómo se mueven competidor, vocero político y regulador?", "scenarios": [
+        {"scenario": "El competidor se posiciona primero", "band": "Plausible", "impact": "Mueve el canal dominante a legitimidad"},
+        {"scenario": "El vocero se alinea con el regulador", "band": "Plausible", "impact": "Cierra la ventana de negociación institucional"}
+      ]}
+    ],
+    "bufferEconomics": [
+      {"id": "cash_reserve_fx", "capacity": "US$ 5,4 M disponibles", "activationCost": "Consume caja 1:1; cubre ≈ 30% del fideicomiso exigido o financia la migración de custodia ~2 meses", "depletion": "1–2 rondas", "leadTime": "Inmediato", "residual": "Deja a la empresa sin colchón para un segundo shock"},
+      {"id": "regulatory_relationship", "capacity": "Crédito institucional acumulado", "activationCost": "Capital político (se gasta una vez por ciclo)", "depletion": "Inmediata si se usa como presión", "leadTime": "Potente si se activa temprano; ilusoria si tarde", "residual": "Usada tarde o como presión, puede volverse perversa"},
+      {"id": "product_modularity", "capacity": "Aísla la custodia de divisas sin tumbar monedero ni corredor", "activationCost": "10–14 semanas de ingeniería + US$ 0,6 M", "depletion": "Permanente una vez construida", "leadTime": "No llega holgada dentro de los 90 días si no estaba pre-diseñada", "residual": "Sacrifica parte del margen de custodia (~21% del margen total)"},
+      {"id": "user_trust", "capacity": "Base de 800.000 usuarios; NPS ≈ +42", "activationCost": "Uso futuro de la confianza (no caja)", "depletion": "Agotable y no regenerable a corto plazo", "leadTime": "Inmediato en comunicación", "residual": "Una mala comunicación puede gatillar salida de 15–25% de saldos en una semana (riesgo de corrida)"}
+    ],
+    "constraints": [
+      "Plazo de cumplimiento: 90 días.",
+      "La caja (US$ 5,4 M) alcanza para 1–2 movimientos costosos, no varios en paralelo.",
+      "El fideicomiso exigido (US$ 18 M) excede por mucho la caja: no se puede cumplir solo con efectivo.",
+      "Una sola relación corresponsal: sin respaldo si se rompe.",
+      "La custodia de divisas es el 62% del margen: no se puede simplemente abandonar."
+    ],
+    "plausibleMoves": [
+      {"id": "M1", "label": "Esperar la versión oficial", "note": "No-regret, pero cede iniciativa y tiempo."},
+      {"id": "M2", "label": "Cumplimiento voluntario anticipado y total", "note": "Posiciona bien, pero consume la caja necesaria para otras jugadas."},
+      {"id": "M3", "label": "Fideicomiso parcial + negociar gradualidad", "note": "Equilibrado; depende de que haya margen de negociación."},
+      {"id": "M4", "label": "Migrar la custodia de divisas al perímetro bancario", "note": "Cumple sacrificando margen; operativamente exigente en 90 días."},
+      {"id": "M5", "label": "Activar la relación institucional para co-diseñar la transición", "note": "Potente si es temprano y técnico; riesgoso si se lee como presión."},
+      {"id": "M6", "label": "Modularizar el producto para aislar la pieza expuesta", "note": "Estructural, pero la ventana de 90 días aprieta."}
+    ]
+  },
+  "facilitatorAnalysis": {
+    "noDominantOption": "Ninguna jugada domina: M2 protege legitimidad pero quema la caja que M4 necesita; M1 es barata pero cede el canal de legitimidad si el competidor mueve; M5 es potente solo si se activa antes de que el vocero político se incline. El caso es difícil porque los recursos (caja, capital político, tiempo) no alcanzan para cubrir todos los canales a la vez.",
+    "tradeoffMap": "Caja protege financiero/operacional pero no compra legitimidad ni relación; capital político protege regulatorio/legitimidad pero se gasta una vez; tiempo de ingeniería protege el modelo de negocio pero no llega en 90 días si se empieza tarde.",
+    "injectInteractions": [
+      {"inject": "court_ruling", "undercuts": ["M1", "M3"], "rewards": ["M2", "M4", "M6"], "note": "Si el fallo valida la exigencia, esperar o apostar a gradualidad pierde sustento."},
+      {"inject": "competitor_move", "undercuts": ["M1"], "rewards": ["M2", "M5"], "note": "Mueve el canal dominante de regulatorio a legitimidad; el buffer elegido debe servir en legitimidad."},
+      {"inject": "political_alignment", "undercuts": ["M5"], "rewards": ["M4", "M6"], "note": "La relación institucional, usada ahora, se lee como presión: el buffer cambia de signo."}
+    ],
+    "calibration": "Un memo 'Sobresaliente' cuantifica el costo del buffer elegido contra la caja disponible y reconoce el riesgo de corrida (15–25%) como riesgo residual nombrado."
+  }
 }

@@ -1,12 +1,14 @@
-# Esquema de caso EntornoLab — v1.0
+# Esquema de caso EntornoLab — v1.1
 
 Cada caso es un archivo JSON en `cases/v1/`. La versión canónica del contenido pedagógico es el JSON; el documento Word es la versión legible. Ante discrepancia, gana el JSON.
 
-## Campos
+Los campos `dossier` y `facilitatorAnalysis` son **opcionales** (v1.1). Un caso sin ellos funciona igual que en v1.0.
+
+## Campos base (v1.0)
 
 | Campo | Tipo | Notas |
 |-------|------|-------|
-| `schemaVersion` | string | Fijo: `"1.0"`. |
+| `schemaVersion` | string | `"1.0"` (se mantiene para compatibilidad; actualizar a `"1.1"` al agregar dossier). |
 | `caseId` | string | Único. Convención: `pais-sector-Orden-NNN`. |
 | `title` | string | Título mostrado en el briefing. |
 | `order` | `"A"\|"B"\|"C"` | Posición en la biblioteca. |
@@ -25,24 +27,87 @@ Cada caso es un archivo JSON en `cases/v1/`. La versión canónica del contenido
 | `availableBuffers[].label` | string | Lo único que ve el participante. |
 | `availableBuffers[].channelsAddressed` | string[] | Canales sobre los que opera (criterio mínimo de buffer). |
 | `availableBuffers[].costUnit` | `caja\|tiempo\|capital_politico\|legitimidad` | Unidad de costo de activación (criterio mínimo de buffer). |
-| `availableBuffers[].notesForFacilitator` | string | **No se muestra al participante.** Solo modo profesor/export. |
+| `availableBuffers[].notesForFacilitator` | string | **No se muestra al participante.** Solo modo profesor. |
 | `uncertaintySources` | string[] | Subconjunto de `ocurrencia`, `magnitud`, `duracion`, `actor`. |
 | `injects[]` | object[] | **Exactamente 3.** El facilitador elige cuál se revela. |
 | `injects[].id` | string | Identificador. |
 | `injects[].trigger` | string | `"facilitator"`. |
 | `injects[].text` | string | Lo que se revela al participante. |
-| `injects[].latentInformation` | string | Referencia al `§` donde la información ya estaba latente. **Uso interno/export.** |
+| `injects[].latentInformation` | string | Referencia al `§` donde la información ya estaba latente. **Uso interno.** |
 | `injects[].primaryUncertaintyAffected` | string | Fuente de incertidumbre que el inject pone en juego. |
 | `injects[].facilitatorPrompt` | string | Pregunta guía para el hot wash (modo profesor). |
 | `facilitatorNotes` | string | **No se muestra al participante.** |
 
+## Campos opcionales v1.1: `dossier`
+
+El bloque `dossier` provee datos cuantitativos y cualitativos que el simulador renderiza como acordeones en la Pantalla 1 (Briefing), un panel de consulta en la Pantalla 3 (Impacto) y datos de economía en la Pantalla 4 (Buffer Board).
+
+**Regla de visibilidad:** `_visibility`, `facilitatorAnalysis`, `notesForFacilitator` y `facilitatorNotes` **nunca se muestran al participante**. Únicamente son accesibles en modo profesor (`?modo=profesor`).
+
+| Campo | Tipo | Notas |
+|-------|------|-------|
+| `dossier._visibility` | string | Nota interna. **Nunca se renderiza al participante.** |
+| `dossier.company.founded` | string | Ej. `"Hace 5 años"`. |
+| `dossier.company.employees` | number | Número de empleados. |
+| `dossier.company.usersOrCustomers` | string | Descripción de base de clientes/usuarios. |
+| `dossier.company.financials[]` | object[] | Indicadores financieros. |
+| `dossier.company.financials[].metric` | string | Nombre del indicador. |
+| `dossier.company.financials[].value` | string | Valor (resaltado en tabla). |
+| `dossier.company.financials[].note` | string | Nota aclaratoria. |
+| `dossier.company.revenueMix[]` | object[] | Mezcla de ingresos. |
+| `dossier.company.revenueMix[].stream` | string | Fuente de ingreso. |
+| `dossier.company.revenueMix[].shareOfMargin` | string | Participación en el margen. |
+| `dossier.company.keyDependencies[]` | string[] | Dependencias críticas (lista). |
+| `dossier.actors[]` | object[] | Mapa de actores. |
+| `dossier.actors[].actor` | string | Nombre del actor. |
+| `dossier.actors[].interest` | string | Interés principal. |
+| `dossier.actors[].leverage` | string | Palanca / poder de influencia. |
+| `dossier.actors[].publicStance` | string | Postura pública conocida. |
+| `dossier.actors[].predictability` | string | Nivel de predictibilidad. |
+| `dossier.uncertainties[]` | object[] | Fuentes de incertidumbre con escenarios. |
+| `dossier.uncertainties[].source` | string | Fuente (ej. `ocurrencia`, `actor`). |
+| `dossier.uncertainties[].question` | string | La pregunta abierta central. |
+| `dossier.uncertainties[].scenarios[]` | object[] | Escenarios posibles. |
+| `dossier.uncertainties[].scenarios[].scenario` | string | Descripción del escenario. |
+| `dossier.uncertainties[].scenarios[].band` | string | Banda de probabilidad cualitativa. |
+| `dossier.uncertainties[].scenarios[].impact` | string | Impacto esperado. |
+| `dossier.bufferEconomics[]` | object[] | Datos económicos de cada buffer. |
+| `dossier.bufferEconomics[].id` | string | Debe coincidir con `availableBuffers[].id`. |
+| `dossier.bufferEconomics[].capacity` | string | Capacidad / alcance del buffer. |
+| `dossier.bufferEconomics[].activationCost` | string | Costo de activación cuantificado. |
+| `dossier.bufferEconomics[].depletion` | string | En cuántas rondas se agota. |
+| `dossier.bufferEconomics[].leadTime` | string | Cuándo está disponible. |
+| `dossier.bufferEconomics[].residual` | string | Efecto residual tras su uso. |
+| `dossier.constraints[]` | string[] | Restricciones operativas del caso (lista). |
+| `dossier.plausibleMoves[]` | object[] | Cursos de acción plausibles (sin recomendar ninguno). |
+| `dossier.plausibleMoves[].id` | string | Identificador corto (ej. `"M1"`). |
+| `dossier.plausibleMoves[].label` | string | Nombre de la jugada. |
+| `dossier.plausibleMoves[].note` | string | Observación neutral. |
+
+## Campos opcionales v1.1: `facilitatorAnalysis`
+
+Exclusivo del modo profesor. **Nunca se muestra al participante.**
+
+| Campo | Tipo | Notas |
+|-------|------|-------|
+| `facilitatorAnalysis.noDominantOption` | string | Por qué no existe una jugada dominante. |
+| `facilitatorAnalysis.tradeoffMap` | string | Cómo se relacionan recursos, canales y jugadas. |
+| `facilitatorAnalysis.injectInteractions[]` | object[] | Interacción entre cada inject y las jugadas plausibles. |
+| `facilitatorAnalysis.injectInteractions[].inject` | string | Id del inject. |
+| `facilitatorAnalysis.injectInteractions[].undercuts` | string[] | Jugadas que el inject socava. |
+| `facilitatorAnalysis.injectInteractions[].rewards` | string[] | Jugadas que el inject favorece. |
+| `facilitatorAnalysis.injectInteractions[].note` | string | Explicación. |
+| `facilitatorAnalysis.calibration` | string | Descripción de un memo de nivel "Sobresaliente". |
+
 ## Reglas de validación (las aplica `caseLoader`)
 
-1. Todos los campos obligatorios presentes y con el tipo correcto.
+1. Todos los campos base obligatorios presentes y con el tipo correcto.
 2. Valores de taxonomía dentro de los conjuntos cerrados (tipos de evento, canales, fuentes, unidades de costo).
 3. `injects` tiene exactamente 3 elementos; cada uno con `latentInformation` que referencia un `§` existente en el `briefing`.
 4. Cada `availableBuffers[].costUnit` es una de las 4 unidades válidas.
 5. Un caso malformado produce un error claro en pantalla, no una página en blanco.
+6. Los campos opcionales del `dossier` son todos opcionales entre sí; el simulador renderiza solo los bloques presentes.
+7. Si `dossier.bufferEconomics[].id` no coincide con ningún `availableBuffers[].id`, el bloque de economía se ignora silenciosamente.
 
 ## Taxonomías cerradas
 

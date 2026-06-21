@@ -2,6 +2,7 @@ import { state } from '../state.js';
 import { T } from '../i18n.js';
 import { renderNavFooter } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
+import { getBufferEconomics } from '../dossier.js';
 
 export async function mountScreen04(container, caseData, nav) {
   const st = state.get();
@@ -67,9 +68,34 @@ export async function mountScreen04(container, caseData, nav) {
 
     // Cost unit badge (read-only)
     const costUnitBadge = document.createElement('p');
-    costUnitBadge.style.cssText = 'font-size:var(--text-xs);color:var(--color-muted);margin-bottom:var(--sp-4);';
+    costUnitBadge.style.cssText = 'font-size:var(--text-xs);color:var(--color-muted);margin-bottom:var(--sp-3);';
     costUnitBadge.innerHTML = `<strong>${T.s4_costUnit}:</strong> ${T.costUnits[buf.costUnit] || buf.costUnit} &nbsp;<span style="opacity:.6">(${T.s4_costUnitHint})</span>`;
     bufDetails.appendChild(costUnitBadge);
+
+    // Buffer economics (from dossier, if available)
+    const econ = getBufferEconomics(caseData.dossier, buf.id);
+    if (econ) {
+      const econBox = document.createElement('div');
+      econBox.className = 'buffer-economics';
+      econBox.innerHTML = `<div class="buffer-economics-title">Datos del buffer</div>`;
+      const grid = document.createElement('div');
+      grid.className = 'buffer-economics-grid';
+      const econFields = [
+        { label: 'Capacidad', value: econ.capacity },
+        { label: 'Costo de activaci\u00f3n', value: econ.activationCost },
+        { label: 'Agotamiento / Lead time', value: `${econ.depletion || '\u2014'} \u00b7 ${econ.leadTime || '\u2014'}` },
+        { label: 'Efecto residual', value: econ.residual },
+      ];
+      econFields.forEach(f => {
+        if (!f.value) return;
+        const item = document.createElement('div');
+        item.className = 'buffer-economics-item';
+        item.innerHTML = `<strong>${f.label}</strong>${f.value}`;
+        grid.appendChild(item);
+      });
+      econBox.appendChild(grid);
+      bufDetails.appendChild(econBox);
+    }
 
     // Potencia axis
     bufDetails.appendChild(createAxisGroup('potencia', buf.id, T.s4_potencia, potenciaOptions, det.potencia));

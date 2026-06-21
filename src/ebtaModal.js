@@ -26,6 +26,52 @@ function buildModal() {
       </div>
 
       <div class="modal-section">
+        <div class="modal-section-title">El ciclo completo</div>
+        <svg viewBox="0 0 680 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama del ciclo E-BTA/R" style="width:100%;height:auto;display:block;margin:var(--sp-3) 0;">
+          <!-- Evento -->
+          <rect x="0" y="32" width="76" height="40" rx="6" fill="#1a2744"/>
+          <text x="38" y="57" text-anchor="middle" fill="#fff" font-size="12" font-family="system-ui,sans-serif" font-weight="600">Evento</text>
+          <!-- Arrow 1 -->
+          <line x1="76" y1="52" x2="96" y2="52" stroke="#718096" stroke-width="1.5"/>
+          <polygon points="96,47 104,52 96,57" fill="#718096"/>
+          <!-- Incertidumbre/Canal -->
+          <rect x="104" y="22" width="88" height="60" rx="6" fill="#2d3f62"/>
+          <text x="148" y="48" text-anchor="middle" fill="#fff" font-size="11" font-family="system-ui,sans-serif">Incertidumbre</text>
+          <text x="148" y="64" text-anchor="middle" fill="#e2c97e" font-size="11" font-family="system-ui,sans-serif">Canal</text>
+          <!-- Arrow 2 -->
+          <line x1="192" y1="52" x2="212" y2="52" stroke="#718096" stroke-width="1.5"/>
+          <polygon points="212,47 220,52 212,57" fill="#718096"/>
+          <!-- Buffer -->
+          <rect x="220" y="32" width="72" height="40" rx="6" fill="#1a2744"/>
+          <text x="256" y="57" text-anchor="middle" fill="#fff" font-size="12" font-family="system-ui,sans-serif" font-weight="600">Buffer</text>
+          <!-- Arrow 3 -->
+          <line x1="292" y1="52" x2="312" y2="52" stroke="#718096" stroke-width="1.5"/>
+          <polygon points="312,47 320,52 312,57" fill="#718096"/>
+          <!-- Trade-off -->
+          <rect x="320" y="32" width="80" height="40" rx="6" fill="#2d3f62"/>
+          <text x="360" y="57" text-anchor="middle" fill="#fff" font-size="12" font-family="system-ui,sans-serif">Trade-off</text>
+          <!-- Arrow 4 -->
+          <line x1="400" y1="52" x2="420" y2="52" stroke="#718096" stroke-width="1.5"/>
+          <polygon points="420,47 428,52 420,57" fill="#718096"/>
+          <!-- Acción + Indicadores -->
+          <rect x="428" y="22" width="88" height="60" rx="6" fill="#1a2744"/>
+          <text x="472" y="47" text-anchor="middle" fill="#fff" font-size="11" font-family="system-ui,sans-serif">Acción táctica</text>
+          <text x="472" y="63" text-anchor="middle" fill="#e2c97e" font-size="11" font-family="system-ui,sans-serif">+ Indicadores</text>
+          <!-- Arrow 5 — INJECT (violeta) -->
+          <line x1="516" y1="52" x2="540" y2="52" stroke="#7b2d8b" stroke-width="2"/>
+          <polygon points="540,46 550,52 540,58" fill="#7b2d8b"/>
+          <text x="528" y="42" text-anchor="middle" fill="#7b2d8b" font-size="9" font-family="system-ui,sans-serif" font-weight="700">INJECT</text>
+          <!-- Revisión -->
+          <rect x="550" y="32" width="76" height="40" rx="6" fill="#c9952a"/>
+          <text x="588" y="55" text-anchor="middle" fill="#fff" font-size="12" font-family="system-ui,sans-serif" font-weight="600">Revisi&#xF3;n</text>
+          <!-- Feedback arc (vuelta) -->
+          <path d="M 626 52 Q 648 90 588 98 Q 38 110 38 72" fill="none" stroke="#718096" stroke-width="1" stroke-dasharray="4 3"/>
+          <polygon points="34,67 38,77 42,67" fill="#718096"/>
+        </svg>
+        <p style="font-size:var(--text-xs);color:var(--color-muted);text-align:center;margin-top:var(--sp-1)">El inject revela informaci&#xF3;n latente que no estaba disponible al momento de la decisi&#xF3;n inicial.</p>
+      </div>
+
+      <div class="modal-section">
         <div class="modal-section-title">E &mdash; Evento</div>
         <p>El hecho que abre la incertidumbre. Cuatro tipos (puede ser más de uno a la vez):</p>
         <ul class="modal-list">

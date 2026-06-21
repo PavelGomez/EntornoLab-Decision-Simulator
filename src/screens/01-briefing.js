@@ -2,6 +2,7 @@ import { state } from '../state.js';
 import { T } from '../i18n.js';
 import { renderNavFooter, escapeHtml } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
+import { renderDossierAccordions } from '../dossier.js';
 
 export async function mountScreen01(container, caseData, nav) {
   const st = state.get();
@@ -39,6 +40,10 @@ export async function mountScreen01(container, caseData, nav) {
   briefingEl.className = 'briefing-text';
   briefingEl.innerHTML = parseBriefing(caseData.briefing);
   card.appendChild(briefingEl);
+
+  // Dossier accordions (optional — only if caseData has dossier)
+  const dossierEl = renderDossierAccordions(caseData.dossier);
+  if (dossierEl) card.appendChild(dossierEl);
 
   container.appendChild(card);
 

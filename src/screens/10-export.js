@@ -35,13 +35,34 @@ export async function mountScreen10(container, caseData, nav) {
   const pdfBtn = document.createElement('button');
   pdfBtn.className = 'btn btn-primary';
   pdfBtn.textContent = T.downloadPdf;
-  pdfBtn.addEventListener('click', () => {
+
+  const pdfStateMsg = document.createElement('span');
+  pdfStateMsg.className = 'pdf-state-msg';
+  pdfStateMsg.setAttribute('aria-live', 'polite');
+
+  pdfBtn.addEventListener('click', async () => {
+    pdfBtn.disabled = true;
+    pdfBtn.textContent = 'Generando PDF\u2026';
+    pdfStateMsg.classList.remove('show');
+    // small tick to let the browser repaint
+    await new Promise(r => setTimeout(r, 30));
     const success = generatePdf(caseData, state.get());
-    if (!success) {
-      alert('No se pudo generar el PDF. Intente usar la vista imprimible como alternativa.');
+    if (success) {
+      pdfBtn.textContent = T.downloadPdf;
+      pdfBtn.disabled = false;
+      pdfStateMsg.textContent = '\u2713 PDF descargado';
+      pdfStateMsg.classList.add('show');
+      setTimeout(() => pdfStateMsg.classList.remove('show'), 4000);
+    } else {
+      pdfBtn.textContent = T.downloadPdf;
+      pdfBtn.disabled = false;
+      pdfStateMsg.textContent = 'No se pudo generar el PDF. Use la vista imprimible.';
+      pdfStateMsg.style.color = 'var(--color-error)';
+      pdfStateMsg.classList.add('show');
     }
   });
   actionsDiv.appendChild(pdfBtn);
+  actionsDiv.appendChild(pdfStateMsg);
 
   const printBtn = document.createElement('button');
   printBtn.className = 'btn btn-secondary';
