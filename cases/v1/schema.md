@@ -1,8 +1,8 @@
-# Esquema de caso EntornoLab — v1.1
+# Esquema de caso EntornoLab — v1.1+
 
 Cada caso es un archivo JSON en `cases/v1/`. La versión canónica del contenido pedagógico es el JSON; el documento Word es la versión legible. Ante discrepancia, gana el JSON.
 
-Los campos `dossier` y `facilitatorAnalysis` son **opcionales** (v1.1). Un caso sin ellos funciona igual que en v1.0.
+Los campos `dossier`, `facilitatorAnalysis` y `replies` son **opcionales** (v1.1+). Un caso sin ellos funciona igual que en v1.0: todo campo nuevo es opcional y compatible hacia atrás.
 
 ## Campos base (v1.0)
 
@@ -98,6 +98,17 @@ Exclusivo del modo profesor. **Nunca se muestra al participante.**
 | `facilitatorAnalysis.injectInteractions[].rewards` | string[] | Jugadas que el inject favorece. |
 | `facilitatorAnalysis.injectInteractions[].note` | string | Explicación. |
 | `facilitatorAnalysis.calibration` | string | Descripción de un memo de nivel "Sobresaliente". |
+
+## Campos opcionales v1.3: `replies` (modalidad wargame)
+
+Biblioteca opcional de **réplicas pre-escritas** del actor para la ronda de réplica en modalidad *wargame* (modo profesor). Misma forma que `injects`. **Sin IA: la réplica es siempre texto pre-escrito.** Si el caso no define `replies`, la ronda de réplica reutiliza un `inject` distinto al que ya se reveló.
+
+| Campo | Tipo | Notas |
+|-------|------|-------|
+| `replies[]` | object[] | Opcional. Réplicas del actor disponibles para la ronda de wargame. |
+| `replies[].id` | string | Identificador. |
+| `replies[].text` | string | Texto que se revela al participante como réplica del actor. |
+| `replies[].facilitatorPrompt` | string | Opcional. Pregunta guía para el hot wash (modo profesor). |
 
 ## Reglas de validación (las aplica `caseLoader`)
 
