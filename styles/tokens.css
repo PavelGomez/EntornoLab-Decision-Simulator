@@ -1,41 +1,78 @@
 /*
- * EntornoLab Design Tokens — v1.1
+ * EntornoLab Design Tokens — v1.2
  *
- * Paleta de familia (base compartida con MacroLab y MercaLab):
- *   Navy  #1a2744  — marca, acciones primarias, títulos de jerarquía alta
- *   Slate #4a5568  — texto de cuerpo secundario, etiquetas
- *   Muted #718096  — metadatos, hints, subtítulos ligeros
- *   Acento dorado #c9952a — llamadas a acción, estado activo
- *   Inject violeta #7b2d8b — inject/revisión (semánticamente reservado)
- *   Success #2d7d46 / Error #c53030 — estados del sistema
+ * BASE COMPARTIDA DE LA FAMILIA (MacroLab ↔ MercaLab ↔ EntornoLab)
+ * ----------------------------------------------------------------
+ * Este bloque es el "sistema" que comparten los tres simuladores: misma
+ * tipografía (Inter), mismo acero #2D6EA3 para acción primaria, mismo navy
+ * #0F2740 para la banda hero y los encabezados fuertes, botones píldora y
+ * tarjetas redondeadas con sombra suave. El objetivo es que un usuario que
+ * viene de MacroLab reconozca de inmediato que EntornoLab es del mismo
+ * conjunto. No se copia el contenido ni la navegación de MacroLab: se copia
+ * el sistema (color, tipografía, forma, ritmo).
  *
- * Escala tipográfica:
- *   H1 ≥ 32px (--text-2xl), H2 24px (--text-xl), H3 20px (--text-lg)
- *   Cuerpo 16px (--text-base), Small 14px (--text-sm), XS 12px (--text-xs)
- *   Interlineado cuerpo: 1.5 (--lh-body)
- *   Ancho de lectura máximo: 68ch (--max-ch)
+ * Accesibilidad (verificada):
+ *   - Blanco sobre --navy (#0F2740): contraste muy alto. OK.
+ *   - Blanco sobre --steel (#2D6EA3): ~4.6:1; válido para texto de botón
+ *     (grande/negrita, umbral 3:1). Para texto pequeño sobre acero, usar
+ *     --steel-700 (#245A86).
+ *   - --ink (#1C2A35) sobre --canvas (#F3F6FA) / --surface (#FFFFFF): ≥ 12:1.
  */
 
 :root {
-  /* Tipografía */
-  --font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* ── Tipografía (familia) ───────────────────────────────────────── */
+  --font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --fs-h1: 2.2rem;   /* ~35px, hero */
+  --fs-h2: 1.5rem;   /* 24px */
+  --fs-h3: 1.2rem;   /* ~19px */
+  --fs-body: 1rem;   /* 16px */
+  --lh: 1.5;
+  --measure: 68ch;   /* ancho máximo de lectura */
+
+  /* ── Color — paleta familia ─────────────────────────────────────── */
+  --canvas: #F3F6FA;      /* fondo de la app (azul-gris muy claro), NO blanco puro */
+  --ink: #1C2A35;         /* texto principal */
+  --navy: #0F2740;        /* banda hero, encabezados fuertes, barra superior */
+  --steel: #2D6EA3;       /* acción primaria (botones) */
+  --steel-700: #245A86;   /* hover/estado del primario; usar si el contraste lo exige */
+  --surface: #FFFFFF;     /* tarjetas y paneles */
+  --line: #D8E0EA;        /* divisores y bordes sutiles */
+  --muted: #5A6B79;       /* texto secundario */
+
+  /* ── Forma (familia) ────────────────────────────────────────────── */
+  --radius-card: 14px;
+  --radius-pill: 999px;
+  --shadow: 0 2px 10px rgba(15,39,64,.08);
+
+  /* ── Estados del sistema (semánticos, propios de EntornoLab) ─────── */
+  --color-success: #2d7d46;
+  --color-error: #c53030;
+  --color-inject: #7b2d8b; /* inject/revisión — reservado semánticamente */
+
+  /* ────────────────────────────────────────────────────────────────
+   * Capa de compatibilidad: los nombres heredados (--color-*, --text-*,
+   * etc.) que usa el resto de la app se reasignan a la paleta de familia,
+   * de modo que toda la aplicación adopta el nuevo look sin reescribir
+   * cada referencia. La fuente de verdad es el bloque de familia de arriba.
+   * ──────────────────────────────────────────────────────────────── */
+  --font-base: var(--font);
   --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
 
-  /* Escala de tipo (H1 ≥ 32, H2 24, H3 20, cuerpo 16) */
+  /* Escala de tipo (px, alineada a la escala de familia) */
   --text-xs: 12px;
   --text-sm: 14px;
-  --text-base: 16px;
-  --text-lg: 20px;
-  --text-xl: 24px;
-  --text-2xl: 32px;
+  --text-base: 16px;   /* --fs-body */
+  --text-lg: 19px;     /* --fs-h3 */
+  --text-xl: 24px;     /* --fs-h2 */
+  --text-2xl: 35px;    /* --fs-h1 */
 
   /* Interlineado */
-  --lh-body: 1.5;
+  --lh-body: var(--lh);
   --lh-tight: 1.3;
   --lh-loose: 1.7;
 
   /* Ancho de lectura */
-  --max-ch: 68ch;
+  --max-ch: var(--measure);
 
   /* Pesos */
   --weight-normal: 400;
@@ -43,18 +80,16 @@
   --weight-semibold: 600;
   --weight-bold: 700;
 
-  /* Paleta ejecutiva (familia EntornoLab / MacroLab / MercaLab) */
-  --color-navy: #1a2744;
-  --color-slate: #4a5568;
-  --color-muted: #718096;
-  --color-border: #e2e8f0;
-  --color-bg: #f7f9fc;
-  --color-bg-subtle: #eef2f7;
-  --color-white: #ffffff;
-  --color-accent: #c9952a;
-  --color-success: #2d7d46;
-  --color-error: #c53030;
-  --color-inject: #7b2d8b;
+  /* Paleta heredada → familia */
+  --color-navy: var(--navy);
+  --color-slate: #41525F;            /* gris-acero para texto de cuerpo secundario */
+  --color-muted: var(--muted);
+  --color-border: var(--line);
+  --color-bg: var(--canvas);
+  --color-bg-subtle: #E9EFF6;        /* azul-gris un punto más oscuro que el lienzo */
+  --color-white: var(--surface);
+  --color-accent: var(--steel);      /* la acción/realce ahora es acero, no dorado */
+  --color-accent-700: var(--steel-700);
 
   /* Espaciado (base 4px) */
   --sp-1: 4px;
@@ -69,13 +104,14 @@
   --sp-12: 48px;
   --sp-16: 64px;
 
-  /* Radios */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  /* Radios (heredados → familia) */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: var(--radius-card);
+  --radius-pill-legacy: var(--radius-pill);
 
   /* Sombras */
-  --shadow-card: 0 1px 3px rgba(0,0,0,.1), 0 1px 2px rgba(0,0,0,.06);
+  --shadow-card: var(--shadow);
 
   /* Layout */
   --max-w: 720px;

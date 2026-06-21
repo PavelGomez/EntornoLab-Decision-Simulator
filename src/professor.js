@@ -21,7 +21,7 @@ export function renderProfessorPanel(caseData, nav) {
     const btn = document.createElement('button');
     const isSelected = st.selectedInjectId === inj.id;
     btn.style.cssText = 'display:block;width:100%;text-align:left;padding:8px 12px;margin-bottom:8px;border-radius:6px;border:none;cursor:pointer;font-size:13px;' +
-      (isSelected ? 'background:#c9952a;color:white;' : 'background:rgba(255,255,255,.15);color:white;');
+      (isSelected ? 'background:#2D6EA3;color:white;' : 'background:rgba(255,255,255,.15);color:white;');
     const previewText = inj.text.length > 80 ? inj.text.substring(0, 80) + '...' : inj.text;
     btn.textContent = `${inj.id}: ${previewText}`;
     btn.addEventListener('click', () => {

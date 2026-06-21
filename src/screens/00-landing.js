@@ -38,16 +38,22 @@ export async function mountScreen00(container, _caseData, nav) {
   const landing = document.createElement('div');
   landing.className = 'landing';
 
-  // ---- Encabezado ----
-  const header = document.createElement('header');
-  header.className = 'landing-header';
-  header.innerHTML = `
-    <div class="landing-logo">EntornoLab</div>
-    <p class="landing-tagline">Laboratorio de decisi\u00f3n bajo incertidumbre</p>
-    <p class="landing-course">An\u00e1lisis del Entorno \u00b7 PAG Global Online \u00b7 IESA</p>
-    <button class="landing-ebta-btn" id="landing-ebta-btn" type="button">\u00bfQu\u00e9 es E-BTA/R?</button>
+  // ---- Banda hero (navy, a sangre completa \u2014 lo m\u00e1s distintivo de MacroLab) ----
+  const hero = document.createElement('header');
+  hero.className = 'landing-hero';
+  hero.innerHTML = `
+    <div class="landing-hero-inner">
+      <h1 class="landing-logo">EntornoLab</h1>
+      <p class="landing-tagline">Laboratorio de decisi\u00f3n bajo incertidumbre</p>
+      <p class="landing-course">An\u00e1lisis del Entorno \u00b7 PAG Global Online \u00b7 IESA</p>
+    </div>
   `;
-  landing.appendChild(header);
+  landing.appendChild(hero);
+
+  // ---- Cuerpo (sobre el lienzo claro, ancho de lectura acotado) ----
+  const body = document.createElement('div');
+  body.className = 'landing-body';
+  landing.appendChild(body);
 
   // ---- Descripci\u00f3n ----
   const intro = document.createElement('section');
@@ -59,8 +65,9 @@ export async function mountScreen00(container, _caseData, nav) {
       estrat\u00e9gica y, cuando llega un inject que revela informaci\u00f3n latente, revisar
       todo el recorrido con lo que ahora sabes.
     </p>
+    <button class="landing-ebta-btn" id="landing-ebta-btn" type="button">\u00bfQu\u00e9 es E-BTA/R?</button>
   `;
-  landing.appendChild(intro);
+  body.appendChild(intro);
 
   // ---- Nota de honestidad ----
   const honesty = document.createElement('div');
@@ -74,7 +81,7 @@ export async function mountScreen00(container, _caseData, nav) {
       Lo que se eval\u00faa en el curso es el razonamiento, no el resultado.
     </div>
   `;
-  landing.appendChild(honesty);
+  body.appendChild(honesty);
 
   // ---- Datos pr\u00e1cticos ----
   const practicos = document.createElement('ul');
@@ -84,7 +91,7 @@ export async function mountScreen00(container, _caseData, nav) {
     <li>Tiempo estimado seg\u00fan el caso elegido (ver tarjetas abajo).</li>
     <li>El recorrido termina en un PDF que es el insumo de tu memo.</li>
   `;
-  landing.appendChild(practicos);
+  body.appendChild(practicos);
 
   // ---- Selecci\u00f3n de caso ----
   const caseSection = document.createElement('section');
@@ -98,7 +105,7 @@ export async function mountScreen00(container, _caseData, nav) {
   const cardsWrapper = document.createElement('div');
   cardsWrapper.className = 'case-cards';
   caseSection.appendChild(cardsWrapper);
-  landing.appendChild(caseSection);
+  body.appendChild(caseSection);
 
   function renderCards() {
     cardsWrapper.innerHTML = '';
@@ -143,13 +150,13 @@ export async function mountScreen00(container, _caseData, nav) {
   startBtn.type = 'button';
   startRow.appendChild(startBtn);
 
-  landing.appendChild(startRow);
+  body.appendChild(startRow);
 
   // ---- Pie de p\u00e1gina ----
   const footer = document.createElement('footer');
   footer.className = 'landing-footer';
   footer.textContent = 'Dise\u00f1o y direcci\u00f3n: P\u00e1vel G\u00f3mez \u00b7 IESA';
-  landing.appendChild(footer);
+  body.appendChild(footer);
 
   // ---- Montar y conectar ----
   container.appendChild(landing);
