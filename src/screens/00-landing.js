@@ -53,7 +53,7 @@ export async function mountScreen00(container, _caseData, nav) {
     <div class="landing-hero-inner">
       <h1 class="landing-logo">EntornoLab</h1>
       <p class="landing-tagline">Laboratorio de decisión bajo incertidumbre</p>
-      <p class="landing-course">Análisis del Entorno · PAG Global Online · IESA · 2026</p>
+      <p class="landing-course">Análisis del Entorno · PAG Global Online · IESA · <strong>Pável Gómez</strong> · 2026</p>
     </div>
   `;
   landing.appendChild(hero);
@@ -129,7 +129,7 @@ export async function mountScreen00(container, _caseData, nav) {
   // ---- Pie de página ----
   const footer = document.createElement('footer');
   footer.className = 'landing-footer';
-  footer.textContent = 'Diseño y dirección académica: Pável Gómez · IESA · 2026';
+  footer.textContent = 'Diseño y dirección académica: Pável Gómez · IESA · 2026 · EntornoLab v1.3';
   body.appendChild(footer);
 
   container.appendChild(landing);

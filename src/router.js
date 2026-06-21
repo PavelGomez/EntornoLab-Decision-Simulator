@@ -40,7 +40,7 @@ export function renderTopBar(currentScreen, { showCounter = true } = {}) {
   brand.className = 'topbar-brand';
   brand.type = 'button';
   brand.setAttribute('aria-label', 'Inicio · EntornoLab');
-  brand.textContent = 'EntornoLab · v1.3';
+  brand.textContent = 'EntornoLab';
   brand.addEventListener('click', () => {
     if (inRecorrido) openLearning('inicio');
     else window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -66,6 +66,12 @@ export function renderTopBar(currentScreen, { showCounter = true } = {}) {
 
   const right = document.createElement('div');
   right.className = 'topbar-right';
+
+  // Chip de autoría (estilo MercaLab) — visible en escritorio
+  const author = document.createElement('span');
+  author.className = 'topbar-author';
+  author.textContent = 'Pável Gómez · 2026';
+  right.appendChild(author);
 
   if (inRecorrido) {
     const counter = document.createElement('span');
