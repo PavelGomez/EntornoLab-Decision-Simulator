@@ -2,6 +2,7 @@ import { state } from './state.js';
 import { loadCase, CASE_FILES } from './caseLoader.js';
 import { render, renderLanding } from './router.js';
 import { isProfessorMode } from './professor.js';
+import { openFromHash } from './learning/center.js';
 
 const T_resetConfirm = '\u00bfReiniciar la sesi\u00f3n? Se perder\u00e1 todo el progreso no exportado.';
 
@@ -72,6 +73,7 @@ async function boot() {
     await renderLanding(async (chosenOrder) => {
       await startCase(chosenOrder, profMode);
     });
+    openFromHash();
     return;
   }
 
@@ -95,6 +97,7 @@ async function boot() {
 
     setupListeners();
     await render(caseData);
+    openFromHash();
 
   } catch (e) {
     showError(e.message);

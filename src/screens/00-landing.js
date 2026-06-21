@@ -1,4 +1,4 @@
-import { openEbtaModal } from '../ebtaModal.js';
+import { openLearning } from '../learning/center.js';
 
 // Textos aprobados de cada tarjeta (sin spoilear dominantEventType ni dominantChannel).
 const CASE_CARDS = [
@@ -161,7 +161,7 @@ export async function mountScreen00(container, _caseData, nav) {
   // ---- Montar y conectar ----
   container.appendChild(landing);
 
-  landing.querySelector('#landing-ebta-btn').addEventListener('click', openEbtaModal);
+  landing.querySelector('#landing-ebta-btn').addEventListener('click', () => openLearning('marco'));
 
   startBtn.addEventListener('click', async () => {
     startBtn.disabled = true;
