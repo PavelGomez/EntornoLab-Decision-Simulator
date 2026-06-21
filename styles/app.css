@@ -779,3 +779,17 @@ details.dossier-consult-panel[open] > .dossier-consult-summary::after { content:
 .landing-about { max-width: var(--measure); margin: 0 auto var(--sp-6); }
 .landing-about p { font-size: var(--fs-body); line-height: var(--lh); color: var(--ink); margin-bottom: var(--sp-4); }
 .landing-about .lc-list li { font-size: var(--fs-body); line-height: var(--lh); color: var(--ink); }
+
+/* Caso de evaluación (entrega final) — diferenciado en la portada */
+.landing-eval-section { max-width: 760px; margin: var(--sp-8) auto 0; }
+.eval-divider { border-top: 1px solid var(--line); margin-bottom: var(--sp-6); }
+.eval-title { font-size: var(--fs-h3); font-weight: var(--weight-bold); color: var(--navy); margin-bottom: var(--sp-2); }
+.eval-note { font-size: var(--text-sm); color: var(--muted); margin-bottom: var(--sp-4); max-width: var(--measure); }
+.eval-note code { background: var(--color-bg-subtle); padding: 1px 6px; border-radius: var(--radius-sm); font-size: .9em; }
+.case-card--eval { border-color: var(--navy); border-width: 2px; background: rgba(15,39,64,.03); cursor: default; }
+.case-card--eval:hover { border-color: var(--navy); }
+.case-card--eval .case-card-badge { color: var(--navy); }
+
+/* Glosario técnico: subtítulos y pronunciación */
+.lc-h4 { font-size: var(--text-base); font-weight: var(--weight-bold); color: var(--navy); margin: var(--sp-5) 0 var(--sp-2); }
+.lc-glossary .lc-pron { font-weight: var(--weight-normal); color: var(--muted); font-size: .92em; }

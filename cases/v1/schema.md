@@ -8,18 +8,18 @@ Los campos `dossier`, `facilitatorAnalysis` y `replies` son **opcionales** (v1.1
 
 | Campo | Tipo | Notas |
 |-------|------|-------|
-| `schemaVersion` | string | `"1.0"` (se mantiene para compatibilidad; actualizar a `"1.1"` al agregar dossier). |
+| `schemaVersion` | string | `"1.0"` o `"1.1"` (usa `"1.1"` al agregar `dossier`/`facilitatorAnalysis`/`replies`). El motor acepta ambas. |
 | `caseId` | string | Único. Convención: `pais-sector-Orden-NNN`. |
 | `title` | string | Título mostrado en el briefing. |
-| `order` | `"A"\|"B"\|"C"` | Posición en la biblioteca. |
-| `role` | `"ancla"\|"transferencia"\|"portable"` | Función pedagógica. |
+| `order` | `"A"\|"B"\|"C"\|"3"` | Posición en la biblioteca. `"3"` = caso de evaluación (entrega final). |
+| `role` | `"ancla"\|"transferencia"\|"portable"\|"final"` | Función pedagógica. `"final"` = caso de evaluación individual. |
 | `estimatedMinutes` | number | Tiempo estimado del ciclo. |
 | `context.sector` | string | Sector del caso. |
 | `context.country` | string | `"VE"`. |
 | `context.size` | string | Tamaño de la empresa. |
 | `context.dominantEventType` | string[] | Subconjunto de `subito-discreto`, `acumulativo`, `cascada`, `legitimidad`. Multietiqueta permitida. |
-| `context.dominantChannel` | string | Uno de los 5 canales. |
-| `context.secondaryChannel` | string\|null | Uno de los 5 canales u opcional. |
+| `context.dominantChannel` | string | Normalmente uno de los 5 canales; en casos con el canal deliberadamente en disputa (p. ej. el caso final) admite un valor descriptivo (p. ej. `"en competencia (a jerarquizar)"`). **Metadato del facilitador: nunca se muestra al participante.** |
+| `context.secondaryChannel` | string\|null | Uno de los 5 canales, un valor descriptivo (p. ej. `"multiple"`) u opcional. **No se muestra al participante.** |
 | `initialSignal` | string | La señal inicial; se muestra en el briefing. |
 | `briefing` | string | 800–1200 palabras, con secciones marcadas `§1.`, `§2.`, … Las secciones alojan la información latente de los injects. |
 | `availableBuffers[]` | object[] | Típicamente 4. El participante elige hasta 2. |

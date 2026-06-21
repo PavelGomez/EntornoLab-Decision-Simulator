@@ -9,7 +9,7 @@
  * Rutas por hash: #aprender/<seccion> y #aprender/componentes/<id>.
  */
 import { state } from '../state.js';
-import { SECTIONS, COMPONENTES, GLOSSARY, TERM_DEFS, ORIENTACION } from './content.js';
+import { SECTIONS, COMPONENTES, GLOSSARY, TERM_DEFS, ORIENTACION, TECH_GLOSSARY_HTML } from './content.js';
 import {
   cycleDiagram, pathStrip, phraseAnatomy, channelsDiagram, bufferAxes, actorsMap,
 } from './graphics.js';
@@ -159,8 +159,10 @@ function renderSection(sectionKey, subKey) {
     title = 'Glosario';
     const items = GLOSSARY.map(g => `<dt>${g.term}</dt><dd>${g.def}</dd>`).join('');
     html = `<article class="lc-article"><h2 class="lc-title">Glosario</h2>
+      <h3 class="lc-h3">Términos del marco E-BTA/R</h3>
       <dl class="lc-glossary">${items}</dl>
       <p class="lc-bridge"><em>Puentes con la familia:</em> en <strong>MacroLab</strong> un evento equivale a un <strong>shock</strong>; en <strong>MercaLab</strong>, el ajuste de un <strong>equilibrio</strong>. EntornoLab se ocupa de la <strong>decisión</strong> ante esos cambios.</p>
+      ${TECH_GLOSSARY_HTML}
       </article>`;
   } else {
     const sec = SECTIONS[sectionKey] || SECTIONS.inicio;

@@ -10,11 +10,11 @@ function required(obj, field, type) {
 
 function validateCase(data) {
   required(data, 'schemaVersion', 'string');
-  if (data.schemaVersion !== '1.0') throw new Error('schemaVersion debe ser "1.0"');
+  if (!['1.0', '1.1'].includes(data.schemaVersion)) throw new Error('schemaVersion debe ser "1.0" o "1.1"');
   required(data, 'caseId', 'string');
   required(data, 'title', 'string');
-  if (!['A', 'B', 'C'].includes(data.order)) throw new Error('"order" debe ser A, B o C');
-  if (!['ancla', 'transferencia', 'portable'].includes(data.role)) throw new Error('"role" inválido');
+  if (!['A', 'B', 'C', '3'].includes(data.order)) throw new Error('"order" debe ser A, B, C o 3');
+  if (!['ancla', 'transferencia', 'portable', 'final'].includes(data.role)) throw new Error('"role" inválido');
   required(data, 'estimatedMinutes', 'number');
   required(data, 'initialSignal', 'string');
   required(data, 'briefing', 'string');
@@ -26,8 +26,16 @@ function validateCase(data) {
   data.context.dominantEventType.forEach(t => {
     if (!VALID_EVENT_TYPES.has(t)) throw new Error(`Tipo de evento inválido: "${t}"`);
   });
-  if (!VALID_CHANNELS.has(data.context.dominantChannel)) throw new Error(`Canal dominante inválido: "${data.context.dominantChannel}"`);
-  if (data.context.secondaryChannel && !VALID_CHANNELS.has(data.context.secondaryChannel)) throw new Error('Canal secundario inválido');
+  // dominantChannel/secondaryChannel son metadatos del facilitador (no se
+  // muestran al participante). Normalmente son uno de los 5 canales, pero los
+  // casos donde el canal está deliberadamente en disputa (p. ej. el caso final)
+  // pueden usar un valor descriptivo. Exigimos string no vacío, no membresía.
+  if (typeof data.context.dominantChannel !== 'string' || !data.context.dominantChannel.trim()) {
+    throw new Error('"context.dominantChannel" debe ser un string no vacío');
+  }
+  if (data.context.secondaryChannel != null && typeof data.context.secondaryChannel !== 'string') {
+    throw new Error('"context.secondaryChannel" debe ser un string u opcional');
+  }
 
   // Buffers
   if (!Array.isArray(data.availableBuffers) || data.availableBuffers.length === 0) throw new Error('"availableBuffers" debe ser un array no vacío');
@@ -76,8 +84,12 @@ export async function loadCase(caseFile) {
   return data;
 }
 
+// Registro de casos. Los participantes ven A/B/C en el selector; el Caso 3
+// (Envases del Centro) es el caso de evaluación (entrega final), accesible
+// por tarjeta diferenciada y por ?caso=3.
 export const CASE_FILES = {
   A: 'caso-A.json',
   B: 'caso-B.json',
   C: 'caso-C.json',
+  '3': 'caso-3.json',
 };

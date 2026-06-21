@@ -29,7 +29,7 @@ export const T = {
   potencia: { 'baja': 'Baja', 'media': 'Media', 'alta': 'Alta' },
   duracion: { 'una-ronda': 'Una ronda', 'multiples-rondas': 'Múltiples rondas', 'persistente': 'Persistente' },
   costo: { 'bajo': 'Bajo', 'medio': 'Medio', 'alto': 'Alto' },
-  roles: { 'ancla': 'Caso ancla', 'transferencia': 'Caso de transferencia', 'portable': 'Caso portable' },
+  roles: { 'ancla': 'Caso ancla', 'transferencia': 'Caso de transferencia', 'portable': 'Caso portable', 'final': 'Caso de evaluación (entrega final)' },
 
   // Screen titles
   screenTitles: [
