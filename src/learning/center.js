@@ -9,7 +9,21 @@
  * Rutas por hash: #aprender/<seccion> y #aprender/componentes/<id>.
  */
 import { state } from '../state.js';
-import { SECTIONS, COMPONENTES, GLOSSARY, TERM_DEFS, ORIENTACION, cycleDiagramSVG } from './content.js';
+import { SECTIONS, COMPONENTES, GLOSSARY, TERM_DEFS, ORIENTACION } from './content.js';
+import {
+  cycleDiagram, pathStrip, phraseAnatomy, channelsDiagram, bufferAxes, actorsMap, sectionIcon,
+} from './graphics.js';
+
+// Sustituye los tokens de gráficos ({{CYCLE}}, etc.) por los SVG autorados.
+export function fillGraphics(html) {
+  return String(html)
+    .replace('{{CYCLE}}', cycleDiagram())
+    .replace('{{PHRASE}}', phraseAnatomy())
+    .replace('{{STRIP}}', pathStrip())
+    .replace('{{CHANNELS}}', channelsDiagram())
+    .replace('{{BUFFER_AXES}}', bufferAxes())
+    .replace('{{ACTORS}}', actorsMap());
+}
 
 let _overlay = null;
 let _contentEl = null;
@@ -37,16 +51,7 @@ function build() {
   brand.textContent = 'EntornoLab';
   brand.addEventListener('click', () => openLearning('inicio'));
 
-  const nav = document.createElement('nav');
-  nav.className = 'lc-nav';
-  nav.appendChild(navLink('inicio', 'Inicio'));
-  nav.appendChild(navLink('marco', 'El marco E-BTA/R'));
-  nav.appendChild(buildComponentesMenu());
-  nav.appendChild(navLink('ejemplos', 'Ejemplos'));
-  nav.appendChild(navLink('casos', 'Casos'));
-  nav.appendChild(navLink('guia', 'Guía de uso'));
-  nav.appendChild(navLink('glosario', 'Glosario'));
-  nav.appendChild(navLink('referencias', 'Referencias'));
+  const nav = buildSectionNav();
 
   const actions = document.createElement('div');
   actions.className = 'lc-bar-actions';
@@ -85,12 +90,30 @@ function build() {
   return overlay;
 }
 
+/**
+ * Construye la navegación de secciones (links + dropdown Componentes).
+ * Se reutiliza en la barra superior persistente y en la barra del overlay.
+ */
+export function buildSectionNav() {
+  const nav = document.createElement('nav');
+  nav.className = 'lc-nav';
+  nav.appendChild(navLink('inicio', 'Inicio'));
+  nav.appendChild(navLink('marco', 'El marco E-BTA/R'));
+  nav.appendChild(buildComponentesMenu());
+  nav.appendChild(navLink('ejemplos', 'Ejemplos'));
+  nav.appendChild(navLink('casos', 'Casos'));
+  nav.appendChild(navLink('guia', 'Guía de uso'));
+  nav.appendChild(navLink('glosario', 'Glosario'));
+  nav.appendChild(navLink('referencias', 'Referencias'));
+  return nav;
+}
+
 function navLink(sectionKey, label) {
   const a = document.createElement('button');
   a.className = 'lc-navlink';
   a.type = 'button';
   a.dataset.section = sectionKey;
-  a.textContent = label;
+  a.innerHTML = `${sectionIcon(sectionKey)}<span>${label}</span>`;
   a.addEventListener('click', () => openLearning(sectionKey));
   return a;
 }
@@ -102,7 +125,7 @@ function buildComponentesMenu() {
   btn.className = 'lc-navlink lc-dropdown-toggle';
   btn.type = 'button';
   btn.dataset.section = 'componentes';
-  btn.innerHTML = 'Componentes <span aria-hidden="true">&#9662;</span>';
+  btn.innerHTML = `${sectionIcon('componentes')}<span>Componentes</span> <span aria-hidden="true">&#9662;</span>`;
   const menu = document.createElement('div');
   menu.className = 'lc-dropdown-menu';
   COMPONENTES.forEach(c => {
@@ -131,7 +154,7 @@ function renderSection(sectionKey, subKey) {
     html = `
       <div class="lc-compnav">${COMPONENTES.map(c =>
         `<button class="lc-chip${c.id === comp.id ? ' active' : ''}" data-comp="${c.id}">${c.nav}</button>`).join('')}</div>
-      <article class="lc-article"><h2 class="lc-title">${comp.title}</h2>${comp.html}</article>`;
+      <article class="lc-article"><h2 class="lc-title">${comp.title}</h2>${fillGraphics(comp.html)}</article>`;
   } else if (sectionKey === 'glosario') {
     title = 'Glosario';
     const items = GLOSSARY.map(g => `<dt>${g.term}</dt><dd>${g.def}</dd>`).join('');
@@ -142,9 +165,7 @@ function renderSection(sectionKey, subKey) {
   } else {
     const sec = SECTIONS[sectionKey] || SECTIONS.inicio;
     title = sec.title;
-    let body = sec.html;
-    if (body.includes('{{CYCLE}}')) body = body.replace('{{CYCLE}}', cycleDiagramSVG());
-    html = `<article class="lc-article"><h2 class="lc-title">${sec.title}</h2>${body}</article>`;
+    html = `<article class="lc-article"><h2 class="lc-title">${sec.title}</h2>${fillGraphics(sec.html)}</article>`;
   }
 
   _contentEl.innerHTML = html;

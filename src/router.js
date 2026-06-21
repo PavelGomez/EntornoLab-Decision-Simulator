@@ -1,7 +1,7 @@
 import { state } from './state.js';
 import { mountScreen } from './screens/index.js';
 import { T } from './i18n.js';
-import { openLearning, setStartHook, renderOrientacion } from './learning/center.js';
+import { openLearning, setStartHook, renderOrientacion, buildSectionNav } from './learning/center.js';
 
 const TOTAL_SCREENS = 10;
 
@@ -24,41 +24,70 @@ window.addEventListener('popstate', () => {
  * posteriores ni volver atrás tras el inject. Muestra la marca + versión,
  * el enlace al marco E-BTA/R y, donde aplique, el contador de pantalla.
  */
+/**
+ * Barra superior persistente (estilo MacroLab). Muestra TODAS las secciones del
+ * centro de aprendizaje directamente —no hay un modo separado "Aprender"—.
+ * En escritorio las secciones se ven inline; en móvil colapsan tras un menú
+ * hamburguesa. Es de orientación, no de navegación libre del recorrido.
+ */
 export function renderTopBar(currentScreen, { showCounter = true } = {}) {
+  const inRecorrido = showCounter;
+
   const bar = document.createElement('div');
   bar.className = 'topbar';
 
   const brand = document.createElement('button');
   brand.className = 'topbar-brand';
   brand.type = 'button';
-  brand.setAttribute('aria-label', 'Abrir el centro de aprendizaje');
+  brand.setAttribute('aria-label', 'Inicio · EntornoLab');
   brand.textContent = 'EntornoLab · v1.3';
-  brand.addEventListener('click', () => openLearning('inicio'));
+  brand.addEventListener('click', () => {
+    if (inRecorrido) openLearning('inicio');
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Botón hamburguesa (visible en móvil por CSS)
+  const burger = document.createElement('button');
+  burger.className = 'topbar-burger';
+  burger.type = 'button';
+  burger.setAttribute('aria-label', 'Abrir el menú de secciones');
+  burger.setAttribute('aria-expanded', 'false');
+  burger.innerHTML = '&#9776;';
+  burger.addEventListener('click', () => {
+    const open = bar.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Navegación de secciones (todas visibles en escritorio)
+  const nav = buildSectionNav();
+  nav.classList.add('topbar-nav');
+  // Al elegir una sección en móvil, cierra el menú
+  nav.addEventListener('click', () => bar.classList.remove('open'));
 
   const right = document.createElement('div');
   right.className = 'topbar-right';
 
-  // Abre el centro de aprendizaje (menú de secciones). En su lugar reemplaza
-  // al antiguo modal "¿Qué es E-BTA/R?"; el marco vive ahora como sección.
-  const learnBtn = document.createElement('button');
-  learnBtn.className = 'topbar-ebtar';
-  learnBtn.type = 'button';
-  learnBtn.setAttribute('aria-label', 'Abrir el centro de aprendizaje');
-  learnBtn.innerHTML =
-    '<span class="topbar-ebtar-full">Aprender</span>' +
-    '<span class="topbar-ebtar-short">&#9776;</span>';
-  learnBtn.addEventListener('click', () => openLearning('inicio'));
-  right.appendChild(learnBtn);
-
-  if (showCounter) {
+  if (inRecorrido) {
     const counter = document.createElement('span');
     counter.className = 'topbar-counter';
     counter.textContent = T.screenLabel(currentScreen, TOTAL_SCREENS);
     right.appendChild(counter);
+  } else {
+    const startBtn = document.createElement('button');
+    startBtn.className = 'btn btn-primary topbar-start';
+    startBtn.type = 'button';
+    startBtn.textContent = 'Iniciar recorrido →';
+    startBtn.addEventListener('click', () => {
+      const sec = document.querySelector('.landing-case-section');
+      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    right.appendChild(startBtn);
   }
 
   bar.appendChild(brand);
+  bar.appendChild(nav);
   bar.appendChild(right);
+  bar.appendChild(burger);
   return bar;
 }
 
