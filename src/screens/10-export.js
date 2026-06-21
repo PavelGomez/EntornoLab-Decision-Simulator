@@ -4,6 +4,7 @@ import { renderProfessorPanel } from '../professor.js';
 import { assemblePhrase, getPhraseFields } from '../ebtaPhrase.js';
 import { generatePdf, openPrintView } from '../pdf.js';
 import { escapeHtml, renderResetBtn } from './helpers.js';
+import { pickReply } from './09-wargame.js';
 
 export async function mountScreen10(container, caseData, nav) {
   const st = state.get();
@@ -203,6 +204,21 @@ export async function mountScreen10(container, caseData, nav) {
   revisedPhraseDiv.innerHTML = assemblePhrase(getPhraseFields(st, caseData, true), true);
   revisedPhraseSection.appendChild(revisedPhraseDiv);
   summary.appendChild(revisedPhraseSection);
+
+  // Ronda de réplica (wargame) — solo si la modalidad la usó
+  if (st.modality === 'wargame' && st.wg_replyId) {
+    const reply = pickReply(caseData, st);
+    const wgItems = [
+      { label: 'Anticipación de la réplica', value: st.wg_anticipate || '—' },
+      { label: 'Réplica del actor (revelada)', value: reply.text || '—' },
+      { label: 'Segunda revisión — mantengo', value: st.wg_maintains || '—' },
+      { label: 'Segunda revisión — abandono', value: st.wg_abandons || '—' },
+      { label: 'Segunda revisión — invierto', value: st.wg_inverts || '—' },
+      { label: 'Tipo de revisión', value: st.wg_loopType === 'doble' ? 'Doble bucle' : st.wg_loopType === 'simple' ? 'Bucle simple' : '—' },
+      { label: '¿Por qué? (bucle)', value: st.wg_loopWhy || '—' },
+    ];
+    summary.appendChild(createExportSection('Ronda de réplica (wargame)', wgItems));
+  }
 
   container.appendChild(summary);
 

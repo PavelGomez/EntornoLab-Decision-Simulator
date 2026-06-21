@@ -13,6 +13,32 @@ export function renderProfessorPanel(caseData, nav) {
 
   panel.innerHTML = `<div class="professor-panel-title">&#127891; ${T.prof_panel}</div>`;
 
+  // Modalidad del recorrido: Tabletop (TTX) | Wargame
+  const modalityDiv = document.createElement('div');
+  modalityDiv.style.cssText = 'margin-bottom:12px;';
+  modalityDiv.innerHTML = `<div style="margin-bottom:8px;font-size:13px;opacity:.8">${T.prof_modality}</div>`;
+  const modes = [
+    { key: 'ttx', label: 'Tabletop (TTX)' },
+    { key: 'wargame', label: 'Wargame' },
+  ];
+  const modeRow = document.createElement('div');
+  modeRow.style.cssText = 'display:flex;gap:8px;';
+  modes.forEach(m => {
+    const active = (st.modality || 'ttx') === m.key;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.style.cssText = 'flex:1;padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.35);cursor:pointer;font-size:13px;font-weight:700;' +
+      (active ? 'background:#2D6EA3;color:#fff;border-color:#2D6EA3;' : 'background:transparent;color:#fff;');
+    btn.textContent = m.label;
+    btn.addEventListener('click', () => {
+      state.set({ modality: m.key });
+      nav.navigate(state.get().currentScreen);
+    });
+    modeRow.appendChild(btn);
+  });
+  modalityDiv.appendChild(modeRow);
+  panel.appendChild(modalityDiv);
+
   // Inject selector
   const injectDiv = document.createElement('div');
   injectDiv.innerHTML = `<div style="margin-bottom:8px;font-size:13px;opacity:.8">${T.prof_injectSelect}</div>`;

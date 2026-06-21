@@ -1,5 +1,6 @@
 import { T } from './i18n.js';
 import { assemblePhrase, getPhraseFields } from './ebtaPhrase.js';
+import { pickReply } from './screens/09-wargame.js';
 
 export function generatePdf(caseData, st) {
   try {
@@ -179,6 +180,20 @@ export function generatePdf(caseData, st) {
     const revisedText = assemblePhrase(revisedFields, false);
     addPhrase(sanitize(revisedText));
 
+    // Ronda de réplica (wargame)
+    if (st.modality === 'wargame' && st.wg_replyId) {
+      const reply = pickReply(caseData, st);
+      addSection('Ronda de réplica (wargame)');
+      addLabel('Anticipación de la réplica:'); addText(sanitize(st.wg_anticipate));
+      addLabel('Réplica del actor (revelada):'); addText(sanitize(reply.text));
+      addLabel('Segunda revisión — mantengo:'); addText(sanitize(st.wg_maintains));
+      addLabel('Segunda revisión — abandono:'); addText(sanitize(st.wg_abandons));
+      addLabel('Segunda revisión — invierto:'); addText(sanitize(st.wg_inverts));
+      const wgLoop = st.wg_loopType === 'doble' ? 'Doble bucle' : st.wg_loopType === 'simple' ? 'Bucle simple' : '—';
+      addLabel('Tipo de revisión:'); addText(sanitize(wgLoop));
+      if (st.wg_loopWhy) { addLabel('¿Por qué? (bucle):'); addText(sanitize(st.wg_loopWhy)); }
+    }
+
     // Footer on all pages
     doc.setFontSize(8);
     doc.setTextColor(150);
@@ -290,6 +305,15 @@ ${buffersHtml || '<div class="value">—</div>'}
 
 <h2>Frase E-BTA/R Revisada</h2>
 <div class="phrase">${revisedHtml}</div>
+${(st.modality === 'wargame' && st.wg_replyId) ? `
+<h2>Ronda de réplica (wargame)</h2>
+<div class="label">Anticipación de la réplica</div><div class="value">${escHtml(st.wg_anticipate) || '—'}</div>
+<div class="label">Réplica del actor (revelada)</div><div class="value">${escHtml(pickReply(caseData, st).text) || '—'}</div>
+<div class="label">Segunda revisión — mantengo</div><div class="value">${escHtml(st.wg_maintains) || '—'}</div>
+<div class="label">Segunda revisión — abandono</div><div class="value">${escHtml(st.wg_abandons) || '—'}</div>
+<div class="label">Segunda revisión — invierto</div><div class="value">${escHtml(st.wg_inverts) || '—'}</div>
+<div class="label">Tipo de revisión</div><div class="value">${st.wg_loopType === 'doble' ? 'Doble bucle' : st.wg_loopType === 'simple' ? 'Bucle simple' : '—'}</div>
+<div class="label">¿Por qué? (bucle)</div><div class="value">${escHtml(st.wg_loopWhy) || '—'}</div>` : ''}
 
 <p style="margin-top:40px;font-size:9pt;color:#999">EntornoLab v1 | IESA PAG Global Online | ${new Date().toLocaleString('es-VE')}</p>
 </body>

@@ -4,9 +4,16 @@ import { renderNavFooter } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
 import { assemblePhrase, getPhraseFields, isPhraseComplete } from '../ebtaPhrase.js';
 import { LOOP_DEFS } from '../learning/content.js';
+import { mountWargameRound } from './09-wargame.js';
 
 export async function mountScreen09(container, caseData, nav) {
   const st = state.get();
+
+  // Modalidad wargame: tras la primera revisión, la pantalla 9 muestra la
+  // ronda de réplica (segundo orden), conservando el no-retorno.
+  if (st.wgRound) {
+    return mountWargameRound(container, caseData, nav);
+  }
 
   if (st.professorMode) {
     container.appendChild(renderProfessorPanel(caseData, nav));
@@ -192,11 +199,22 @@ export async function mountScreen09(container, caseData, nav) {
   `;
   container.appendChild(loopCard);
 
+  // En modalidad wargame, "Continuar" abre la ronda de réplica (no va a P10).
+  function handleNext() {
+    const stx = state.get();
+    if (stx.modality === 'wargame' && !stx.wgRound) {
+      state.set({ wgRound: true });
+      nav.navigate(9); // re-renderiza P9 → ronda de réplica
+    } else {
+      nav.onNext();
+    }
+  }
+
   // Nav footer
   const footer = renderNavFooter({
     showBack: false, // post-inject, no back
     onBack: nav.onBack,
-    onNext: nav.onNext,
+    onNext: handleNext,
     nextDisabled: true,
     nextLabel: T.continue,
   });
