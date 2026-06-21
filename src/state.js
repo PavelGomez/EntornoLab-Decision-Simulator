@@ -51,6 +51,23 @@ const defaultState = () => ({
   s9_revisedResidualRisk: '',
   s9_revisedSelectedBuffers: [],
   s9_revisedBufferDetails: {},
+
+  // S9 — clasificación de bucle (doble bucle)
+  s9_loopType: '',   // 'simple' | 'doble'
+  s9_loopWhy: '',
+
+  // Modalidad del recorrido (modo profesor): 'ttx' | 'wargame'
+  modality: 'ttx',
+
+  // Ronda de réplica (wargame) — tras P9
+  wgRound: false,         // true cuando se está/estuvo en la ronda de réplica
+  wg_anticipate: '',      // anticipación de la réplica del actor (paso 1)
+  wg_replyId: null,       // id del inject/reply usado como réplica (paso 2)
+  wg_maintains: '',       // segunda revisión (paso 3)
+  wg_abandons: '',
+  wg_inverts: '',
+  wg_loopType: '',
+  wg_loopWhy: '',
 });
 
 let _state = defaultState();

@@ -147,6 +147,7 @@ export const T = {
 
   // Professor mode
   prof_panel: 'MODO PROFESOR',
+  prof_modality: 'Modalidad del recorrido',
   prof_injectSelect: 'Seleccione el inject a revelar',
   prof_facilPrompt: 'Pregunta guía para el hot wash:',
   prof_bufferNotes: 'Notas para el facilitador:',

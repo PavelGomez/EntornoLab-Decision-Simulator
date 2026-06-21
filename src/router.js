@@ -1,7 +1,7 @@
 import { state } from './state.js';
 import { mountScreen } from './screens/index.js';
 import { T } from './i18n.js';
-import { openEbtaModal } from './ebtaModal.js';
+import { openLearning, setStartHook, renderOrientacion } from './learning/center.js';
 
 const TOTAL_SCREENS = 10;
 
@@ -28,22 +28,27 @@ export function renderTopBar(currentScreen, { showCounter = true } = {}) {
   const bar = document.createElement('div');
   bar.className = 'topbar';
 
-  const brand = document.createElement('div');
+  const brand = document.createElement('button');
   brand.className = 'topbar-brand';
-  brand.textContent = 'EntornoLab · v1.2';
+  brand.type = 'button';
+  brand.setAttribute('aria-label', 'Abrir el centro de aprendizaje');
+  brand.textContent = 'EntornoLab · v1.3';
+  brand.addEventListener('click', () => openLearning('inicio'));
 
   const right = document.createElement('div');
   right.className = 'topbar-right';
 
-  const ebtaBtn = document.createElement('button');
-  ebtaBtn.className = 'topbar-ebtar';
-  ebtaBtn.type = 'button';
-  ebtaBtn.setAttribute('aria-label', '¿Qué es E-BTA/R?');
-  ebtaBtn.innerHTML =
-    '<span class="topbar-ebtar-full">¿Qué es E-BTA/R?</span>' +
-    '<span class="topbar-ebtar-short">E-BTA/R</span>';
-  ebtaBtn.addEventListener('click', openEbtaModal);
-  right.appendChild(ebtaBtn);
+  // Abre el centro de aprendizaje (menú de secciones). En su lugar reemplaza
+  // al antiguo modal "¿Qué es E-BTA/R?"; el marco vive ahora como sección.
+  const learnBtn = document.createElement('button');
+  learnBtn.className = 'topbar-ebtar';
+  learnBtn.type = 'button';
+  learnBtn.setAttribute('aria-label', 'Abrir el centro de aprendizaje');
+  learnBtn.innerHTML =
+    '<span class="topbar-ebtar-full">Aprender</span>' +
+    '<span class="topbar-ebtar-short">&#9776;</span>';
+  learnBtn.addEventListener('click', () => openLearning('inicio'));
+  right.appendChild(learnBtn);
 
   if (showCounter) {
     const counter = document.createElement('span');
@@ -95,6 +100,13 @@ export async function renderLanding(onStart) {
   container.className = 'screen screen--landing';
   app.appendChild(container);
 
+  // "Iniciar recorrido →" desde el centro de aprendizaje (en la portada):
+  // cierra el overlay y lleva al selector de caso.
+  setStartHook(() => {
+    const sec = document.querySelector('.landing-case-section');
+    if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
   await mountScreen(0, container, null, { onStart });
   window.scrollTo(0, 0);
 }
@@ -144,6 +156,12 @@ export async function render(caseData) {
     },
     navigate: (n) => navigate(caseData, n),
   });
+
+  // Tarjeta "Orientación rápida" al inicio de cada pantalla del recorrido (1–10)
+  if (screen >= 1 && screen <= 10) {
+    const orient = renderOrientacion(screen);
+    if (orient) container.insertBefore(orient, container.firstChild);
+  }
 
   // Scroll to top
   window.scrollTo(0, 0);

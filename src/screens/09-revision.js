@@ -3,9 +3,17 @@ import { T } from '../i18n.js';
 import { renderNavFooter } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
 import { assemblePhrase, getPhraseFields, isPhraseComplete } from '../ebtaPhrase.js';
+import { LOOP_DEFS } from '../learning/content.js';
+import { mountWargameRound } from './09-wargame.js';
 
 export async function mountScreen09(container, caseData, nav) {
   const st = state.get();
+
+  // Modalidad wargame: tras la primera revisión, la pantalla 9 muestra la
+  // ronda de réplica (segundo orden), conservando el no-retorno.
+  if (st.wgRound) {
+    return mountWargameRound(container, caseData, nav);
+  }
 
   if (st.professorMode) {
     container.appendChild(renderProfessorPanel(caseData, nav));
@@ -166,11 +174,47 @@ export async function mountScreen09(container, caseData, nav) {
 
   container.appendChild(revisedCard);
 
+  // --- Clasificación de bucle (doble bucle) — obligatoria ---
+  const loopCard = document.createElement('div');
+  loopCard.className = 'card';
+  loopCard.innerHTML = `
+    <div class="card-header"><h2 class="card-title">¿Tu revisión es de bucle simple o de doble bucle?</h2></div>
+    <div class="loop-mirror" id="loop-mirror" style="display:none"></div>
+    <div class="loop-options">
+      <label class="loop-option">
+        <input type="radio" name="loop-type" value="simple" ${st.s9_loopType === 'simple' ? 'checked' : ''}>
+        <span class="loop-option-label">Bucle simple</span>
+        <div class="loop-option-desc">${LOOP_DEFS.simple.replace('Bucle simple: ', '')}</div>
+      </label>
+      <label class="loop-option">
+        <input type="radio" name="loop-type" value="doble" ${st.s9_loopType === 'doble' ? 'checked' : ''}>
+        <span class="loop-option-label">Doble bucle</span>
+        <div class="loop-option-desc">${LOOP_DEFS.doble.replace('Doble bucle: ', '')}</div>
+      </label>
+    </div>
+    <div class="field-group" style="margin-bottom:0">
+      <label class="field-label" for="loop-why">¿Por qué? (1–2 frases)</label>
+      <textarea id="loop-why" class="field-textarea" placeholder="Explica brevemente por qué tu revisión es de un bucle o del otro.">${st.s9_loopWhy || ''}</textarea>
+    </div>
+  `;
+  container.appendChild(loopCard);
+
+  // En modalidad wargame, "Continuar" abre la ronda de réplica (no va a P10).
+  function handleNext() {
+    const stx = state.get();
+    if (stx.modality === 'wargame' && !stx.wgRound) {
+      state.set({ wgRound: true });
+      nav.navigate(9); // re-renderiza P9 → ronda de réplica
+    } else {
+      nav.onNext();
+    }
+  }
+
   // Nav footer
   const footer = renderNavFooter({
     showBack: false, // post-inject, no back
     onBack: nav.onBack,
-    onNext: nav.onNext,
+    onNext: handleNext,
     nextDisabled: true,
     nextLabel: T.continue,
   });
@@ -204,6 +248,33 @@ export async function mountScreen09(container, caseData, nav) {
     revisedPhrasePreview.innerHTML = assemblePhrase(getRevisedFields(), true);
   }
 
+  // Espejo no vinculante: si cambió el tipo de evento o el canal dominante
+  // entre la frase inicial y la revisada, sugiere "esto parece doble bucle".
+  function updateLoopMirror() {
+    const mirror = container.querySelector('#loop-mirror');
+    if (!mirror) return;
+    const initEvents = [...(state.get().s2_eventTypes || [])].sort().join('|');
+    const revEvents = [...(revEventGroup.getValues() || [])].sort().join('|');
+    const eventsChanged = revEvents !== '' && revEvents !== initEvents;
+    const initChannel = state.get().s3_dominantChannel || '';
+    const revChannel = revChannelGroup.getValue() || '';
+    const channelChanged = revChannel !== '' && revChannel !== initChannel;
+    if (eventsChanged || channelChanged) {
+      const what = [];
+      if (eventsChanged) what.push('el tipo de evento');
+      if (channelChanged) what.push('el canal dominante');
+      mirror.innerHTML = `Cambió ${what.join(' y ')} respecto a tu frase inicial: <strong>esto parece doble bucle</strong>. Es solo una observación —tú decides cómo clasificarlo; no se puntúa.`;
+      mirror.style.display = 'block';
+    } else {
+      mirror.style.display = 'none';
+    }
+  }
+
+  function getLoopType() {
+    const checked = container.querySelector('input[name="loop-type"]:checked');
+    return checked ? checked.value : '';
+  }
+
   function validate() {
     const maintains = container.querySelector('#maintains').value.trim();
     const abandons = container.querySelector('#abandons').value.trim();
@@ -213,8 +284,10 @@ export async function mountScreen09(container, caseData, nav) {
     const revisedFields = getRevisedFields();
     const phraseOk = isPhraseComplete(revisedFields);
 
-    nextBtn.disabled = !(supuestosOk && phraseOk);
-    return supuestosOk && phraseOk;
+    const loopOk = getLoopType() !== '' && container.querySelector('#loop-why').value.trim().length > 0;
+
+    nextBtn.disabled = !(supuestosOk && phraseOk && loopOk);
+    return supuestosOk && phraseOk && loopOk;
   }
 
   function saveState() {
@@ -233,12 +306,15 @@ export async function mountScreen09(container, caseData, nav) {
       s9_revisedI1: container.querySelector('#rev-i1-09').value,
       s9_revisedI2: container.querySelector('#rev-i2-09').value,
       s9_revisedThreshold: container.querySelector('#rev-threshold-09').value,
+      s9_loopType: getLoopType(),
+      s9_loopWhy: container.querySelector('#loop-why').value,
     });
   }
 
   function onAnyChange() {
     saveState();
     updateRevisedPhrase();
+    updateLoopMirror();
     validate();
   }
 
@@ -258,6 +334,12 @@ export async function mountScreen09(container, caseData, nav) {
     container.querySelector(sel).addEventListener('input', onAnyChange);
   });
 
+  // Clasificación de bucle
+  container.querySelectorAll('input[name="loop-type"]').forEach(rb => {
+    rb.addEventListener('change', onAnyChange);
+  });
+  container.querySelector('#loop-why').addEventListener('input', onAnyChange);
+
   // Sub-components register their own change callbacks
   revEventGroup.onChange(onAnyChange);
   revUncGroup.onChange(onAnyChange);
@@ -265,6 +347,7 @@ export async function mountScreen09(container, caseData, nav) {
   revBufferSection.onChange(onAnyChange);
 
   updateRevisedPhrase();
+  updateLoopMirror();
   validate();
 }
 
