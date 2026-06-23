@@ -113,7 +113,8 @@ export const COMPONENTES = [
       <p><strong>Base teórica.</strong> La incertidumbre knightiana (Knight, 1921: no todo evento trae probabilidades conocidas) y la literatura de umbrales: lo relevante no es la tendencia lenta sino el momento en que cruza el umbral que rompe el modelo. La tipología dialoga con la distinción entre <em>cisne negro</em> (Taleb, 2007) —sorpresa genuina— y <em>rinoceronte gris</em> (Wucker) —amenaza visible que nadie quiso atender—.</p>
       <p><strong>Cómo se reconoce.</strong> Aplica un <strong>criterio de demarcación</strong>: si no puedes nombrar por qué un hecho es evento (y no un factor de fondo), todavía no lo es. Un <em>factor</em> es contexto permanente; un <em>evento</em> cambia la decisión.</p>
       <p><strong>Error frecuente.</strong> Confundir la erosión lenta (factor) con el evento. En un caso de consumo, "el poder adquisitivo baja" es factor; "cruzó el punto en que el cliente ya no puede comprar el producto" es el evento.</p>
-      <p><strong>Ejemplo.</strong> Un cambio regulatorio que se anuncia un viernes a las 17:30 es súbito-discreto; si además dispara financiero → legitimidad, es también cascada.</p>`,
+      <p><strong>Ejemplo.</strong> Un cambio regulatorio que se anuncia un viernes a las 17:30 es súbito-discreto; si además dispara financiero → legitimidad, es también cascada.</p>
+      {{EVENT_TYPES}}`,
   },
   {
     id: 'canal', nav: 'Canales', title: 'Canales de impacto (C)',
@@ -153,7 +154,8 @@ export const COMPONENTES = [
       <p><strong>Base teórica.</strong> Costo de oportunidad, opciones reales (flexibilidad: postergar, escalar, abandonar, diversificar; Schoemaker, 1995, 2012) y <strong>decisión robusta</strong> (estrategias buenas a través de muchos futuros, no óptimas para uno; caracterizar vulnerabilidades y trade-offs). El mérito está en <strong>declarar el sacrificio ex ante</strong>, antes de que una pérdida implícita se vuelva sorpresa moral o política. A veces la mejor jugada no elige sobre la frontera dada, sino que la <strong>expande</strong> (capacidades dinámicas; Teece, Pisano &amp; Shuen, 1997).</p>
       <p><strong>Cómo se reconoce.</strong> Si tu decisión "no sacrifica nada", no es una decisión: es un deseo. El riesgo residual es la parte honesta del análisis.</p>
       <p><strong>Error frecuente.</strong> Presentar el trade-off como dilema absoluto ("o cumplimos o quebramos") en vez de como una asignación de recursos con costo y riesgo nombrados.</p>
-      <p><strong>Ejemplo.</strong> Protejo el acceso al cliente con una presentación más pequeña; sacrifico margen unitario; riesgo residual: que se lea como "achicar para encarecer".</p>`,
+      <p><strong>Ejemplo.</strong> Protejo el acceso al cliente con una presentación más pequeña; sacrifico margen unitario; riesgo residual: que se lea como "achicar para encarecer".</p>
+      {{TRADEOFF}}`,
   },
   {
     id: 'accion', nav: 'Acción e indicadores', title: 'Acción táctica e indicadores (A)',
@@ -162,7 +164,8 @@ export const COMPONENTES = [
       <p><strong>Base teórica.</strong> Decisión primada por reconocimiento (Klein): bajo presión no se optimiza, se elige el primer curso de acción viable y se acota con indicadores. Indicadores adelantados vs rezagados y gestión por excepción: se vigilan pocas señales con umbrales claros que disparan la revisión; el wargaming permite probar cursos de acción por movimientos (Dorton et al., 2023).</p>
       <p><strong>Cómo se reconoce.</strong> Un buen indicador es medible y oportuno; un buen umbral es específico ("si las ventas caen &gt;15% en 3 semanas"), no vago ("si las cosas empeoran").</p>
       <p><strong>Error frecuente.</strong> Decidir sin indicadores, o ponerlos sin umbral. Sin umbral, no hay disparador de revisión.</p>
-      <p><strong>Ejemplo.</strong> I1: salida neta de saldos; I2: movimiento del competidor. Umbral T: si I1 supera 10% en una semana, revisar.</p>`,
+      <p><strong>Ejemplo.</strong> I1: salida neta de saldos; I2: movimiento del competidor. Umbral T: si I1 supera 10% en una semana, revisar.</p>
+      {{ACTION_IND}}`,
   },
   {
     id: 'revision', nav: 'Revisión', title: 'Revisión (/R)',
@@ -171,7 +174,8 @@ export const COMPONENTES = [
       <p><strong>Base teórica.</strong> El aprendizaje de <strong>doble bucle</strong> (Argyris): el bucle simple corrige la ejecución dentro del marco; el doble bucle cuestiona el marco mismo —distingue el <em>error de ejecución</em> del <em>error de encuadre</em>—. Se apoya en la revisión por rondas del wargaming, donde el <em>freeze probe</em> —el inject— obliga a reabrir (Perla, 1990; Dorton et al., 2023); en el <em>sensemaking</em> (Weick, 1995); y en la actualización bayesiana ante evidencia discriminante —nombrar hipótesis rivales y actualizar su credibilidad— (Fairfield &amp; Charman). Revisar no es ajustar al margen: es reabrir los supuestos.</p>
       <p><strong>Cómo se reconoce.</strong> Una buena revisión nombra el supuesto que sostenía la decisión original y lo somete a la nueva información. Si tu decisión revisada es idéntica a la inicial sin justificar por qué, probablemente no revisaste: te aferraste. Además, clasifica tu revisión: <strong>bucle simple</strong> si solo ajustas la ejecución manteniendo el encuadre; <strong>doble bucle</strong> si cambias el encuadre mismo —el tipo de evento, el canal dominante o qué cuenta como buffer—. Distinguir el <em>error de ejecución</em> del <em>error de encuadre</em> es parte del aprendizaje.</p>
       <p><strong>Error frecuente.</strong> Tratar el inject como un detalle y "ajustar" en lugar de reabrir. El inject suele <strong>mover el canal dominante</strong>; si tu buffer servía para el canal viejo, quizá ya no sirve.</p>
-      <p><strong>Ejemplo.</strong> Mantengo el supuesto de que el cliente valora la estabilidad; abandono el supuesto de que el plazo se ablandaría; invierto el supuesto sobre el competidor: de "es postura" a "es plan".</p>`,
+      <p><strong>Ejemplo.</strong> Mantengo el supuesto de que el cliente valora la estabilidad; abandono el supuesto de que el plazo se ablandaría; invierto el supuesto sobre el competidor: de "es postura" a "es plan".</p>
+      {{REVISION}}`,
   },
 ];
 
@@ -198,7 +202,7 @@ export const TECH_GLOSSARY_HTML = `
     <dt>Export <span class="lc-pron">≈ ÉX-port</span></dt><dd><em>Exportar.</em> Generar el PDF con tu razonamiento al final del recorrido (Pantalla 10).</dd>
     <dt>Memo <span class="lc-pron">≈ MÉ-mo</span></dt><dd><em>Memorando.</em> El documento ejecutivo de 1.200–1.500 palabras que es la entrega evaluable.</dd>
   </dl>
-  <h4 class="lc-h4">2. Conceptos teóricos</h4>
+  <h4 class="lc-h4" id="glo-conceptos">2. Conceptos teóricos</h4>
   <dl class="lc-glossary">
     <dt>Knightian uncertainty <span class="lc-pron">— Incertidumbre knightiana</span></dt><dd>Situación en que no conocemos bien las probabilidades de los resultados (a diferencia del <em>riesgo</em>, donde sí se conocen).</dd>
     <dt>Black swan <span class="lc-pron">— Cisne negro</span></dt><dd>Evento de gran impacto, baja anticipación convencional y muy racionalizado después de ocurrido.</dd>
@@ -213,7 +217,7 @@ export const TECH_GLOSSARY_HTML = `
     <dt>Bayesian updating <span class="lc-pron">— Actualización bayesiana</span></dt><dd>Revisar la credibilidad de hipótesis rivales a medida que llega nueva evidencia, en vez de "ajustar" sin método.</dd>
     <dt>Stakeholder <span class="lc-pron">— Actor / parte interesada</span></dt><dd>Cualquiera que afecta o es afectado por la decisión (regulador, cliente, comunidad, competidor…).</dd>
   </dl>
-  <h4 class="lc-h4">3. Términos financieros y de negocio (aparecen en los datos de los casos)</h4>
+  <h4 class="lc-h4" id="glo-financieros">3. Términos financieros y de negocio (aparecen en los datos de los casos)</h4>
   <dl class="lc-glossary">
     <dt>NPS (Net Promoter Score) <span class="lc-pron">≈ en-pi-és</span></dt><dd><em>Índice de recomendación.</em> Cuánto recomiendan los clientes una marca (de –100 a +100). Ej.: "NPS ≈ +42".</dd>
     <dt>GMV (Gross Merchandise Value) <span class="lc-pron">≈ ge-eme-uvé</span></dt><dd><em>Valor bruto de mercancía.</em> El valor total de lo transado en una plataforma antes de la comisión. Ej.: "GMV mensual US$ 6,5 M".</dd>
@@ -234,15 +238,37 @@ export const TECH_GLOSSARY_HTML = `
 // Los tokens {{CYCLE}}, {{PHRASE}}, {{STRIP}} los sustituye el renderer por los
 // gráficos SVG autorados. Se usa tanto en la portada (raíz) como en la sección
 // Inicio del centro de aprendizaje.
-export const HOME_BODY = `
-  <p><strong>Para qué sirve.</strong> EntornoLab entrena una habilidad concreta del directivo: tomar una decisión defendible cuando el entorno cambia y la información es incompleta. No enseña a "adivinar el futuro"; enseña a <strong>estructurar una decisión bajo incertidumbre</strong> de modo que pueda explicarse, sostenerse ante un comité y revisarse cuando llega información nueva.</p>
-  <p><strong>Qué hace.</strong> Te acompaña por un ciclo completo de decisión sobre un caso real-ista: clasificas el evento, mapeas su impacto, eliges y valoras un buffer, formulas una decisión táctica con indicadores, y —cuando aparece un <em>inject</em> que revela información que estaba latente— <strong>revisas todo el recorrido</strong> con lo que ahora sabes. El resultado es un PDF con tu razonamiento, insumo de tu memo.</p>
-  <p><strong>Objetivos de aprendizaje.</strong> Al terminar serás capaz de: (1) distinguir un evento emergente de un factor estructural; (2) nombrar el canal por el que un evento golpea y anticipar su segunda ronda; (3) identificar buffers reales —no ilusorios— y costear su activación; (4) formular una decisión como frase E-BTA/R defendible; (5) definir indicadores y umbrales de revisión; y (6) <strong>reabrir</strong> tu decisión ante información nueva, distinguiendo qué supuesto mantienes, cuál abandonas y cuál inviertes.</p>
-  <p><strong>Cómo lo logra.</strong> Mediante un ciclo guiado y la disciplina del marco <strong>E-BTA/R</strong>, más un mecanismo deliberado: el <em>inject</em> introduce asimetría de información entre rondas y fuerza una revisión genuina. El simulador <strong>no te puntúa ni te dice si "acertaste"</strong>: captura tu razonamiento para que tú y el facilitador lo discutan. Lo que se evalúa es el razonamiento, no el resultado.</p>
-  <p><strong>Qué te aporta.</strong> Una gramática portátil para decidir bajo incertidumbre que puedes llevar a tu propia organización; práctica en hacer explícito lo que normalmente queda implícito (qué proteges, qué sacrificas, a qué costo); y un entregable —la frase E-BTA/R y el memo— que es, en sí mismo, una pieza de comunicación ejecutiva.</p>
-  <p><strong>Un ejemplo en una línea.</strong> "Dado el alza súbita del alquiler (evento), que abre incertidumbre de magnitud sobre el canal financiero, protejo el flujo de caja con una reserva (buffer), sacrifico parte del margen, vigilo las ventas semanales y reviso si caen más de 15%." Eso es una decisión defendible y revisable: eso es lo que aquí se practica. (Ver más en <strong>Ejemplos</strong>.)</p>
-  {{CYCLE}}
+// Síntesis breve (2–3 líneas) + objetivos en lista, para el primer pliegue de Inicio.
+export const HOME_SYNTHESIS = `
+  <p class="home-synthesis">EntornoLab es un laboratorio para <strong>estructurar una decisión defendible cuando el entorno cambia y la información es incompleta</strong>. No enseña a adivinar el futuro: enseña a decidir de modo que puedas <strong>explicar, sostener y revisar</strong> tu decisión cuando llega información nueva. El resultado es un PDF con tu razonamiento, insumo de tu memo.</p>
+  <p class="home-objectives-lead"><strong>Al terminar serás capaz de:</strong></p>
+  <ul class="lc-list home-objectives">
+    <li>distinguir un evento emergente de un factor estructural;</li>
+    <li>nombrar el canal por el que un evento golpea y anticipar su segunda ronda;</li>
+    <li>identificar buffers reales —no ilusorios— y costear su activación;</li>
+    <li>formular una decisión como frase E-BTA/R defendible, con indicadores y umbral;</li>
+    <li><strong>reabrir</strong> tu decisión ante información nueva —el inject—, distinguiendo qué supuesto mantienes, cuál abandonas y cuál inviertes.</li>
+  </ul>`;
+
+// Bloque "por encima del pliegue": síntesis + diagrama del ciclo (ya legible).
+export const HOME_ABOVE = `
+  ${HOME_SYNTHESIS}
+  {{CYCLE}}`;
+
+// Bloque extenso (debajo del selector en la portada): detalle en acordeón,
+// frase anotada, mapa del sitio, tira de pasos y la nota de cierre.
+export const HOME_BELOW = `
   {{PHRASE}}
+  <details class="lc-accordion">
+    <summary class="lc-accordion-summary">Leer más: para qué sirve, qué hace y qué te aporta</summary>
+    <div class="lc-accordion-body">
+      <p><strong>Para qué sirve.</strong> EntornoLab entrena una habilidad concreta del directivo: tomar una decisión defendible cuando el entorno cambia y la información es incompleta. No enseña a "adivinar el futuro"; enseña a <strong>estructurar una decisión bajo incertidumbre</strong> de modo que pueda explicarse, sostenerse ante un comité y revisarse cuando llega información nueva.</p>
+      <p><strong>Qué hace.</strong> Te acompaña por un ciclo completo de decisión sobre un caso real-ista: clasificas el evento, mapeas su impacto, eliges y valoras un buffer, formulas una decisión táctica con indicadores, y —cuando aparece un <em>inject</em> que revela información que estaba latente— <strong>revisas todo el recorrido</strong> con lo que ahora sabes. El resultado es un PDF con tu razonamiento, insumo de tu memo.</p>
+      <p><strong>Cómo lo logra.</strong> Mediante un ciclo guiado y la disciplina del marco <strong>E-BTA/R</strong>, más un mecanismo deliberado: el <em>inject</em> introduce asimetría de información entre rondas y fuerza una revisión genuina. El simulador <strong>no te puntúa ni te dice si "acertaste"</strong>: captura tu razonamiento para que tú y el facilitador lo discutan. Lo que se evalúa es el razonamiento, no el resultado.</p>
+      <p><strong>Qué te aporta.</strong> Una gramática portátil para decidir bajo incertidumbre que puedes llevar a tu propia organización; práctica en hacer explícito lo que normalmente queda implícito (qué proteges, qué sacrificas, a qué costo); y un entregable —la frase E-BTA/R y el memo— que es, en sí mismo, una pieza de comunicación ejecutiva.</p>
+      <p><strong>Un ejemplo en una línea.</strong> "Dado el alza súbita del alquiler (evento), que abre incertidumbre de magnitud sobre el canal financiero, protejo el flujo de caja con una reserva (buffer), sacrifico parte del margen, vigilo las ventas semanales y reviso si caen más de 15%." Eso es una decisión defendible y revisable: eso es lo que aquí se practica. (Ver más en <strong>Ejemplos</strong>.)</p>
+    </div>
+  </details>
   <h3 class="lc-h3">Cómo está organizado este sitio (mapa y lógica de navegación)</h3>
   <p>EntornoLab es <strong>autocontenido</strong>: todo lo que necesitas está aquí, sin documentos aparte. Desde la <strong>barra superior</strong>, siempre visible, puedes recorrer en cualquier momento:</p>
   <ul class="lc-list">
@@ -255,7 +281,10 @@ export const HOME_BODY = `
   </ul>
   <p>Y el botón <strong>Iniciar recorrido</strong> te lleva a la <strong>ruta de decisión</strong>: 10 pantallas, lineal, que termina en un PDF (el insumo de tu memo). <strong>Dos reglas de navegación</strong> que conviene tener claras desde ya: (1) puedes <strong>consultar cualquier sección de referencia mientras decides</strong>, sin perder tu progreso; (2) una vez que aparece el <strong>inject</strong>, <strong>no se vuelve atrás</strong> —la revisión es reapertura, no edición—. Esa es, justamente, la disciplina que el laboratorio entrena.</p>
   {{STRIP}}
-  <blockquote class="lc-quote"><strong>Antes de empezar.</strong> Recorre <strong>El marco E-BTA/R</strong> y, si quieres, los <strong>Componentes</strong>. Cuando estés listo, elige un caso abajo y pulsa <strong>Iniciar recorrido</strong>.</blockquote>`;
+  <blockquote class="lc-quote"><strong>Antes de empezar.</strong> Recorre <strong>El marco E-BTA/R</strong> y, si quieres, los <strong>Componentes</strong>. Cuando estés listo, elige un caso y pulsa <strong>Iniciar recorrido</strong>.</blockquote>`;
+
+// Cuerpo completo de Inicio (centro de aprendizaje): síntesis + ciclo + bloque extenso.
+export const HOME_BODY = `${HOME_ABOVE}${HOME_BELOW}`;
 
 // ── Secciones de primer nivel ──
 export const SECTIONS = {
@@ -278,8 +307,11 @@ export const SECTIONS = {
       <p>El <strong>inject (inyección de información)</strong> revela información latente que no estaba disponible al momento de la decisión inicial. No es una noticia nueva inventada: es algo que el caso ya contenía y que ahora pesa. <span class="lc-footnote">${INJECT_GLOSS}</span></p>
       <h3 class="lc-h3">La frase canónica</h3>
       <blockquote class="lc-quote"><em>Dado el evento <strong>E</strong>, que abre la incertidumbre <strong>U</strong> sobre el canal <strong>C</strong>, protejo <strong>X</strong> mediante el buffer <strong>B</strong> (potencia, duración, costo), sacrifico parcialmente <strong>Y</strong>, monitoreo <strong>I1</strong> e <strong>I2</strong>, y reviso la decisión si se cruza el umbral <strong>T</strong>.</em></blockquote>
+      <p class="lc-anota-label">Versión anotada — la misma frase, con cada color marcando una pieza del marco:</p>
       {{PHRASE}}
-      <h3 class="lc-h3">Base teórica (de dónde viene)</h3>
+      <details class="lc-accordion">
+        <summary class="lc-accordion-summary">Para profundizar: base teórica (de dónde viene)</summary>
+        <div class="lc-accordion-body">
       <p>E-BTA/R no se inventa de cero: condensa, en un formato operativo para el aula, las tradiciones de la decisión bajo incertidumbre que sostienen el rediseño del curso.</p>
       <ul class="lc-list">
         <li><strong>Incertidumbre radical y eventos de cola.</strong> Frank Knight (1921) distingue <em>riesgo</em> (probabilidades conocidas) de <em>incertidumbre</em> (no se conocen): E-BTA/R vive en la incertidumbre. Para clasificar las sorpresas, se distingue el <em>cisne negro</em> —sorpresa genuina, racionalizada ex post— (Taleb, 2007) del <em>rinoceronte gris</em> —amenaza visible que nadie quiso atender— (Wucker).</li>
@@ -291,6 +323,8 @@ export const SECTIONS = {
         <li><strong>Revisión: doble bucle y actualización bayesiana.</strong> La <strong>R</strong> no corrige solo la ejecución dentro del marco viejo (bucle simple); pregunta si el marco mismo era erróneo o estrecho (doble bucle; Argyris) —distingue <em>error de ejecución</em> de <em>error de encuadre</em>—. Y trata cada inject como evidencia que obliga a sopesar hipótesis rivales y actualizar credibilidades, no a "ajustar" sin más (inferencia bayesiana; Fairfield &amp; Charman). El inject es, en el wargaming, un <em>freeze probe</em>.</li>
         <li><strong>Conversación actual (2024–2026).</strong> El foco se desplaza de VUCA hacia la <em>incertidumbre profunda</em> y la <em>complejidad dinámica</em>: importa distinguir ruido contextual, inestabilidad dinámica e incertidumbre estructural. El wargaming se reivindica como puente entre inteligencia, foresight y estrategia, y el inject se entiende como dispositivo para convertir información difusa en hipótesis operativas, vulnerabilidades visibles y señales de revisión.</li>
       </ul>
+        </div>
+      </details>
       <h3 class="lc-h3">Cuándo usarlo</h3>
       <p>Cuando enfrentas un <strong>evento emergente</strong> (no una rutina), con <strong>información incompleta</strong>, <strong>recursos escasos</strong> y <strong>obligación de rendir cuentas</strong>. Si la respuesta es obvia o el futuro es conocido, no necesitas E-BTA/R: necesitas ejecutar.</p>
       <h3 class="lc-h3">Qué NO es</h3>
@@ -302,6 +336,18 @@ export const SECTIONS = {
       <h3 class="lc-h3">Ejemplo guiado (de juguete)</h3>
       <p>Una cafetería de barrio se entera un lunes de que el dueño del local le subirá el alquiler 40% en 30 días.</p>
       <blockquote class="lc-quote"><em>Dado el evento (alza súbita del alquiler), que abre incertidumbre de <strong>magnitud</strong> sobre el canal <strong>financiero</strong>, protejo el <strong>flujo de caja</strong> mediante un buffer de <strong>reserva</strong> (potencia media, dura ~2 meses, costo en caja), sacrifico parcialmente <strong>margen</strong> subiendo precios con moderación, monitoreo las <strong>ventas semanales</strong> y las <strong>quejas de clientes</strong>, y reviso si las ventas caen más de <strong>15% en tres semanas</strong>.</em></blockquote>
+      <p class="lc-anota-label">Versión anotada — la misma decisión, con los colores del marco:</p>
+      <div class="ebta-anatomy">
+        <p class="ebta-frase">
+          Dado el <span class="chip" style="background:#0F2740;color:#fff">alza súbita del alquiler (E)</span>,
+          que abre la <span class="chip" style="background:#E7EDF4;color:#0F2740">incertidumbre de magnitud sobre el canal financiero (C)</span>,
+          protejo el flujo de caja con una <span class="chip" style="background:#2D6EA3;color:#fff">reserva (B)</span>,
+          sacrifico parte del <span class="chip" style="background:#2E7D6A;color:#fff">margen (trade-off, T)</span>,
+          subo precios con moderación y vigilo ventas y quejas <span class="chip" style="background:#B26A00;color:#fff">(acción + indicadores, A)</span>,
+          y <span class="chip" style="background:#6A4C93;color:#fff">reviso (R)</span> si las ventas caen más de 15% en tres semanas.
+        </p>
+        <p class="ebta-leyenda"><b>E</b> Evento · <b>B</b> Buffer · <b>T</b> Trade-off · <b>A</b> Acción táctica + indicadores · <b>R</b> Revisión</p>
+      </div>
       <p>Desglose por componente: <strong>E</strong> = alza súbita; <strong>C</strong> = financiero; <strong>U</strong> = magnitud; <strong>B</strong> = reserva (caja); <strong>T</strong> = protejo caja / sacrifico margen / riesgo residual: perder clientes sensibles al precio; <strong>A</strong> = subir precios con moderación + indicadores; <strong>R</strong> (si llega un inject, p. ej. "el local de al lado cierra y baja la zona"): reabrir.</p>
       <p>El ejemplo no es "la respuesta correcta": es la <strong>forma</strong> de una decisión que se puede defender y revisar.</p>
       <h3 class="lc-h3">Cómo se ve en un caso real-ista (sin spoiler)</h3>
@@ -316,7 +362,8 @@ export const SECTIONS = {
         <li><strong>Caso B — Provista · Alimentos de consumo masivo.</strong> "Una empresa de alimentos descubre que su cliente histórico ya no puede pagar su producto." Caso de transferencia, ciclo comprimido. ~60 min.</li>
         <li><strong>Caso C — Rauda · Plataforma de reparto.</strong> "Una app de delivery enfrenta una crisis pública que estalla tras un caso viral." Caso portable, ciclo comprimido. ~60 min.</li>
       </ul>
-      <p><em>Empieza por el Caso A si es tu primera vez o si harás el memo. Usa B o C para practicar la transferencia del marco a otros sectores.</em> (El selector no muestra el tipo de evento ni el canal dominante: eso es justo lo que tú debes deducir.)</p>`,
+      <p><em>Empieza por el Caso A si es tu primera vez o si harás el memo. Usa B o C para practicar la transferencia del marco a otros sectores.</em> (El selector no muestra el tipo de evento ni el canal dominante: eso es justo lo que tú debes deducir.)</p>
+      <p><button class="btn btn-secondary lc-goto-selector" type="button" data-goto-selector>Ir al selector en Inicio ↓</button></p>`,
   },
   guia: {
     nav: 'Guía de uso', title: 'Guía de uso', anchor: 'guia',
@@ -343,7 +390,7 @@ export const SECTIONS = {
   referencias: {
     nav: 'Referencias', title: 'Referencias del marco', anchor: 'referencias',
     html: `
-      <p>Base teórica de E-BTA/R (alineada con el documento curricular <em>Marco E-BTA/R y simulador</em>, §4, y con la nota de estudio teórica del curso). La bibliografía completa en formato APA vive en ese documento curricular (§13).</p>
+      <p>Base teórica de E-BTA/R. Estas son las fuentes principales del marco; la <strong>bibliografía ampliada en formato APA está disponible con el facilitador</strong>.</p>
       <ul class="lc-list">
         <li><strong>Knight, F. H. (1921).</strong> <em>Risk, Uncertainty and Profit.</em> — Riesgo vs. incertidumbre.</li>
         <li><strong>Taleb, N. N. (2007).</strong> <em>The Black Swan.</em> — Eventos de cola / cisne negro.</li>

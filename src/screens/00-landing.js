@@ -1,5 +1,5 @@
 import { fillGraphics } from '../learning/center.js';
-import { HOME_BODY } from '../learning/content.js';
+import { HOME_ABOVE, HOME_BELOW } from '../learning/content.js';
 import { sectorGlyph } from '../learning/graphics.js';
 
 // Textos aprobados de cada tarjeta (sin spoilear dominantEventType ni dominantChannel).
@@ -63,9 +63,24 @@ export async function mountScreen00(container, _caseData, nav) {
   body.className = 'landing-body';
   landing.appendChild(body);
 
+  // Por encima del pliegue: síntesis breve + objetivos + diagrama del ciclo
+  // (ya legible) + acceso visible al selector de casos.
   const about = document.createElement('section');
   about.className = 'landing-about lc-article';
-  about.innerHTML = fillGraphics(HOME_BODY);
+  about.innerHTML = fillGraphics(HOME_ABOVE);
+
+  const chooseRow = document.createElement('div');
+  chooseRow.className = 'landing-choose-row';
+  const chooseBtn = document.createElement('button');
+  chooseBtn.className = 'btn btn-primary landing-choose-btn';
+  chooseBtn.type = 'button';
+  chooseBtn.textContent = 'Elegir un caso ↓';
+  chooseBtn.addEventListener('click', () => {
+    const sec = document.querySelector('.landing-case-section');
+    if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  chooseRow.appendChild(chooseBtn);
+  about.appendChild(chooseRow);
   body.appendChild(about);
 
   // ---- Selección de caso ----
@@ -126,6 +141,12 @@ export async function mountScreen00(container, _caseData, nav) {
   startRow.appendChild(startBtn);
   body.appendChild(startRow);
 
+  // ---- Bloque extenso (debajo del selector): detalle, mapa del sitio, tira ----
+  const more = document.createElement('section');
+  more.className = 'landing-about landing-more lc-article';
+  more.innerHTML = fillGraphics(HOME_BELOW);
+  body.appendChild(more);
+
   // ---- Caso de evaluación (entrega final) — diferenciado ----
   const evalSection = document.createElement('section');
   evalSection.className = 'landing-eval-section';
@@ -160,7 +181,7 @@ export async function mountScreen00(container, _caseData, nav) {
   // ---- Pie de página ----
   const footer = document.createElement('footer');
   footer.className = 'landing-footer';
-  footer.textContent = 'Diseño y dirección académica: Pável Gómez · IESA · 2026 · EntornoLab v1.3';
+  footer.textContent = 'Diseño y dirección académica: Pável Gómez · IESA · 2026 · EntornoLab v1.4';
   body.appendChild(footer);
 
   container.appendChild(landing);

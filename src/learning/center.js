@@ -12,6 +12,7 @@ import { state } from '../state.js';
 import { SECTIONS, COMPONENTES, GLOSSARY, TERM_DEFS, ORIENTACION, TECH_GLOSSARY_HTML } from './content.js';
 import {
   cycleDiagram, pathStrip, phraseAnatomy, channelsDiagram, bufferAxes, actorsMap,
+  eventTypesDiagram, tradeoffDiagram, actionIndicatorsDiagram, revisionDiagram,
 } from './graphics.js';
 
 // Sustituye los tokens de gráficos ({{CYCLE}}, etc.) por los SVG autorados.
@@ -22,7 +23,11 @@ export function fillGraphics(html) {
     .replace('{{STRIP}}', pathStrip())
     .replace('{{CHANNELS}}', channelsDiagram())
     .replace('{{BUFFER_AXES}}', bufferAxes())
-    .replace('{{ACTORS}}', actorsMap());
+    .replace('{{ACTORS}}', actorsMap())
+    .replace('{{EVENT_TYPES}}', eventTypesDiagram())
+    .replace('{{TRADEOFF}}', tradeoffDiagram())
+    .replace('{{ACTION_IND}}', actionIndicatorsDiagram())
+    .replace('{{REVISION}}', revisionDiagram());
 }
 
 let _overlay = null;
@@ -159,7 +164,16 @@ function renderSection(sectionKey, subKey) {
     title = 'Glosario';
     const items = GLOSSARY.map(g => `<dt>${g.term}</dt><dd>${g.def}</dd>`).join('');
     html = `<article class="lc-article"><h2 class="lc-title">Glosario</h2>
-      <h3 class="lc-h3">Términos del marco E-BTA/R</h3>
+      <div class="lc-glo-toolbar">
+        <input type="search" class="lc-glo-search" placeholder="Filtrar términos…" aria-label="Filtrar términos del glosario">
+        <nav class="lc-glo-index" aria-label="Saltar a una sección del glosario">
+          <button type="button" class="lc-glo-jump" data-jump="glo-marco">Términos del marco</button>
+          <button type="button" class="lc-glo-jump" data-jump="glo-conceptos">Conceptos teóricos</button>
+          <button type="button" class="lc-glo-jump" data-jump="glo-financieros">Términos financieros</button>
+        </nav>
+      </div>
+      <p class="lc-glo-empty" hidden>Ningún término coincide con tu búsqueda.</p>
+      <h3 class="lc-h3" id="glo-marco">Términos del marco E-BTA/R</h3>
       <dl class="lc-glossary">${items}</dl>
       <p class="lc-bridge"><em>Puentes con la familia:</em> en <strong>MacroLab</strong> un evento equivale a un <strong>shock</strong>; en <strong>MercaLab</strong>, el ajuste de un <strong>equilibrio</strong>. EntornoLab se ocupa de la <strong>decisión</strong> ante esos cambios.</p>
       ${TECH_GLOSSARY_HTML}
@@ -181,9 +195,56 @@ function renderSection(sectionKey, subKey) {
   _contentEl.querySelectorAll('.lc-chip').forEach(chip => {
     chip.addEventListener('click', () => openLearning('componentes', chip.dataset.comp));
   });
+  // "Ir al selector en Inicio" (sección Casos): cierra el overlay y, en la
+  // portada, lleva al selector de caso sin reiniciar el recorrido.
+  _contentEl.querySelectorAll('[data-goto-selector]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const inRecorrido = state.get().currentScreen >= 1;
+      closeLearning();
+      if (!inRecorrido && _startHook) _startHook();
+    });
+  });
+  // Glosario: filtro en cliente + saltos a sección (sin backend).
+  if (sectionKey === 'glosario') wireGlossary();
   // etiqueta del botón de acción
   const startBtn = _overlay.querySelector('.lc-start');
   startBtn.textContent = state.get().currentScreen >= 1 ? 'Volver al recorrido' : 'Iniciar recorrido →';
+}
+
+// Filtro y navegación del glosario (cliente, sin backend).
+function wireGlossary() {
+  const search = _contentEl.querySelector('.lc-glo-search');
+  const empty = _contentEl.querySelector('.lc-glo-empty');
+  // Saltos a sección: scrollIntoView dentro del contenedor del centro (no usa
+  // hash, que está reservado para el enrutamiento del overlay).
+  _contentEl.querySelectorAll('.lc-glo-jump').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = _contentEl.querySelector('#' + btn.dataset.jump);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+  if (!search) return;
+  const dls = Array.from(_contentEl.querySelectorAll('.lc-glossary'));
+  // Pares dt+dd por cada definición.
+  const pairs = [];
+  dls.forEach(dl => {
+    let dt = null;
+    Array.from(dl.children).forEach(node => {
+      if (node.tagName === 'DT') dt = node;
+      else if (node.tagName === 'DD' && dt) { pairs.push([dt, node]); dt = null; }
+    });
+  });
+  search.addEventListener('input', () => {
+    const q = search.value.trim().toLowerCase();
+    let anyVisible = false;
+    pairs.forEach(([dt, dd]) => {
+      const match = !q || (dt.textContent + ' ' + dd.textContent).toLowerCase().includes(q);
+      dt.hidden = !match;
+      dd.hidden = !match;
+      if (match) anyVisible = true;
+    });
+    if (empty) empty.hidden = anyVisible || !q;
+  });
 }
 
 // ---------- API pública ----------
