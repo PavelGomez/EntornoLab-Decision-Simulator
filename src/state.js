@@ -20,6 +20,8 @@ const defaultState = () => ({
   s3_secondaryChannel: '',
   s3_impact1: '',
   s3_impact2: '',
+  s3_rivalInterpretations: '',   // reducir equivocidad: lecturas causales rivales
+  s3_discriminatingEvidence: '', // qué dato favorecería una lectura sobre otra
 
   // S4
   s4_selectedBuffers: [],  // array of buffer ids (max 2)
@@ -34,6 +36,8 @@ const defaultState = () => ({
   s6_i1: '',
   s6_i2: '',
   s6_threshold: '',
+  s6_realOption: '',         // tipo de jugada (opción real), opcional
+  s6_realOptionTrigger: '',  // gatillo de ejercicio de la opción real
 
   // S9
   s9_maintains: '',

@@ -29,6 +29,23 @@ export const T = {
   potencia: { 'baja': 'Baja', 'media': 'Media', 'alta': 'Alta' },
   duracion: { 'una-ronda': 'Una ronda', 'multiples-rondas': 'Múltiples rondas', 'persistente': 'Persistente' },
   costo: { 'bajo': 'Bajo', 'medio': 'Medio', 'alto': 'Alto' },
+  // Mecanismo del buffer (cómo protege) — v1.5
+  bufferMechanisms: { 'absorber': 'Absorber', 'demorar': 'Demorar', 'desviar': 'Desviar', 'transformar': 'Transformar' },
+  bufferMechanismDefs: {
+    'absorber': 'Encaja el golpe sin trasladarlo (lo aguanta dentro).',
+    'demorar': 'Gana tiempo: pospone el impacto para decidir con más información.',
+    'desviar': 'Traslada el impacto a otro canal, actor o momento.',
+    'transformar': 'Cambia la naturaleza del problema (rediseña la exposición).',
+  },
+  // Tipos de jugada (opción real) — v1.5
+  realOptions: {
+    'esperar': 'Esperar / diferir',
+    'pilotar': 'Pilotar / expandir',
+    'abandonar': 'Abandonar',
+    'contraer': 'Contraer',
+    'cambiar': 'Cambiar / sustituir',
+    'secuenciar': 'Secuenciar',
+  },
   roles: { 'ancla': 'Caso ancla', 'transferencia': 'Caso de transferencia', 'portable': 'Caso portable', 'final': 'Caso de evaluación (entrega final)' },
 
   // Screen titles
@@ -90,6 +107,14 @@ export const T = {
   s3_impact1Hint: 'Describa el impacto inmediato sobre la operación y las finanzas.',
   s3_impact2: 'Impacto en la 2.ª ronda (mediano plazo)',
   s3_impact2Hint: 'Describa cómo se propaga el impacto si el evento se sostiene o escala.',
+  // Reducir equivocidad (v1.5) — antes de fijar el canal dominante
+  s3_equivTitle: 'Reducir equivocidad',
+  s3_equivIntro: 'Reducir equivocidad: nombra 2–3 lecturas causales rivales de la señal y qué evidencia las distinguiría, antes de elegir el canal dominante.',
+  s3_rivalInterpretations: 'Interpretaciones rivales (opcional)',
+  s3_rivalInterpretationsHint: 'Escribe 2–3 lecturas causales plausibles e incompatibles de la misma señal (2–3 líneas).',
+  s3_discriminatingEvidence: 'Evidencia discriminante (opcional)',
+  s3_discriminatingEvidenceHint: 'Qué dato favorecería una lectura sobre otra (1 línea).',
+  s3_rivalSuggestions: 'Lecturas rivales sugeridas (para inspirarte):',
 
   // Screen 4
   s4_selectBuffers: 'Seleccione hasta 2 buffers para activar',
@@ -100,6 +125,11 @@ export const T = {
   s4_costUnit: 'Unidad de costo',
   s4_costUnitHint: 'Unidad de costo definida por el caso para este buffer.',
   s4_maxReached: 'Ya seleccionó 2 buffers. Deseleccione uno para elegir otro.',
+  // Mecanismo y costo de oportunidad (v1.5) — opcionales por buffer
+  s4_mechanism: '¿Cómo protege? (opcional)',
+  s4_mechanismNone: '— Mecanismo —',
+  s4_opportunityCost: '¿Qué alternativa sacrificas al mantener o activar este buffer? (opcional)',
+  s4_opportunityCostHint: 'El costo de oportunidad, no el directo: caja que no inviertes, foco, velocidad, legitimidad, flexibilidad…',
 
   // Screen 5
   s5_protects: '¿Qué se protege?',
@@ -118,6 +148,13 @@ export const T = {
   s6_i2Hint: 'Segundo indicador de seguimiento.',
   s6_threshold: 'Umbral de revisión (T)',
   s6_thresholdHint: 'Condición o valor que, al cruzarse, dispara una revisión de la decisión. Ej: "Si la circular se publica con plazo menor a 60 días..."',
+  // Opción real (v1.5) — opcional, en Decisión
+  s6_realOption: 'Tipo de jugada (opción real) — opcional',
+  s6_realOptionNone: '— Sin especificar —',
+  s6_realOptionHint: 'Una opción real compra flexibilidad: el derecho —no la obligación— de actuar después.',
+  s6_realOptionTrigger: 'Gatillo de ejercicio',
+  s6_realOptionTriggerHint: 'Qué señal define ejercer, abandonar o seguir esperando.',
+  s6_waitPista: 'Esperar es opción real solo si dices qué proteges mientras esperas, qué incertidumbre buscas resolver y bajo qué señal dejas de esperar.',
 
   // Screen 7
   s7_review: 'Revise y confirme sus indicadores',
@@ -155,5 +192,16 @@ export const T = {
   prof_navTitle: 'Navegación de cohorte',
 
   // Reset confirm
-  resetConfirm: '¿Reiniciar la sesión? Se perderá todo el progreso no exportado.'
+  resetConfirm: '¿Reiniciar la sesión? Se perderá todo el progreso no exportado.',
+
+  // Microcopy por módulo (v1.5) — texto guía breve bajo el encabezado
+  microcopy: {
+    evento: 'No describas el clima general. Identifica el hecho o umbral que obliga a decidir ahora.',
+    canal: 'Reduce equivocidad: elige la lectura causal dominante y nombra una interpretación rival.',
+    buffer: 'Un recurso solo cuenta como buffer si protege un canal específico y tiene costo de activación y de oportunidad.',
+    incertidumbre: 'No escribas "VUCA" como conclusión. Tradúcelo a una fuente: ocurrencia, magnitud, duración o actor.',
+    tradeoff: 'Formula: protejo X, sacrifico Y, queda el riesgo residual Z.',
+    accion: 'Define dos indicadores y un umbral. Sin umbral no hay revisión.',
+    revision: 'Ante el inject, no ajustes al margen: declara qué supuesto mantienes, abandonas o inviertes.',
+  },
 };

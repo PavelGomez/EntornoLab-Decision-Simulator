@@ -1,8 +1,9 @@
 import { state } from '../state.js';
 import { T } from '../i18n.js';
-import { renderNavFooter } from './helpers.js';
+import { renderNavFooter, escapeHtml } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
 import { assemblePhrase, getPhraseFields, isPhraseComplete } from '../ebtaPhrase.js';
+import { attachSoftHints, makeSoftHintBox } from '../softHints.js';
 
 export async function mountScreen06(container, caseData, nav) {
   const st = state.get();
@@ -20,6 +21,11 @@ export async function mountScreen06(container, caseData, nav) {
   subtitleEl.className = 'screen-subtitle';
   subtitleEl.textContent = T.s6_phraseHint;
   container.appendChild(subtitleEl);
+
+  const microcopy = document.createElement('p');
+  microcopy.className = 'screen-microcopy';
+  microcopy.textContent = T.microcopy.accion;
+  container.appendChild(microcopy);
 
   // Phrase card (live preview)
   const phraseCard = document.createElement('div');
@@ -67,6 +73,50 @@ export async function mountScreen06(container, caseData, nav) {
   indicatorsCard.appendChild(thresholdGroup);
 
   container.appendChild(indicatorsCard);
+
+  // ── Tipo de jugada (opción real) — opcional (v1.5) ──
+  const realOptCard = document.createElement('div');
+  realOptCard.className = 'card';
+  const realOptOptionsHtml = Object.entries(T.realOptions)
+    .map(([v, l]) => `<option value="${v}"${st.s6_realOption === v ? ' selected' : ''}>${l}</option>`).join('');
+  realOptCard.innerHTML = `
+    <div class="field-group" style="margin-bottom:var(--sp-3)">
+      <label class="field-label" for="real-option">${T.s6_realOption}</label>
+      <select id="real-option" class="field-select">
+        <option value="">${T.s6_realOptionNone}</option>
+        ${realOptOptionsHtml}
+      </select>
+      <p class="field-hint">${T.s6_realOptionHint}</p>
+    </div>
+    <div id="real-option-trigger-wrap" class="field-group optional-field" style="margin-bottom:0;display:none">
+      <label class="field-label" for="real-option-trigger">${T.s6_realOptionTrigger}</label>
+      <textarea id="real-option-trigger" class="field-textarea" placeholder="Qué señal define ejercer / abandonar / seguir esperando…">${escapeHtml(st.s6_realOptionTrigger || '')}</textarea>
+      <p class="field-hint">${T.s6_realOptionTriggerHint}</p>
+    </div>
+    <div id="real-option-wait" class="soft-hints" style="margin-top:var(--sp-3)"></div>
+  `;
+  container.appendChild(realOptCard);
+
+  const realOptSelect = realOptCard.querySelector('#real-option');
+  const triggerWrap = realOptCard.querySelector('#real-option-trigger-wrap');
+  const triggerEl = realOptCard.querySelector('#real-option-trigger');
+  const waitBox = realOptCard.querySelector('#real-option-wait');
+
+  function updateRealOption() {
+    const val = realOptSelect.value;
+    triggerWrap.style.display = val ? '' : 'none';
+    waitBox.innerHTML = '';
+    if (val === 'esperar') {
+      const p = document.createElement('p');
+      p.className = 'soft-hint';
+      p.textContent = T.s6_waitPista;
+      waitBox.appendChild(p);
+    }
+    state.set({ s6_realOption: val, s6_realOptionTrigger: triggerEl.value });
+  }
+  realOptSelect.addEventListener('change', updateRealOption);
+  triggerEl.addEventListener('input', () => state.set({ s6_realOptionTrigger: triggerEl.value }));
+  updateRealOption();
 
   // Nav footer
   const footer = renderNavFooter({
@@ -129,6 +179,12 @@ export async function mountScreen06(container, caseData, nav) {
       validate();
     });
   });
+
+  // Pista blanda en el umbral (necesita valor + ventana de tiempo)
+  const thresholdEl = container.querySelector('#threshold');
+  const thresholdBox = makeSoftHintBox();
+  thresholdEl.parentElement.appendChild(thresholdBox);
+  attachSoftHints(thresholdEl, ['umbral'], thresholdBox);
 
   // Initial render
   updatePhrase();

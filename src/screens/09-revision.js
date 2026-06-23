@@ -29,6 +29,11 @@ export async function mountScreen09(container, caseData, nav) {
   subtitleEl.textContent = T.s9_hint;
   container.appendChild(subtitleEl);
 
+  const microcopy = document.createElement('p');
+  microcopy.className = 'screen-microcopy';
+  microcopy.textContent = T.microcopy.revision;
+  container.appendChild(microcopy);
+
   // Show the inject for reference
   const inject = caseData.injects.find(i => i.id === st.selectedInjectId) || caseData.injects[0];
   const injectRef = document.createElement('div');

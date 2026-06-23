@@ -1,8 +1,9 @@
 import { state } from '../state.js';
 import { T } from '../i18n.js';
-import { renderNavFooter } from './helpers.js';
+import { renderNavFooter, escapeHtml } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
 import { getBufferEconomics } from '../dossier.js';
+import { makeFrequentErrorsNote } from '../softHints.js';
 
 export async function mountScreen04(container, caseData, nav) {
   const st = state.get();
@@ -21,10 +22,17 @@ export async function mountScreen04(container, caseData, nav) {
   subtitleEl.textContent = T.s4_selectBuffers;
   container.appendChild(subtitleEl);
 
+  const microcopy = document.createElement('p');
+  microcopy.className = 'screen-microcopy';
+  microcopy.textContent = T.microcopy.buffer;
+  container.appendChild(microcopy);
+
   const hintEl = document.createElement('p');
   hintEl.style.cssText = 'font-size:var(--text-sm);color:var(--color-muted);margin-bottom:var(--sp-4);';
   hintEl.textContent = T.s4_selectHint;
   container.appendChild(hintEl);
+
+  container.appendChild(makeFrequentErrorsNote('recurso ≠ buffer · sin canal y costo (directo y de oportunidad) es contexto.'));
 
   // Max-reached warning
   const maxWarning = document.createElement('div');
@@ -104,8 +112,49 @@ export async function mountScreen04(container, caseData, nav) {
     // Costo axis
     bufDetails.appendChild(createAxisGroup('costo', buf.id, T.s4_costo, costoOptions, det.costo));
 
+    // ── Mecanismo del buffer (¿cómo protege?) — opcional, una línea (v1.5) ──
+    const mechGroup = document.createElement('div');
+    mechGroup.className = 'field-group optional-field';
+    const mechTitle = Object.entries(T.bufferMechanisms)
+      .map(([v]) => `${T.bufferMechanisms[v]}: ${T.bufferMechanismDefs[v]}`).join(' · ');
+    const mechOptionsHtml = Object.entries(T.bufferMechanisms)
+      .map(([v, l]) => `<option value="${v}"${det.mechanism === v ? ' selected' : ''}>${l}</option>`).join('');
+    mechGroup.innerHTML = `
+      <label class="field-label" for="mech-${buf.id}">${T.s4_mechanism}</label>
+      <select id="mech-${buf.id}" class="field-select buf-mechanism" data-buf="${buf.id}" title="${escapeHtml(mechTitle)}">
+        <option value="">${T.s4_mechanismNone}</option>
+        ${mechOptionsHtml}
+      </select>
+    `;
+    bufDetails.appendChild(mechGroup);
+
+    // ── Costo de oportunidad — opcional (v1.5) ──
+    const oppGroup = document.createElement('div');
+    oppGroup.className = 'field-group optional-field';
+    oppGroup.style.marginBottom = '0';
+    const oppEcon = getBufferEconomics(caseData.dossier, buf.id);
+    const oppPlaceholder = (buf.opportunityCost || (oppEcon && oppEcon.opportunityCost) || 'Caja que no inviertes, foco, velocidad, legitimidad, flexibilidad…');
+    oppGroup.innerHTML = `
+      <label class="field-label" for="opp-${buf.id}">${T.s4_opportunityCost}</label>
+      <textarea id="opp-${buf.id}" class="field-textarea buf-opportunity" data-buf="${buf.id}" placeholder="${escapeHtml(oppPlaceholder)}">${escapeHtml(det.opportunityCost || '')}</textarea>
+      <p class="field-hint">${T.s4_opportunityCostHint}</p>
+    `;
+    bufDetails.appendChild(oppGroup);
+
     bufCard.appendChild(bufDetails);
     bufferList.appendChild(bufCard);
+
+    // Listeners para campos opcionales (no afectan la validación de avance)
+    mechGroup.querySelector('select').addEventListener('change', (e) => {
+      if (!bufferDetails[buf.id]) bufferDetails[buf.id] = {};
+      bufferDetails[buf.id].mechanism = e.target.value;
+      state.set({ s4_bufferDetails: bufferDetails });
+    });
+    oppGroup.querySelector('textarea').addEventListener('input', (e) => {
+      if (!bufferDetails[buf.id]) bufferDetails[buf.id] = {};
+      bufferDetails[buf.id].opportunityCost = e.target.value;
+      state.set({ s4_bufferDetails: bufferDetails });
+    });
 
     // Checkbox listener
     const checkbox = bufHeader.querySelector('input[type=checkbox]');
