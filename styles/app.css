@@ -282,7 +282,7 @@ body { font-family: var(--font); font-size: var(--fs-body); line-height: var(--l
 /* Banda hero navy (lo más distintivo de la familia MacroLab) */
 .landing-hero {
   background: var(--navy); color: #fff;
-  padding: var(--sp-12) var(--sp-4) var(--sp-12);
+  padding: var(--sp-8) var(--sp-4);
 }
 .landing-hero-inner { max-width: 760px; margin: 0 auto; }
 .landing-logo {
@@ -297,7 +297,7 @@ body { font-family: var(--font); font-size: var(--fs-body); line-height: var(--l
 /* Cuerpo de la portada */
 .landing-body {
   max-width: 760px; margin: 0 auto;
-  padding: var(--sp-8) var(--sp-4) var(--sp-8);
+  padding: var(--sp-6) var(--sp-4) var(--sp-8);
 }
 .landing-intro {
   font-size: var(--text-base); color: var(--color-slate); line-height: var(--lh-loose);
@@ -645,8 +645,13 @@ details.dossier-consult-panel[open] > .dossier-consult-summary::after { content:
 .lc-footnote { display: block; font-size: var(--text-sm); color: var(--muted); margin-top: var(--sp-2); font-style: italic; }
 .lc-bridge { font-size: var(--text-sm); color: var(--muted); border-top: 1px solid var(--line); padding-top: var(--sp-4); }
 
-/* Sub-navegación de componentes (chips) */
-.lc-compnav { display: flex; flex-wrap: wrap; gap: var(--sp-2); margin-bottom: var(--sp-5); max-width: var(--measure); }
+/* Sub-navegación de componentes (chips) — alineada y centrada con el artículo
+   (mismo ancho de lectura), de modo que no quede un hueco muerto a su derecha. */
+.lc-compnav {
+  display: flex; flex-wrap: wrap; gap: var(--sp-2);
+  margin: 0 auto var(--sp-5); max-width: var(--measure);
+  padding-bottom: var(--sp-4); border-bottom: 1px solid var(--line);
+}
 .lc-chip {
   background: var(--surface); border: 1px solid var(--line); color: var(--steel);
   font-family: inherit; font-size: var(--text-sm); font-weight: var(--weight-semibold);
@@ -758,11 +763,37 @@ details.dossier-consult-panel[open] > .dossier-consult-summary::after { content:
   .topbar-nav .lc-dropdown-menu { position: static; box-shadow: none; margin: var(--sp-1) 0 var(--sp-1) var(--sp-5); }
 }
 
-/* Figuras SVG: escalan por viewBox; las anchas permiten scroll horizontal */
+/* Figuras SVG: escalan por viewBox y son legibles sin scroll en escritorio. */
 .svg-figure { margin: var(--sp-5) 0; }
 .svg-figure svg { width: 100%; height: auto; display: block; }
-.svg-figure--wide { overflow-x: auto; }
-.svg-figure--wide svg { min-width: 560px; }
+
+/* Diagramas anchos (ciclo E-BTA/R, tira de 10 pasos): en escritorio se
+   ensanchan más allá de la columna de lectura (hasta ~900px), centrados sobre
+   el eje del contenido, y se ven legibles SIN scroll horizontal ni riel gris. */
+.svg-figure--wide {
+  width: min(900px, calc(100vw - 2 * var(--sp-6)));
+  max-width: none;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+/* En móvil estrecho, si el diagrama no cabe, se permite scroll horizontal
+   claramente indicado y el SVG conserva un ancho mínimo legible. La
+   indicación queda fuera del área desplazable (no se desplaza con el SVG). */
+@media (max-width: 700px) {
+  .svg-figure--wide {
+    width: auto; margin-left: 0; transform: none;
+  }
+  .svg-figure--wide .svg-figure-scroll {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+  }
+  .svg-figure--wide .svg-figure-scroll svg { min-width: 640px; }
+  .svg-figure--wide::after {
+    content: '\2192 desliza para ver el diagrama completo';
+    display: block; font-size: var(--text-xs); color: var(--muted);
+    margin-top: var(--sp-2);
+  }
+}
 
 /* Anatomía de la frase E-BTA/R (chips) */
 .ebta-anatomy { margin: var(--sp-5) 0; }
@@ -793,3 +824,66 @@ details.dossier-consult-panel[open] > .dossier-consult-summary::after { content:
 /* Glosario técnico: subtítulos y pronunciación */
 .lc-h4 { font-size: var(--text-base); font-weight: var(--weight-bold); color: var(--navy); margin: var(--sp-5) 0 var(--sp-2); }
 .lc-glossary .lc-pron { font-weight: var(--weight-normal); color: var(--muted); font-size: .92em; }
+
+/* ============================================================
+   v1.4 — Correcciones de la auditoría UX (Ronda 1)
+   ============================================================ */
+
+/* Acordeones de referencia ("Leer más" / "Para profundizar") */
+.lc-accordion {
+  border: 1px solid var(--line); border-radius: var(--radius-md);
+  margin: 0 0 var(--sp-4); background: var(--surface); overflow: hidden;
+}
+.lc-accordion-summary {
+  padding: var(--sp-3) var(--sp-4); font-weight: var(--weight-semibold);
+  font-size: var(--text-base); color: var(--navy); cursor: pointer;
+  list-style: none; display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-3); background: var(--color-bg-subtle); transition: background .15s;
+}
+.lc-accordion-summary::-webkit-details-marker { display: none; }
+.lc-accordion-summary::after { content: '+'; font-size: 18px; color: var(--muted); flex-shrink: 0; }
+details.lc-accordion[open] > .lc-accordion-summary::after { content: '\2212'; }
+.lc-accordion-summary:hover { background: #e4eaf2; }
+.lc-accordion-body { padding: var(--sp-4) var(--sp-5) var(--sp-5); border-top: 1px solid var(--line); }
+.lc-accordion-body > *:last-child { margin-bottom: 0; }
+
+/* Etiqueta de la versión anotada por colores de la frase E-BTA/R */
+.lc-anota-label {
+  font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--muted);
+  margin: var(--sp-2) 0 0 !important;
+}
+
+/* Síntesis y objetivos del primer pliegue de Inicio */
+.home-synthesis { font-size: 1.05rem; line-height: var(--lh-loose); }
+.home-objectives-lead { margin-bottom: var(--sp-2) !important; }
+.home-objectives { margin-bottom: var(--sp-5); }
+
+/* Acceso al selector desde el primer pliegue de la portada */
+.landing-choose-row { display: flex; margin: var(--sp-5) 0 var(--sp-2); }
+.landing-choose-btn { font-size: var(--text-lg); padding: var(--sp-3) var(--sp-6); }
+.landing-more { margin-top: var(--sp-8); }
+
+/* Glosario — barra de índice + filtro en cliente */
+.lc-glo-toolbar {
+  max-width: var(--measure); margin: 0 auto var(--sp-5);
+  display: flex; flex-wrap: wrap; gap: var(--sp-3); align-items: center;
+  position: sticky; top: 0; z-index: 2;
+  background: var(--canvas); padding: var(--sp-3) 0;
+}
+.lc-glo-search {
+  flex: 1 1 220px; min-width: 180px; padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line); border-radius: var(--radius-md);
+  font-family: inherit; font-size: var(--text-base); color: var(--ink); background: var(--surface);
+}
+.lc-glo-search:focus { outline: none; border-color: var(--steel); box-shadow: 0 0 0 3px rgba(45,110,163,.15); }
+.lc-glo-index { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.lc-glo-jump {
+  background: var(--surface); border: 1px solid var(--line); color: var(--steel);
+  font-family: inherit; font-size: var(--text-sm); font-weight: var(--weight-semibold);
+  padding: 6px var(--sp-3); border-radius: var(--radius-pill); cursor: pointer; transition: all .15s;
+}
+.lc-glo-jump:hover { border-color: var(--steel); background: rgba(45,110,163,.06); }
+.lc-glo-empty { max-width: var(--measure); margin: 0 auto var(--sp-4); color: var(--muted); font-style: italic; }
+
+/* Enlace "Ir al selector en Inicio" (sección Casos) */
+.lc-goto-selector { margin-top: var(--sp-2); }

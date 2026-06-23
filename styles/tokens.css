@@ -1,5 +1,5 @@
 /*
- * EntornoLab Design Tokens — v1.3
+ * EntornoLab Design Tokens — v1.4
  *
  * BASE COMPARTIDA DE LA FAMILIA (MacroLab ↔ MercaLab ↔ EntornoLab)
  * ----------------------------------------------------------------
@@ -37,7 +37,7 @@
   --steel-700: #245A86;   /* hover/estado del primario; usar si el contraste lo exige */
   --surface: #FFFFFF;     /* tarjetas y paneles */
   --line: #D8E0EA;        /* divisores y bordes sutiles */
-  --muted: #5A6B79;       /* texto secundario */
+  --muted: #4D5A66;       /* texto secundario — contraste ≥ 6:1 sobre blanco y lienzo (WCAG AA) */
 
   /* ── Forma (familia) ────────────────────────────────────────────── */
   --radius-card: 14px;

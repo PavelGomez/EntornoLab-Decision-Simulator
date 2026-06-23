@@ -3,13 +3,20 @@
  * Insertados, no rediseñados: copiados de docs/GRAFICOS_EntornoLab_SVG.md.
  *
  * Todos son SVG/HTML inline (sin imágenes externas, sin fotos), con role="img"
- * + aria-label, paleta de la familia. Los diagramas anchos escalan por viewBox
- * y, si quedan pequeños, su contenedor permite scroll horizontal (overflow-x).
+ * + aria-label, paleta de la familia. Los diagramas anchos escalan por viewBox:
+ * en escritorio se ensanchan más allá de la columna de lectura (hasta ~900px,
+ * centrados) para ser legibles sin scroll; en móvil estrecho su contenedor
+ * permite scroll horizontal (overflow-x) con indicación.
  * Ningún gráfico mide ni puntúa al usuario: explican, no evalúan.
  */
 
 function figure(svg, wide = false) {
-  return `<div class="svg-figure${wide ? ' svg-figure--wide' : ''}">${svg}</div>`;
+  // Los diagramas anchos llevan un envoltorio interno que, solo en móvil
+  // estrecho, habilita el scroll horizontal sin que la indicación se desplace.
+  if (wide) {
+    return `<div class="svg-figure svg-figure--wide"><div class="svg-figure-scroll">${svg}</div></div>`;
+  }
+  return `<div class="svg-figure">${svg}</div>`;
 }
 
 // 1. Diagrama del ciclo E-BTA/R → home y "El marco E-BTA/R"
@@ -141,7 +148,80 @@ export function actorsMap() {
 </svg>`);
 }
 
-// 7. Glifos de sector (tarjetas de caso) — 24×24, trazo currentColor
+// 7. Los 4 tipos de evento → componente "Evento"
+export function eventTypesDiagram() {
+  return figure(`<svg viewBox="0 0 460 168" role="img" aria-label="El evento se clasifica en cuatro tipos: súbito-discreto (ventana corta), acumulativo (cruce de umbral), cascada (un golpe dispara otros) y legitimidad (licencia para operar)." xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif" font-size="11.5">
+  <g text-anchor="middle">
+    <g><rect x="6"   y="8"  width="214" height="66" rx="9" fill="#FFFFFF" stroke="#2D6EA3" stroke-width="1.4"/><text x="113" y="30" fill="#0F2740" font-weight="700">Súbito-discreto</text><text x="113" y="49" fill="#5A6B79" font-size="10">ventana corta,</text><text x="113" y="62" fill="#5A6B79" font-size="10">inicio identificable</text></g>
+    <g><rect x="240" y="8"  width="214" height="66" rx="9" fill="#FFFFFF" stroke="#2D6EA3" stroke-width="1.4"/><text x="347" y="30" fill="#0F2740" font-weight="700">Acumulativo</text><text x="347" y="49" fill="#5A6B79" font-size="10">el evento es el cruce</text><text x="347" y="62" fill="#5A6B79" font-size="10">del umbral, no la evolución</text></g>
+    <g><rect x="6"   y="86" width="214" height="66" rx="9" fill="#FFFFFF" stroke="#2D6EA3" stroke-width="1.4"/><text x="113" y="108" fill="#0F2740" font-weight="700">Cascada</text><text x="113" y="127" fill="#5A6B79" font-size="10">un golpe dispara otros;</text><text x="113" y="140" fill="#5A6B79" font-size="10">el efecto 2.º supera al 1.º</text></g>
+    <g><rect x="240" y="86" width="214" height="66" rx="9" fill="#FFFFFF" stroke="#6A4C93" stroke-width="1.4"/><text x="347" y="108" fill="#0F2740" font-weight="700">Legitimidad</text><text x="347" y="127" fill="#5A6B79" font-size="10">altera la licencia social,</text><text x="347" y="140" fill="#5A6B79" font-size="10">política o institucional</text></g>
+  </g>
+</svg>`);
+}
+
+// 8. Anatomía del trade-off → componente "Trade-off"
+export function tradeoffDiagram() {
+  return figure(`<svg viewBox="0 0 460 176" role="img" aria-label="Anatomía del trade-off: protejo X, sacrifico parcialmente Y, y queda un riesgo residual nombrado." xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif" font-size="12">
+  <g text-anchor="middle">
+    <g><rect x="20"  y="20" width="180" height="52" rx="9" fill="#2E7D6A" stroke="#256453"/><text x="110" y="42" fill="#fff" font-weight="700">Protejo X</text><text x="110" y="59" fill="#DCEFE9" font-size="10">lo que decides resguardar</text></g>
+    <g><rect x="260" y="20" width="180" height="52" rx="9" fill="#B26A00" stroke="#8A5200"/><text x="350" y="42" fill="#fff" font-weight="700">Sacrifico Y</text><text x="350" y="59" fill="#F6E8D6" font-size="10">el costo que asumes</text></g>
+  </g>
+  <line x1="200" y1="46" x2="258" y2="46" stroke="#9DB2C9" stroke-width="1.6"/>
+  <text x="229" y="38" text-anchor="middle" font-size="10" fill="#5A6B79">a cambio de</text>
+  <g text-anchor="middle">
+    <rect x="90" y="104" width="280" height="52" rx="9" fill="#FFFFFF" stroke="#0F2740" stroke-width="1.4" stroke-dasharray="5 4"/>
+    <text x="230" y="126" fill="#0F2740" font-weight="700">Riesgo residual</text>
+    <text x="230" y="143" fill="#5A6B79" font-size="10">lo que sigue en pie tras decidir — la parte honesta</text>
+  </g>
+  <line x1="110" y1="72" x2="210" y2="102" stroke="#9DB2C9" stroke-width="1.3"/>
+  <line x1="350" y1="72" x2="250" y2="102" stroke="#9DB2C9" stroke-width="1.3"/>
+</svg>`);
+}
+
+// 9. Indicador adelantado vs de daño, con umbral T → componente "Acción e indicadores"
+export function actionIndicatorsDiagram() {
+  return figure(`<svg viewBox="0 0 460 188" role="img" aria-label="Dos indicadores en el tiempo: el adelantado avisa antes; el de daño confirma tarde. Un umbral T dispara la revisión cuando se cruza." xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif" font-size="11">
+  <line x1="40" y1="150" x2="440" y2="150" stroke="#9DB2C9" stroke-width="1.4"/>
+  <text x="436" y="168" text-anchor="end" fill="#5A6B79" font-size="10">tiempo →</text>
+  <line x1="40" y1="30" x2="40" y2="150" stroke="#9DB2C9" stroke-width="1.4"/>
+  <line x1="40" y1="74" x2="440" y2="74" stroke="#B26A00" stroke-width="1.3" stroke-dasharray="5 4"/>
+  <text x="44" y="68" fill="#8A5200" font-size="10" font-weight="700">Umbral T → dispara la revisión</text>
+  <path d="M40 138 C 130 132, 175 96, 230 74" fill="none" stroke="#2D6EA3" stroke-width="2"/>
+  <circle cx="230" cy="74" r="3.5" fill="#2D6EA3"/>
+  <text x="150" y="118" fill="#2D6EA3" font-size="10" font-weight="700">Indicador adelantado</text>
+  <text x="150" y="131" fill="#5A6B79" font-size="9.5">avisa antes de que el daño ocurra</text>
+  <path d="M40 144 C 230 142, 300 118, 372 74" fill="none" stroke="#6A4C93" stroke-width="2"/>
+  <circle cx="372" cy="74" r="3.5" fill="#6A4C93"/>
+  <text x="300" y="100" text-anchor="middle" fill="#6A4C93" font-size="10" font-weight="700">Indicador de daño</text>
+  <text x="300" y="113" text-anchor="middle" fill="#5A6B79" font-size="9.5">confirma cuando ya pasó</text>
+</svg>`);
+}
+
+// 10. Bucle simple vs doble bucle → componente "Revisión"
+export function revisionDiagram() {
+  return figure(`<svg viewBox="0 0 460 176" role="img" aria-label="La revisión tiene dos formas: bucle simple ajusta la ejecución dentro del mismo encuadre; doble bucle reabre el encuadre mismo." xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif" font-size="11.5">
+  <defs>
+    <marker id="arrSimple" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#2D6EA3"/></marker>
+    <marker id="arrDoble" markerWidth="8" markerHeight="8" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6A4C93"/></marker>
+  </defs>
+  <g text-anchor="middle">
+    <rect x="150" y="58" width="160" height="40" rx="9" fill="#0F2740"/><text x="230" y="78" fill="#fff" font-weight="700">Encuadre</text><text x="230" y="91" fill="#cfe0f0" font-size="9">tipo de evento · canal · buffer</text>
+    <rect x="170" y="128" width="120" height="34" rx="8" fill="#FFFFFF" stroke="#2D6EA3" stroke-width="1.3"/><text x="230" y="149" fill="#0F2740">Ejecución</text>
+  </g>
+  <path d="M210 128 C 150 116, 150 104, 178 98" fill="none" stroke="#2D6EA3" stroke-width="1.6" marker-end="url(#arrSimple)"/>
+  <text x="92" y="120" text-anchor="middle" fill="#2D6EA3" font-size="10.5" font-weight="700">Bucle simple</text>
+  <text x="92" y="134" text-anchor="middle" fill="#5A6B79" font-size="9.5">ajustas la ejecución,</text>
+  <text x="92" y="146" text-anchor="middle" fill="#5A6B79" font-size="9.5">mantienes el encuadre</text>
+  <path d="M310 70 C 392 56, 392 150, 250 158" fill="none" stroke="#6A4C93" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrDoble)"/>
+  <text x="392" y="100" text-anchor="middle" fill="#6A4C93" font-size="10.5" font-weight="700">Doble bucle</text>
+  <text x="392" y="114" text-anchor="middle" fill="#5A6B79" font-size="9.5">reabres</text>
+  <text x="392" y="126" text-anchor="middle" fill="#5A6B79" font-size="9.5">el encuadre</text>
+  <text x="230" y="28" text-anchor="middle" fill="#8A5200" font-size="10.5">Llega el inject → ¿qué revisas?</text>
+</svg>`);
+}
+
+// Glifos de sector (tarjetas de caso) — 24×24, trazo currentColor
 export function sectorGlyph(order) {
   const glyphs = {
     A: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="14" height="10" rx="2"/><line x1="2.5" y1="9.5" x2="16.5" y2="9.5"/><circle cx="18" cy="15" r="4"/></svg>`,
