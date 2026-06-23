@@ -124,6 +124,8 @@ export const COMPONENTES = [
       <p><strong>Cómo se reconoce.</strong> Pregunta "¿por dónde me pega primero y con más fuerza?". Si no puedes nombrar el canal dominante, no has completado el mapa de impacto. Mapea también la <strong>segunda ronda</strong> (a qué canal salta después).</p>
       <p><strong>Error frecuente.</strong> Decir "me afecta en todo". Eso no es análisis; es ansiedad. El rigor está en jerarquizar.</p>
       <p><strong>Ejemplo.</strong> Una crisis reputacional entra por <strong>legitimidad</strong>, pero su segunda ronda puede ser <strong>operacional</strong> (un paro) o <strong>regulatorio</strong> (un expediente).</p>
+      <p><strong>Reducir equivocidad.</strong> La <em>equivocidad</em> es la multiplicidad de lecturas plausibles de una misma señal —y es distinta de la <em>incertidumbre</em>, que es sobre el futuro—. Antes de fijar el canal dominante, nombra <strong>2–3 interpretaciones causales rivales e incompatibles</strong> de la señal y di qué <strong>evidencia discriminante</strong> favorecería una sobre otra. Reducir equivocidad primero evita elegir el canal por inercia o por la primera lectura disponible.</p>
+      <p><strong>Ejemplo de lecturas rivales.</strong> Un banco corresponsal deja de responder. <em>Lectura A:</em> es un problema operativo puntual (canal operacional). <em>Lectura B:</em> es <em>de-risking</em> por reputación-país (canal financiero / modelo de negocio). <em>Lectura C:</em> anticipa una sanción regulatoria (canal regulatorio-legal). <strong>Evidencia discriminante:</strong> si otros corresponsales también cortan, pesa B; si llega una consulta formal del regulador, pesa C.</p>
       {{CHANNELS}}`,
   },
   {
@@ -135,6 +137,17 @@ export const COMPONENTES = [
       <p><strong>Cómo se reconoce.</strong> Si puedes nombrar canal + costo, es buffer; si no, es ilusión. Cuidado con el <strong>buffer-trampa</strong>: el que parece fuerte pero es ilusorio o perverso según el momento o el canal (p. ej., una relación institucional usada tarde, que se lee como presión).</p>
       <p><strong>Error frecuente.</strong> Llamar buffer a cualquier recurso ("tenemos marca", "tenemos experiencia") sin nombrar sobre qué canal opera ni qué cuesta activarlo.</p>
       <p><strong>Ejemplo.</strong> Una reserva de caja protege el canal financiero, cuesta en caja y se agota en 1–2 rondas: buffer real pero limitado.</p>
+      <p><strong>Mecanismo (¿cómo protege?).</strong> Más allá de los tres ejes, conviene nombrar <em>cómo</em> opera el buffer:</p>
+      <table class="lc-table">
+        <thead><tr><th>Mecanismo</th><th>Qué hace</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Absorber</strong></td><td>Encaja el golpe sin trasladarlo (lo aguanta dentro).</td></tr>
+          <tr><td><strong>Demorar</strong></td><td>Gana tiempo: pospone el impacto para decidir con más información.</td></tr>
+          <tr><td><strong>Desviar</strong></td><td>Traslada el impacto a otro canal, actor o momento.</td></tr>
+          <tr><td><strong>Transformar</strong></td><td>Cambia la naturaleza del problema (rediseña la exposición).</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Costo de oportunidad.</strong> El costo <em>directo</em> no es el costo de <em>oportunidad</em>. Una planta eléctrica cuesta combustible (directo) <em>y</em> el uso alternativo de ese capital (oportunidad). Por cada buffer, pregunta: <strong>¿qué alternativa sacrificas al mantenerlo o activarlo?</strong> (caja que no inviertes, foco, velocidad, legitimidad, flexibilidad…).</p>
       {{BUFFER_AXES}}`,
   },
   {
@@ -165,6 +178,19 @@ export const COMPONENTES = [
       <p><strong>Cómo se reconoce.</strong> Un buen indicador es medible y oportuno; un buen umbral es específico ("si las ventas caen &gt;15% en 3 semanas"), no vago ("si las cosas empeoran").</p>
       <p><strong>Error frecuente.</strong> Decidir sin indicadores, o ponerlos sin umbral. Sin umbral, no hay disparador de revisión.</p>
       <p><strong>Ejemplo.</strong> I1: salida neta de saldos; I2: movimiento del competidor. Umbral T: si I1 supera 10% en una semana, revisar.</p>
+      <p><strong>Repertorio de opciones reales.</strong> "Esperar" no es no-decidir. Una <em>opción real</em> compra <strong>flexibilidad</strong> —el derecho, no la obligación, de actuar después— y tiene un <strong>gatillo de ejercicio</strong> (la señal que define ejercerla, abandonarla o seguir esperando):</p>
+      <table class="lc-table">
+        <thead><tr><th>Tipo de jugada</th><th>Qué compra</th><th>Gatillo de ejercicio</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Esperar / diferir</strong></td><td>Tiempo para resolver una incertidumbre antes de comprometer recursos.</td><td>La señal que confirma o descarta el escenario que esperas.</td></tr>
+          <tr><td><strong>Pilotar / expandir</strong></td><td>Aprender en pequeño con derecho a escalar si funciona.</td><td>El umbral de tracción que justifica escalar.</td></tr>
+          <tr><td><strong>Abandonar</strong></td><td>Cortar pérdidas y liberar recursos.</td><td>La señal de que la apuesta ya no se sostiene.</td></tr>
+          <tr><td><strong>Contraer</strong></td><td>Reducir exposición sin salir del todo.</td><td>El nivel de riesgo que obliga a achicar.</td></tr>
+          <tr><td><strong>Cambiar / sustituir</strong></td><td>Reemplazar el curso de acción por otro disponible.</td><td>La señal de que la alternativa rinde más.</td></tr>
+          <tr><td><strong>Secuenciar</strong></td><td>Ordenar jugadas para mantener opciones abiertas.</td><td>El hito que habilita el siguiente paso.</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Regla para "esperar".</strong> Esperar es opción real solo si dices <em>qué proteges</em> mientras esperas, <em>qué incertidumbre</em> buscas resolver y <em>bajo qué señal</em> dejas de esperar. Sin eso, no es una decisión.</p>
       {{ACTION_IND}}`,
   },
   {

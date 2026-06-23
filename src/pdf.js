@@ -125,6 +125,14 @@ export function generatePdf(caseData, st) {
     addText(sanitize(st.s3_impact1));
     addLabel('Impacto 2.\u00aa ronda:');
     addText(sanitize(st.s3_impact2));
+    if (st.s3_rivalInterpretations) {
+      addLabel('Interpretaciones rivales (reducir equivocidad):');
+      addText(sanitize(st.s3_rivalInterpretations));
+    }
+    if (st.s3_discriminatingEvidence) {
+      addLabel('Evidencia discriminante:');
+      addText(sanitize(st.s3_discriminatingEvidence));
+    }
 
     // S4 - Buffers
     addSection('Buffer Board');
@@ -137,6 +145,8 @@ export function generatePdf(caseData, st) {
         if (!bufDef) return;
         addLabel(sanitize(`Buffer: ${bufDef.label}`));
         addText(sanitize(`Potencia: ${T.potencia[det.potencia] || '?'} | Duraci\u00f3n: ${T.duracion[det.duracion] || '?'} | Costo: ${T.costo[det.costo] || '?'} (${T.costUnits[bufDef.costUnit] || bufDef.costUnit})`));
+        if (det.mechanism) addText(sanitize(`Mecanismo (\u00bfc\u00f3mo protege?): ${T.bufferMechanisms[det.mechanism] || det.mechanism}`));
+        if (det.opportunityCost) addText(sanitize(`Costo de oportunidad: ${det.opportunityCost}`));
       });
     }
 
@@ -154,6 +164,11 @@ export function generatePdf(caseData, st) {
     addLabel('I1:'); addText(sanitize(st.s6_i1));
     addLabel('I2:'); addText(sanitize(st.s6_i2));
     addLabel('Umbral T:'); addText(sanitize(st.s6_threshold));
+    if (st.s6_realOption) {
+      addLabel('Tipo de jugada (opci\u00f3n real):');
+      addText(sanitize(T.realOptions[st.s6_realOption] || st.s6_realOption));
+      if (st.s6_realOptionTrigger) { addLabel('Gatillo de ejercicio:'); addText(sanitize(st.s6_realOptionTrigger)); }
+    }
 
     // Phrase initial
     addSection('Frase E-BTA/R Inicial');
@@ -200,7 +215,7 @@ export function generatePdf(caseData, st) {
     const pageCount = doc.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
-      doc.text(`EntornoLab v1 | IESA PAG Global Online | P\u00e1gina ${i} de ${pageCount}`, margin, 290);
+      doc.text(`EntornoLab v1.5 | IESA PAG Global Online | P\u00e1gina ${i} de ${pageCount}`, margin, 290);
     }
 
     doc.save(`EntornoLab-${caseData.caseId}-${Date.now()}.pdf`);
@@ -227,8 +242,11 @@ export function openPrintView(caseData, st) {
     const b = caseData.availableBuffers.find(x => x.id === bid);
     const d = st.s4_bufferDetails[bid] || {};
     if (!b) return '';
+    const mechHtml = d.mechanism ? `<div class="value">Mecanismo (¿cómo protege?): ${T.bufferMechanisms[d.mechanism] || d.mechanism}</div>` : '';
+    const oppHtml = d.opportunityCost ? `<div class="value">Costo de oportunidad: ${escHtml(d.opportunityCost)}</div>` : '';
     return `<div class="label">${escHtml(b.label)}</div>
-    <div class="value">Potencia: ${T.potencia[d.potencia] || '?'} | Duración: ${T.duracion[d.duracion] || '?'} | Costo: ${T.costo[d.costo] || '?'} (${T.costUnits[b.costUnit] || b.costUnit})</div>`;
+    <div class="value">Potencia: ${T.potencia[d.potencia] || '?'} | Duración: ${T.duracion[d.duracion] || '?'} | Costo: ${T.costo[d.costo] || '?'} (${T.costUnits[b.costUnit] || b.costUnit})</div>
+    ${mechHtml}${oppHtml}`;
   }).join('');
 
   const secondaryChannelHtml = st.s3_secondaryChannel
@@ -276,6 +294,8 @@ ${secondaryChannelHtml}
 <div class="value">${escHtml(st.s3_impact1) || '—'}</div>
 <div class="label">Impacto 2.ª ronda</div>
 <div class="value">${escHtml(st.s3_impact2) || '—'}</div>
+${st.s3_rivalInterpretations ? `<div class="label">Interpretaciones rivales (reducir equivocidad)</div><div class="value">${escHtml(st.s3_rivalInterpretations)}</div>` : ''}
+${st.s3_discriminatingEvidence ? `<div class="label">Evidencia discriminante</div><div class="value">${escHtml(st.s3_discriminatingEvidence)}</div>` : ''}
 
 <h2>Buffer Board</h2>
 ${buffersHtml || '<div class="value">—</div>'}
@@ -289,6 +309,8 @@ ${buffersHtml || '<div class="value">—</div>'}
 <div class="label">I1</div><div class="value">${escHtml(st.s6_i1) || '—'}</div>
 <div class="label">I2</div><div class="value">${escHtml(st.s6_i2) || '—'}</div>
 <div class="label">Umbral T</div><div class="value">${escHtml(st.s6_threshold) || '—'}</div>
+${st.s6_realOption ? `<div class="label">Tipo de jugada (opción real)</div><div class="value">${T.realOptions[st.s6_realOption] || st.s6_realOption}</div>` : ''}
+${st.s6_realOption && st.s6_realOptionTrigger ? `<div class="label">Gatillo de ejercicio</div><div class="value">${escHtml(st.s6_realOptionTrigger)}</div>` : ''}
 
 <h2>Frase E-BTA/R Inicial</h2>
 <div class="phrase">${phraseHtml}</div>
@@ -315,7 +337,7 @@ ${(st.modality === 'wargame' && st.wg_replyId) ? `
 <div class="label">Tipo de revisión</div><div class="value">${st.wg_loopType === 'doble' ? 'Doble bucle' : st.wg_loopType === 'simple' ? 'Bucle simple' : '—'}</div>
 <div class="label">¿Por qué? (bucle)</div><div class="value">${escHtml(st.wg_loopWhy) || '—'}</div>` : ''}
 
-<p style="margin-top:40px;font-size:9pt;color:#999">EntornoLab v1 | IESA PAG Global Online | ${new Date().toLocaleString('es-VE')}</p>
+<p style="margin-top:40px;font-size:9pt;color:#999">EntornoLab v1.5 | IESA PAG Global Online | ${new Date().toLocaleString('es-VE')}</p>
 </body>
 </html>`;
 

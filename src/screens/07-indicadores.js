@@ -3,6 +3,7 @@ import { T } from '../i18n.js';
 import { renderNavFooter } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
 import { assemblePhrase, getPhraseFields } from '../ebtaPhrase.js';
+import { attachSoftHints, makeSoftHintBox } from '../softHints.js';
 
 export async function mountScreen07(container, caseData, nav) {
   const st = state.get();
@@ -20,6 +21,11 @@ export async function mountScreen07(container, caseData, nav) {
   subtitleEl.className = 'screen-subtitle';
   subtitleEl.textContent = T.s7_hint;
   container.appendChild(subtitleEl);
+
+  const microcopy = document.createElement('p');
+  microcopy.className = 'screen-microcopy';
+  microcopy.textContent = T.microcopy.accion;
+  container.appendChild(microcopy);
 
   // Show the complete phrase for reference
   const phraseCard = document.createElement('div');
@@ -118,6 +124,12 @@ export async function mountScreen07(container, caseData, nav) {
       validate();
     });
   });
+
+  // Pista blanda en el umbral (necesita valor + ventana de tiempo)
+  const thresholdEl = container.querySelector('#rev-threshold');
+  const thresholdBox = makeSoftHintBox();
+  thresholdEl.parentElement.appendChild(thresholdBox);
+  attachSoftHints(thresholdEl, ['umbral'], thresholdBox);
 
   updatePhrase();
   validate();

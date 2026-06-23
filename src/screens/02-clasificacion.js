@@ -2,6 +2,7 @@ import { state } from '../state.js';
 import { T } from '../i18n.js';
 import { renderNavFooter } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
+import { attachSoftHints, makeSoftHintBox, makeFrequentErrorsNote } from '../softHints.js';
 
 export async function mountScreen02(container, caseData, nav) {
   const st = state.get();
@@ -19,6 +20,11 @@ export async function mountScreen02(container, caseData, nav) {
   subtitleEl.className = 'screen-subtitle';
   subtitleEl.textContent = 'Identifique el tipo de evento y la fuente principal de incertidumbre.';
   container.appendChild(subtitleEl);
+
+  const microcopy = document.createElement('p');
+  microcopy.className = 'screen-microcopy';
+  microcopy.textContent = T.microcopy.evento;
+  container.appendChild(microcopy);
 
   const card = document.createElement('div');
   card.className = 'card';
@@ -59,12 +65,17 @@ export async function mountScreen02(container, caseData, nav) {
     <textarea id="demarcation" class="field-textarea" placeholder="Explique el criterio de demarcación...">${st.s2_demarcation || ''}</textarea>
     <p class="field-hint">${T.s2_demarcationHint}</p>
   `;
+  // Pistas blandas (no bloquean) + nota de error frecuente
+  const demarcHintBox = makeSoftHintBox();
+  demarcGroup.appendChild(demarcHintBox);
+  demarcGroup.appendChild(makeFrequentErrorsNote('factor ≠ evento · nombra el hecho o umbral, no el clima general.'));
   card.appendChild(demarcGroup);
 
   // Uncertainty source (radio)
   const uncertaintyGroup = document.createElement('div');
   uncertaintyGroup.className = 'field-group';
-  uncertaintyGroup.innerHTML = `<label class="field-label">${T.s2_uncertainty}</label>`;
+  uncertaintyGroup.innerHTML = `<label class="field-label">${T.s2_uncertainty}</label>
+    <p class="field-hint">${T.microcopy.incertidumbre}</p>`;
 
   const uncertaintyGrid = document.createElement('div');
   uncertaintyGrid.className = 'options-grid';
@@ -134,6 +145,7 @@ export async function mountScreen02(container, caseData, nav) {
   });
 
   container.querySelector('#demarcation').addEventListener('input', () => { saveState(); validate(); });
+  attachSoftHints(container.querySelector('#demarcation'), ['evento', 'incertidumbre'], demarcHintBox);
 
   container.querySelectorAll('input[name=uncertainty]').forEach(rb => {
     rb.addEventListener('change', () => { saveState(); validate(); });

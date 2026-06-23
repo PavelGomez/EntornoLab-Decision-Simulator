@@ -3,6 +3,8 @@ import { T } from '../i18n.js';
 import { renderNavFooter } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
 import { renderDossierConsultPanel } from '../dossier.js';
+import { attachSoftHints, makeSoftHintBox } from '../softHints.js';
+import { escapeHtml } from './helpers.js';
 
 export async function mountScreen03(container, caseData, nav) {
   const st = state.get();
@@ -21,9 +23,42 @@ export async function mountScreen03(container, caseData, nav) {
   subtitleEl.textContent = 'Identifique el canal de impacto y describa las rondas de propagación.';
   container.appendChild(subtitleEl);
 
+  const microcopy = document.createElement('p');
+  microcopy.className = 'screen-microcopy';
+  microcopy.textContent = T.microcopy.canal;
+  container.appendChild(microcopy);
+
   // Panel de consulta del dossier (actores + incertidumbre)
   const consultPanel = renderDossierConsultPanel(caseData.dossier);
   if (consultPanel) container.appendChild(consultPanel);
+
+  // ── Reducir equivocidad (v1.5) — encima del canal dominante ──
+  const equivBlock = document.createElement('div');
+  equivBlock.className = 'equiv-block';
+  let rivalSuggestionsHtml = '';
+  if (Array.isArray(caseData.rivalInterpretations) && caseData.rivalInterpretations.length) {
+    rivalSuggestionsHtml = `
+      <p class="field-hint" style="margin-top:var(--sp-3)"><strong>${T.s3_rivalSuggestions}</strong></p>
+      <ul class="lc-list" style="margin-top:var(--sp-2)">${
+        caseData.rivalInterpretations.map(r => `<li>${escapeHtml(r)}</li>`).join('')
+      }</ul>`;
+  }
+  equivBlock.innerHTML = `
+    <div class="equiv-title">${T.s3_equivTitle}</div>
+    <p class="equiv-intro">${T.s3_equivIntro}</p>
+    <div class="field-group">
+      <label class="field-label" for="rival-interpretations">${T.s3_rivalInterpretations}</label>
+      <textarea id="rival-interpretations" class="field-textarea" placeholder="Lectura A… / Lectura B… / Lectura C…">${escapeHtml(st.s3_rivalInterpretations || '')}</textarea>
+      <p class="field-hint">${T.s3_rivalInterpretationsHint}</p>
+    </div>
+    <div class="field-group" style="margin-bottom:0">
+      <label class="field-label" for="discriminating-evidence">${T.s3_discriminatingEvidence}</label>
+      <input type="text" id="discriminating-evidence" class="field-input" placeholder="El dato que distingue una lectura de otra…" value="${escapeHtml(st.s3_discriminatingEvidence || '')}">
+      <p class="field-hint">${T.s3_discriminatingEvidenceHint}</p>
+    </div>
+    ${rivalSuggestionsHtml}
+  `;
+  container.appendChild(equivBlock);
 
   const card = document.createElement('div');
   card.className = 'card';
@@ -140,6 +175,8 @@ export async function mountScreen03(container, caseData, nav) {
       s3_secondaryChannel: secSelect.value,
       s3_impact1: container.querySelector('#impact1').value,
       s3_impact2: container.querySelector('#impact2').value,
+      s3_rivalInterpretations: container.querySelector('#rival-interpretations').value,
+      s3_discriminatingEvidence: container.querySelector('#discriminating-evidence').value,
     });
   }
 
@@ -147,6 +184,20 @@ export async function mountScreen03(container, caseData, nav) {
   secSelect.addEventListener('change', () => { saveState(); });
   container.querySelector('#impact1').addEventListener('input', () => { saveState(); validate(); });
   container.querySelector('#impact2').addEventListener('input', () => { saveState(); validate(); });
+
+  // Equivocidad: opcionales, no afectan la validación de avance.
+  container.querySelector('#rival-interpretations').addEventListener('input', saveState);
+  container.querySelector('#discriminating-evidence').addEventListener('input', saveState);
+
+  // Pistas blandas en los impactos ("afecta todo" → jerarquiza el canal dominante)
+  const impact1El = container.querySelector('#impact1');
+  const impact2El = container.querySelector('#impact2');
+  const hintBox1 = makeSoftHintBox();
+  const hintBox2 = makeSoftHintBox();
+  impact1El.parentElement.appendChild(hintBox1);
+  impact2El.parentElement.appendChild(hintBox2);
+  attachSoftHints(impact1El, ['impacto'], hintBox1);
+  attachSoftHints(impact2El, ['impacto'], hintBox2);
 
   validate();
 }

@@ -110,6 +110,16 @@ Biblioteca opcional de **réplicas pre-escritas** del actor para la ronda de ré
 | `replies[].text` | string | Texto que se revela al participante como réplica del actor. |
 | `replies[].facilitatorPrompt` | string | Opcional. Pregunta guía para el hot wash (modo profesor). |
 
+## Campos opcionales v1.5: equivocidad y costo de oportunidad
+
+Compatibles hacia atrás. Si no existen, los campos del recorrido quedan vacíos para que el participante los complete.
+
+| Campo | Tipo | Notas |
+|-------|------|-------|
+| `rivalInterpretations` | string[] | Opcional. Lecturas causales rivales **sugeridas** de la señal; se muestran al participante como ejemplos en el bloque "Reducir equivocidad" (Pantalla 3). No prellenan su respuesta. |
+| `availableBuffers[].opportunityCost` | string | Opcional. Sugerencia de costo de oportunidad del buffer; se usa como *placeholder* del campo "¿Qué alternativa sacrificas…?" (Pantalla 4). |
+| `dossier.bufferEconomics[].opportunityCost` | string | Opcional. Alternativa: misma sugerencia desde el bloque de economía del buffer (se usa si no está en `availableBuffers[].opportunityCost`). |
+
 ## Reglas de validación (las aplica `caseLoader`)
 
 1. Todos los campos base obligatorios presentes y con el tipo correcto.

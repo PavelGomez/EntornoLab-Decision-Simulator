@@ -2,6 +2,7 @@ import { state } from '../state.js';
 import { T } from '../i18n.js';
 import { renderNavFooter } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
+import { attachSoftHints, makeSoftHintBox } from '../softHints.js';
 
 export async function mountScreen05(container, caseData, nav) {
   const st = state.get();
@@ -19,6 +20,11 @@ export async function mountScreen05(container, caseData, nav) {
   subtitleEl.className = 'screen-subtitle';
   subtitleEl.textContent = 'Articule explícitamente qué protege su decisión, qué sacrifica y qué riesgo permanece.';
   container.appendChild(subtitleEl);
+
+  const microcopy = document.createElement('p');
+  microcopy.className = 'screen-microcopy';
+  microcopy.textContent = T.microcopy.tradeoff;
+  container.appendChild(microcopy);
 
   const card = document.createElement('div');
   card.className = 'card';
@@ -87,6 +93,14 @@ export async function mountScreen05(container, caseData, nav) {
   container.querySelector('#protects').addEventListener('input', () => { saveState(); validate(); });
   container.querySelector('#sacrifices').addEventListener('input', () => { saveState(); validate(); });
   container.querySelector('#residual-risk').addEventListener('input', () => { saveState(); validate(); });
+
+  // Pistas blandas (reglas globales: p. ej. "cisne negro" → rinoceronte gris)
+  ['#protects', '#sacrifices', '#residual-risk'].forEach(sel => {
+    const el = container.querySelector(sel);
+    const box = makeSoftHintBox();
+    el.parentElement.appendChild(box);
+    attachSoftHints(el, ['evento'], box);
+  });
 
   validate();
 }

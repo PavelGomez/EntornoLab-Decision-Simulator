@@ -181,7 +181,7 @@ export async function mountScreen00(container, _caseData, nav) {
   // ---- Pie de página ----
   const footer = document.createElement('footer');
   footer.className = 'landing-footer';
-  footer.textContent = 'Diseño y dirección académica: Pável Gómez · IESA · 2026 · EntornoLab v1.4';
+  footer.textContent = 'Diseño y dirección académica: Pável Gómez · IESA · 2026 · EntornoLab v1.5';
   body.appendChild(footer);
 
   container.appendChild(landing);
