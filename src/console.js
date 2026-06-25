@@ -13,14 +13,14 @@
  *
  * Genere un hash propio (frase no trivial elegida por el profesor):
  *   node -e "console.log(require('crypto').createHash('sha256').update(process.argv[1]).digest('hex'))" "MI-FRASE-SECRETA"
- * y reemplace CONSOLE_GATE_HASH. La frase por defecto es 'entornolab-facilitador-2026'.
+ * y reemplace CONSOLE_GATE_HASH.
  */
 import { state } from './state.js';
 import { T } from './i18n.js';
 import { loadCase, loadFacilitatorCase, mergeFacilitator, CASE_FILES } from './caseLoader.js';
 
 // sha256('entornolab-facilitador-2026'). Reemplazable por el profesor.
-export const CONSOLE_GATE_HASH = 'aaaea82406746b5c9c196d7bed18f373b5464bcf6a26984e2d63af86db94c629';
+export const CONSOLE_GATE_HASH = 'ca9890a1c1509d88fe2051052be1024e2adda9b14504aa290c52b29cb1464a33';
 
 const UNLOCK_FLAG = 'entornolab_console_unlocked';
 
