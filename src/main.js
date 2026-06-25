@@ -2,6 +2,7 @@ import { state } from './state.js';
 import { loadCase, CASE_FILES } from './caseLoader.js';
 import { render, renderLanding } from './router.js';
 import { isProfessorMode } from './professor.js';
+import { isConsoleRoute, renderConsole, isConsoleUnlocked } from './console.js';
 import { openFromHash } from './learning/center.js';
 
 const T_resetConfirm = '\u00bfReiniciar la sesi\u00f3n? Se perder\u00e1 todo el progreso no exportado.';
@@ -59,7 +60,29 @@ async function startCase(caseOrder, profMode) {
 async function boot() {
   state.load();
 
-  const profMode = isProfessorMode();
+  // ── Ruta privada de la consola (no enlazada): ?vista=consola / #consola ──
+  // Vive aparte del flujo del alumno; exige gate antes de cargar datos del
+  // facilitador. "Iniciar run" entrega el control al flujo del alumno.
+  if (isConsoleRoute()) {
+    const app = document.getElementById('app');
+    await renderConsole(app, {
+      onStartRun: async (order, runConfig, facData, studentData) => {
+        state.set({ caseId: studentData.caseId, currentScreen: 1, professorMode: true });
+        state.startRun(runConfig);
+        // El flujo del alumno toma la URL; el tablero sigue embebido porque la
+        // consola quedó desbloqueada (sessionStorage) y existe runConfig.
+        history.replaceState({}, '', `?caso=${order}`);
+        setupListeners();
+        await render(studentData);
+      },
+    });
+    return;
+  }
+
+  // El tablero del facilitador se muestra si se entró por la vía pública
+  // (?modo=profesor) o si la consola está desbloqueada y hay un run activo
+  // (así el tablero sobrevive a una recarga del enlace del alumno mid-run).
+  const profMode = isProfessorMode() || (isConsoleUnlocked() && !!state.get().runConfig);
   if (profMode !== state.get().professorMode) {
     state.set({ professorMode: profMode });
   }

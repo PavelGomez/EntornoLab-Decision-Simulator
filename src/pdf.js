@@ -1,6 +1,18 @@
 import { T } from './i18n.js';
+import { SIM_VERSION, canonicalStringify, getIntegrityPayload } from './state.js';
 import { assemblePhrase, getPhraseFields } from './ebtaPhrase.js';
 import { pickReply } from './screens/09-wargame.js';
+
+// Duración legible entre dos ISO timestamps (para la línea de tiempo del PDF).
+function fmtDuration(aIso, bIso) {
+  if (!aIso || !bIso) return '—';
+  const ms = new Date(bIso).getTime() - new Date(aIso).getTime();
+  if (!isFinite(ms) || ms < 0) return '—';
+  const totalSec = Math.round(ms / 1000);
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  return m > 0 ? `${m} min ${s} s` : `${s} s`;
+}
 
 export function generatePdf(caseData, st) {
   try {
@@ -103,6 +115,55 @@ export function generatePdf(caseData, st) {
     doc.text(`Caso ID: ${caseData.caseId}`, margin, y);
     y += lineH + sectionGap;
     doc.setTextColor(0);
+
+    // \u2500\u2500 Banda de metadatos (huellas autodescriptivas del recorrido) \u2500\u2500
+    const cfg = st.runConfig || {};
+    const isDemo = cfg.phase === 'demo';
+    const injectId = st.selectedInjectId || cfg.injectId || (caseData.injects[0] && caseData.injects[0].id) || '\u2014';
+    if (isDemo) {
+      // Marca DEMO destacada.
+      doc.setFillColor(255, 244, 200);
+      doc.rect(margin, y - 4, contentW, 8, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.setTextColor(150, 90, 0);
+      doc.text(sanitize(T.demoMark), margin + 2, y + 1.5);
+      y += 10;
+      doc.setTextColor(0);
+    }
+    addSection('Metadatos del recorrido');
+    const metaPairs = [
+      ['Caso', cfg.order || caseData.order || '\u2014'],
+      ['Modalidad', (st.modality || cfg.mode || 'ttx') === 'wargame' ? 'Wargame' : 'Tabletop (TTX)'],
+      ['Inject', injectId],
+      ['Versi\u00f3n del simulador', SIM_VERSION],
+      ['C\u00f3digo de sesi\u00f3n', cfg.sessionCode || '\u2014'],
+      ['Alias', cfg.alias || '\u2014'],
+      ['runId', st.runId || (isDemo ? 'DEMO' : '\u2014')],
+      ['Fase', cfg.phase || 'demo'],
+    ];
+    metaPairs.forEach(([k, v]) => { addLabel(`${k}:`); addText(sanitize(String(v))); });
+
+    // \u2500\u2500 L\u00ednea de tiempo (hitos del recorrido, no teclas) \u2500\u2500
+    addSection('L\u00ednea de tiempo');
+    addLabel('Total (inicio \u2192 export):'); addText(fmtDuration(st.startedAt, st.exportedAt));
+    addLabel('Inicio \u2192 revelado del inject:'); addText(fmtDuration(st.startedAt, st.injectSeenAt));
+    addLabel('Revelado \u2192 export:'); addText(fmtDuration(st.injectSeenAt, st.exportedAt));
+
+    // \u2500\u2500 Decisi\u00f3n inicial (sellada) \u2500\u2500
+    if (st.preInjectSnapshot) {
+      const snap = st.preInjectSnapshot;
+      addSection('Decisi\u00f3n inicial (sellada)');
+      addLabel('Tipo(s) de evento:');
+      addText(sanitize((snap.s2_eventTypes || []).map(t => T.eventTypes[t] || t).join(', ') || '\u2014'));
+      addLabel('Canal dominante:');
+      addText(sanitize(T.channels[snap.s3_dominantChannel] || snap.s3_dominantChannel || '\u2014'));
+      addLabel('\u00bfQu\u00e9 se protege?'); addText(sanitize(snap.s5_protects));
+      addLabel('\u00bfQu\u00e9 se sacrifica?'); addText(sanitize(snap.s5_sacrifices));
+      addLabel('Frase E-BTA/R inicial (sellada):');
+      const sealedPhrase = assemblePhrase(getPhraseFields(snap, caseData, false), false);
+      addPhrase(sanitize(sealedPhrase));
+    }
 
     // S2 - Classification
     addSection('Clasificaci\u00f3n del Evento');
@@ -209,19 +270,101 @@ export function generatePdf(caseData, st) {
       if (st.wg_loopWhy) { addLabel('¿Por qué? (bucle):'); addText(sanitize(st.wg_loopWhy)); }
     }
 
+    // \u2500\u2500 Sello de integridad (al final del contenido) \u2500\u2500
+    checkPage(40);
+    addSection('Integridad del recorrido');
+    // verifyCode en grande, para cotejo a simple vista PDF \u2194 JSON \u2194 registro.
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(20);
+    doc.setTextColor(26, 39, 68);
+    doc.text(`verifyCode: ${st.verifyCode || '\u2014'}`, margin, y + 4);
+    y += 12;
+    doc.setTextColor(0);
+    addLabel('runId:'); addText(sanitize(st.runId || (cfg.phase === 'demo' ? 'DEMO' : '\u2014')));
+    addLabel('integrityHash (SHA-256):');
+    addText(st.integrityHash || '\u2014', 8);
+    addText(sanitize(T.integrityLegend), 9);
+
     // Footer on all pages
     doc.setFontSize(8);
     doc.setTextColor(150);
     const pageCount = doc.getNumberOfPages();
+    const footRun = st.verifyCode ? ` | verifyCode ${st.verifyCode}` : '';
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
-      doc.text(`EntornoLab v1.5 | IESA PAG Global Online | P\u00e1gina ${i} de ${pageCount}`, margin, 290);
+      doc.text(`EntornoLab ${SIM_VERSION} | IESA PAG Global Online${footRun} | P\u00e1gina ${i} de ${pageCount}`, margin, 290);
     }
 
-    doc.save(`EntornoLab-${caseData.caseId}-${Date.now()}.pdf`);
+    const runTag = st.runId && st.runId !== 'DEMO' ? st.runId : `DEMO-${Date.now()}`;
+    doc.save(`recorrido-${runTag}.pdf`);
     return true;
   } catch (e) {
     console.error('PDF generation failed:', e);
+    return false;
+  }
+}
+
+// Export JSON (máquina) — segunda pata de la trazabilidad. Recomputar el hash
+// del payload canónico incrustado debe reproducir el verifyCode impreso en el
+// PDF; editar cualquier campo del recorrido rompe el cotejo (huella de manipulación).
+export function generateJson(caseData, st) {
+  try {
+    const cfg = st.runConfig || {};
+    const payload = getIntegrityPayload();
+    const out = {
+      simVersion: SIM_VERSION,
+      caseId: caseData.caseId,
+      caseTitle: caseData.title,
+      runId: st.runId || (cfg.phase === 'demo' ? 'DEMO' : null),
+      phase: cfg.phase || 'demo',
+      runConfig: st.runConfig,
+      injectId: st.selectedInjectId || cfg.injectId || null,
+      times: {
+        startedAt: st.startedAt,
+        injectSeenAt: st.injectSeenAt,
+        exportedAt: st.exportedAt,
+        screenDurations: st.screenDurations || {},
+      },
+      preInjectSnapshot: st.preInjectSnapshot,
+      responses: {
+        s2_eventTypes: st.s2_eventTypes, s2_demarcation: st.s2_demarcation, s2_uncertaintySource: st.s2_uncertaintySource,
+        s3_dominantChannel: st.s3_dominantChannel, s3_secondaryChannel: st.s3_secondaryChannel,
+        s3_impact1: st.s3_impact1, s3_impact2: st.s3_impact2,
+        s3_rivalInterpretations: st.s3_rivalInterpretations, s3_discriminatingEvidence: st.s3_discriminatingEvidence,
+        s4_selectedBuffers: st.s4_selectedBuffers, s4_bufferDetails: st.s4_bufferDetails,
+        s5_protects: st.s5_protects, s5_sacrifices: st.s5_sacrifices, s5_residualRisk: st.s5_residualRisk,
+        s6_i1: st.s6_i1, s6_i2: st.s6_i2, s6_threshold: st.s6_threshold,
+        s6_realOption: st.s6_realOption, s6_realOptionTrigger: st.s6_realOptionTrigger,
+        s9_maintains: st.s9_maintains, s9_abandons: st.s9_abandons, s9_inverts: st.s9_inverts,
+        s9_loopType: st.s9_loopType, s9_loopWhy: st.s9_loopWhy,
+        wargame: st.modality === 'wargame' ? {
+          wg_anticipate: st.wg_anticipate, wg_replyId: st.wg_replyId,
+          wg_maintains: st.wg_maintains, wg_abandons: st.wg_abandons, wg_inverts: st.wg_inverts,
+          wg_loopType: st.wg_loopType, wg_loopWhy: st.wg_loopWhy,
+        } : null,
+      },
+      integrity: {
+        integrityHash: st.integrityHash,
+        verifyCode: st.verifyCode,
+        algorithm: 'SHA-256 sobre canonicalStringify(canonicalPayload); verifyCode = hash.slice(0,8).toUpperCase()',
+        legend: T.integrityLegend,
+        canonicalPayload: payload,
+        canonicalString: canonicalStringify(payload),
+      },
+    };
+    const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const runTag = st.runId && st.runId !== 'DEMO' ? st.runId : `DEMO-${Date.now()}`;
+    a.href = url;
+    a.download = `recorrido-${runTag}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    return true;
+  } catch (e) {
+    console.error('JSON export failed:', e);
     return false;
   }
 }
@@ -237,6 +380,34 @@ export function openPrintView(caseData, st) {
   function escHtml(s) {
     return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
+
+  const cfg = st.runConfig || {};
+  const isDemo = cfg.phase === 'demo';
+  const injectId = st.selectedInjectId || cfg.injectId || (caseData.injects[0] && caseData.injects[0].id) || '—';
+  const metaBandHtml = `
+${isDemo ? `<div style="background:#fff4c8;border:1px solid #e0b000;color:#8a5a00;padding:8px 12px;border-radius:6px;font-weight:bold;margin-bottom:12px;">${escHtml(T.demoMark)}</div>` : ''}
+<h2>Metadatos del recorrido</h2>
+<div class="value">Caso: <strong>${escHtml(cfg.order || caseData.order || '—')}</strong> · Modalidad: <strong>${(st.modality || cfg.mode || 'ttx') === 'wargame' ? 'Wargame' : 'Tabletop (TTX)'}</strong> · Inject: <strong>${escHtml(injectId)}</strong> · Versión: <strong>${SIM_VERSION}</strong></div>
+<div class="value">Código de sesión: <strong>${escHtml(cfg.sessionCode || '—')}</strong> · Alias: <strong>${escHtml(cfg.alias || '—')}</strong> · runId: <strong>${escHtml(st.runId || (isDemo ? 'DEMO' : '—'))}</strong> · Fase: <strong>${escHtml(cfg.phase || 'demo')}</strong></div>
+<h2>Línea de tiempo</h2>
+<div class="value">Total: ${fmtDuration(st.startedAt, st.exportedAt)} · Inicio→inject: ${fmtDuration(st.startedAt, st.injectSeenAt)} · Inject→export: ${fmtDuration(st.injectSeenAt, st.exportedAt)}</div>`;
+
+  const snap = st.preInjectSnapshot;
+  const sealedHtml = snap ? `
+<h2>Decisión inicial (sellada)</h2>
+<div class="label">Tipo(s) de evento</div><div class="value">${(snap.s2_eventTypes || []).map(t => T.eventTypes[t] || t).join(', ') || '—'}</div>
+<div class="label">Canal dominante</div><div class="value">${T.channels[snap.s3_dominantChannel] || snap.s3_dominantChannel || '—'}</div>
+<div class="label">Qué se protege</div><div class="value">${escHtml(snap.s5_protects) || '—'}</div>
+<div class="label">Qué se sacrifica</div><div class="value">${escHtml(snap.s5_sacrifices) || '—'}</div>
+<div class="label">Frase E-BTA/R inicial (sellada)</div>
+<div class="phrase">${assemblePhrase(getPhraseFields(snap, caseData, false), true)}</div>` : '';
+
+  const integrityHtml = `
+<h2>Integridad del recorrido</h2>
+<div style="font-size:20pt;font-weight:bold;color:#1a2744;margin:8px 0;">verifyCode: ${escHtml(st.verifyCode || '—')}</div>
+<div class="label">runId</div><div class="value">${escHtml(st.runId || (isDemo ? 'DEMO' : '—'))}</div>
+<div class="label">integrityHash (SHA-256)</div><div class="value" style="word-break:break-all;font-family:monospace;font-size:9pt;">${escHtml(st.integrityHash || '—')}</div>
+<div class="value" style="font-style:italic;">${escHtml(T.integrityLegend)}</div>`;
 
   const buffersHtml = st.s4_selectedBuffers.map(bid => {
     const b = caseData.availableBuffers.find(x => x.id === bid);
@@ -277,6 +448,8 @@ export function openPrintView(caseData, st) {
   Caso: ${escHtml(caseData.title)}<br>
   ID: ${caseData.caseId} | Fecha: ${new Date().toLocaleString('es-VE')}
 </div>
+${metaBandHtml}
+${sealedHtml}
 
 <h2>Clasificación del Evento</h2>
 <div class="label">Tipo(s) de evento</div>
@@ -337,7 +510,8 @@ ${(st.modality === 'wargame' && st.wg_replyId) ? `
 <div class="label">Tipo de revisión</div><div class="value">${st.wg_loopType === 'doble' ? 'Doble bucle' : st.wg_loopType === 'simple' ? 'Bucle simple' : '—'}</div>
 <div class="label">¿Por qué? (bucle)</div><div class="value">${escHtml(st.wg_loopWhy) || '—'}</div>` : ''}
 
-<p style="margin-top:40px;font-size:9pt;color:#999">EntornoLab v1.5 | IESA PAG Global Online | ${new Date().toLocaleString('es-VE')}</p>
+${integrityHtml}
+<p style="margin-top:40px;font-size:9pt;color:#999">EntornoLab ${SIM_VERSION} | IESA PAG Global Online | ${new Date().toLocaleString('es-VE')}${st.verifyCode ? ' | verifyCode ' + escHtml(st.verifyCode) : ''}</p>
 </body>
 </html>`;
 

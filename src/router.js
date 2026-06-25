@@ -146,6 +146,9 @@ export async function renderLanding(onStart) {
   window.scrollTo(0, 0);
 }
 
+// Marca de tiempo de entrada a la pantalla actual (hito, no teclas).
+let _screenEnteredAt = Date.now();
+
 export async function navigate(caseData, targetScreen) {
   const st = state.get();
 
@@ -157,6 +160,20 @@ export async function navigate(caseData, targetScreen) {
   // Block going past screen 10
   if (targetScreen > TOTAL_SCREENS) return;
   if (targetScreen < 1) return;
+
+  // Acumula la duración (ms) de la pantalla que se abandona — solo hitos.
+  const now = Date.now();
+  if (st.currentScreen >= 1) {
+    const durations = { ...(st.screenDurations || {}) };
+    const key = String(st.currentScreen);
+    durations[key] = (durations[key] || 0) + (now - _screenEnteredAt);
+    state.set({ screenDurations: durations });
+  }
+  _screenEnteredAt = now;
+  // Fija startedAt al entrar al recorrido (P1) si aún no existe (flujo sin consola).
+  if (targetScreen === 1 && !state.get().startedAt) {
+    state.set({ startedAt: new Date().toISOString() });
+  }
 
   state.set({ currentScreen: targetScreen });
   _caseDataRef = caseData;
