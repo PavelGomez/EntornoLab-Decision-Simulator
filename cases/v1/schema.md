@@ -4,6 +4,26 @@ Cada caso es un archivo JSON en `cases/v1/`. La versión canónica del contenido
 
 Los campos `dossier`, `facilitatorAnalysis` y `replies` son **opcionales** (v1.1+). Un caso sin ellos funciona igual que en v1.0: todo campo nuevo es opcional y compatible hacia atrás.
 
+## Separación alumno / facilitador (Capa de Gobierno e Integridad)
+
+Para no exponer datos del facilitador en el navegador del alumno, **cada caso se divide en dos archivos**:
+
+- `caso-X.json` — **seguro para el alumno**. Lo carga `caseLoader.loadCase()` en el flujo del alumno. NO contiene: `context.dominantEventType/dominantChannel/secondaryChannel`, `availableBuffers[].notesForFacilitator`, `facilitatorNotes`, `facilitatorAnalysis`, `replies`, `dossier._visibility`, ni los injects completos (los `injects[]` se reducen a `{ id, text }`). Conserva todo el contenido evaluable (briefing, buffers visibles, dossier visible incl. `plausibleMoves`).
+- `caso-X.facilitator.<sufijo>.json` — **solo-consola**. Lo carga `loadFacilitatorCase()` SOLO tras el gate de la consola (`?vista=consola`). Contiene: `injects[]` completos (`latentInformation`, `primaryUncertaintyAffected`, `facilitatorPrompt`), `facilitatorNotes`, `facilitatorAnalysis`, `bufferNotes[]` (`{id, notesForFacilitator}`), `dossierVisibility`, `replies` (si aplica) y el bloque **`wargameReplicas`** (réplicas calibradas por movida; el actor responde y se nombra el supuesto que cae — nunca "ganó/perdió").
+
+El mapa de archivos del facilitador vive en `src/caseLoader.js` (`FACILITATOR_FILES`). El sufijo poco adivinable sube el costo del acceso directo; **no es seguridad fuerte** (Fase 1 estática). La privacidad estricta (gate validado en servidor) es Fase 2.
+
+El validador del alumno (`validateCase`) trata los campos solo-facilitador como **opcionales**: un JSON sin dividir sigue validando; un JSON dividido valida con `injects[]` reducidos.
+
+### Gate de la consola
+La ruta `?vista=consola` (no enlazada) exige una frase de acceso cuyo `sha256` se compara con `CONSOLE_GATE_HASH` en `src/console.js`. Para fijar una frase propia:
+
+```bash
+node -e "console.log(require('crypto').createHash('sha256').update(process.argv[1]).digest('hex'))" "MI-FRASE-SECRETA"
+```
+
+y reemplazar `CONSOLE_GATE_HASH`. La frase por defecto es `entornolab-facilitador-2026`.
+
 ## Campos base (v1.0)
 
 | Campo | Tipo | Notas |

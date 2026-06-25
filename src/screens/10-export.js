@@ -1,8 +1,8 @@
-import { state } from '../state.js';
+import { state, SIM_VERSION } from '../state.js';
 import { T } from '../i18n.js';
 import { renderProfessorPanel } from '../professor.js';
 import { assemblePhrase, getPhraseFields } from '../ebtaPhrase.js';
-import { generatePdf, openPrintView } from '../pdf.js';
+import { generatePdf, generateJson, openPrintView } from '../pdf.js';
 import { escapeHtml, renderResetBtn } from './helpers.js';
 import { pickReply } from './09-wargame.js';
 
@@ -29,6 +29,20 @@ export async function mountScreen10(container, caseData, nav) {
   badge.innerHTML = '&#10003; Ciclo de decisión completado';
   container.appendChild(badge);
 
+  // Marca DEMO en pantalla (sin valor de evidencia) cuando la fase es demo.
+  if (st.runConfig?.phase === 'demo') {
+    const demo = document.createElement('div');
+    demo.style.cssText = 'background:#fff4c8;border:1px solid #e0b000;color:#8a5a00;padding:10px 14px;border-radius:8px;font-weight:700;margin-bottom:16px;';
+    demo.textContent = T.demoMark;
+    container.appendChild(demo);
+  }
+
+  // Nota de doble export (backbone de trazabilidad).
+  const traceNote = document.createElement('p');
+  traceNote.style.cssText = 'font-size:var(--text-sm);color:var(--color-muted);margin-bottom:var(--sp-4);';
+  traceNote.innerHTML = `Al exportar se descargan <strong>dos archivos</strong> (PDF humano + JSON máquina) con el mismo <code>verifyCode</code>. ${escapeHtml(T.integrityLegend)}`;
+  container.appendChild(traceNote);
+
   // Export actions
   const actionsDiv = document.createElement('div');
   actionsDiv.className = 'export-actions';
@@ -43,21 +57,27 @@ export async function mountScreen10(container, caseData, nav) {
 
   pdfBtn.addEventListener('click', async () => {
     pdfBtn.disabled = true;
-    pdfBtn.textContent = 'Generando PDF\u2026';
+    pdfBtn.textContent = 'Generando PDF + JSON\u2026';
     pdfStateMsg.classList.remove('show');
     // small tick to let the browser repaint
     await new Promise(r => setTimeout(r, 30));
-    const success = generatePdf(caseData, state.get());
+    // Fija el momento de export y calcula el hash de integridad ANTES de generar,
+    // para que PDF y JSON impriman el mismo verifyCode (backbone de trazabilidad).
+    state.set({ exportedAt: new Date().toISOString() });
+    await state.computeIntegrityHash();
+    const finalSt = state.get();
+    const success = generatePdf(caseData, finalSt);
+    generateJson(caseData, finalSt);
     if (success) {
       pdfBtn.textContent = T.downloadPdf;
       pdfBtn.disabled = false;
-      pdfStateMsg.textContent = '\u2713 PDF descargado';
+      pdfStateMsg.textContent = `\u2713 PDF + JSON descargados \u00b7 verifyCode ${finalSt.verifyCode || '\u2014'}`;
       pdfStateMsg.classList.add('show');
-      setTimeout(() => pdfStateMsg.classList.remove('show'), 4000);
+      setTimeout(() => pdfStateMsg.classList.remove('show'), 6000);
     } else {
       pdfBtn.textContent = T.downloadPdf;
       pdfBtn.disabled = false;
-      pdfStateMsg.textContent = 'No se pudo generar el PDF. Use la vista imprimible.';
+      pdfStateMsg.textContent = 'No se pudo generar el PDF. Use la vista imprimible (el JSON s\u00ed se descarg\u00f3).';
       pdfStateMsg.style.color = 'var(--color-error)';
       pdfStateMsg.classList.add('show');
     }
@@ -164,13 +184,14 @@ export async function mountScreen10(container, caseData, nav) {
     { label: 'Umbral T', value: st.s6_threshold || '—' }
   ]));
 
-  // Phrase initial
+  // Phrase initial — desde el snapshot sellado en P8 si existe (no editable).
+  const sealedSrc = st.preInjectSnapshot || st;
   const phraseSection = document.createElement('div');
   phraseSection.className = 'export-section';
-  phraseSection.innerHTML = `<div class="export-section-title">Frase E-BTA/R Inicial</div>`;
+  phraseSection.innerHTML = `<div class="export-section-title">${st.preInjectSnapshot ? 'Decisión inicial (sellada)' : 'Frase E-BTA/R Inicial'}</div>`;
   const phraseDiv = document.createElement('div');
   phraseDiv.className = 'phrase-preview';
-  phraseDiv.innerHTML = assemblePhrase(getPhraseFields(st, caseData, false), true);
+  phraseDiv.innerHTML = assemblePhrase(getPhraseFields(sealedSrc, caseData, false), true);
   phraseSection.appendChild(phraseDiv);
   summary.appendChild(phraseSection);
 

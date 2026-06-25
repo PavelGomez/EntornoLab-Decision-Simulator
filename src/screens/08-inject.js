@@ -8,10 +8,15 @@ import { INJECT_GLOSS } from '../learning/content.js';
 export async function mountScreen08(container, caseData, nav) {
   const st = state.get();
 
-  // Professor panel — critical screen for inject selection
+  // Superficie del facilitador — pantalla crítica para liberar el inject.
+  // (renderProfessorPanel delega en el tablero de la consola si está activa.)
   if (st.professorMode) {
     container.appendChild(renderProfessorPanel(caseData, nav));
   }
+
+  // Retén por política de revelado: si runConfig pide que el facilitador libere
+  // y aún no lo hizo, no se muestra el texto del inject ni se permite avanzar.
+  const reten = st.runConfig?.revealPolicy === 'facilitator' && !st.injectReleased;
 
   const titleEl = document.createElement('h1');
   titleEl.className = 'screen-title';
@@ -50,7 +55,20 @@ export async function mountScreen08(container, caseData, nav) {
   const inject = (st.selectedInjectId && caseData.injects.find(i => i.id === st.selectedInjectId))
     || caseData.injects[0];
 
-  // Show inject (only after professor has confirmed if in professor mode OR always if not)
+  if (reten) {
+    // Estado de retén: el inject sigue oculto hasta que el facilitador libere.
+    const retenCard = document.createElement('div');
+    retenCard.className = 'inject-card';
+    retenCard.style.opacity = '.85';
+    retenCard.innerHTML = `<div class="inject-label">${T.s8_title}</div>
+      <div class="inject-text" style="font-style:italic;">⏳ ${T.retenState}</div>`;
+    container.appendChild(retenCard);
+    // Sin CTA de avance mientras dure el retén.
+    return;
+  }
+
+  // El texto del inject solo entra a la vista del alumno en el momento del
+  // revelado (auto, o tras "Liberar inject").
   const injectCard = document.createElement('div');
   injectCard.className = 'inject-card';
 
@@ -75,6 +93,8 @@ export async function mountScreen08(container, caseData, nav) {
   ctaBtn.textContent = T.s8_readBtn;
 
   ctaBtn.addEventListener('click', () => {
+    // Sella la decisión inicial (s1..s7) y fija injectSeenAt ANTES de avanzar.
+    state.sealPreInject();
     // Lock the inject selection
     state.set({
       postInject: true,

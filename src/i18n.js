@@ -67,7 +67,7 @@ export const T = {
   continue: 'Continuar →',
   back: '← Atrás',
   reset: 'Reiniciar sesión',
-  downloadPdf: 'Descargar PDF',
+  downloadPdf: 'Descargar PDF + JSON',
   printView: 'Vista imprimible',
   screenLabel: (n, total) => `Pantalla ${n} de ${total}`,
 
@@ -181,6 +181,26 @@ export const T = {
   s10_title: 'Exportar resultados',
   s10_hint: 'Su ciclo de decisión está completo. Descargue el registro para compartirlo con el facilitador.',
   s10_pdfNote: 'El PDF incluye todas sus respuestas, la frase E-BTA/R inicial y revisada, y el inject revelado.',
+
+  // ── Capa de Gobierno e Integridad — textos fijos net-new (ANEXO §4) ──
+  integrityLegend: 'Este reporte documenta el recorrido realizado en sesión. Su edición posterior debe declararse.',
+  retenState: 'El facilitador revelará el inject. No es posible avanzar hasta que se libere.',
+  consolePrivateBanner: 'Entorno privado del facilitador — no comparta esta URL ni este enlace con los alumnos.',
+  demoMark: 'DEMO — recorrido de práctica, sin valor de evidencia.',
+  wargameAdjudication: 'No se declara ganador. Se explica por qué el actor responde así y qué supuesto cae.',
+
+  // Consola docente (pre-vuelo + tablero + gate)
+  console_title: 'Consola del facilitador',
+  console_gatePrompt: 'Frase de acceso',
+  console_gateHint: 'La consola está protegida por una frase de acceso. (Ofuscación del lado del cliente: frena al alumno casual, no a un atacante técnico. La privacidad estricta es Fase 2 — backend.)',
+  console_gateBtn: 'Entrar',
+  console_gateError: 'Frase incorrecta. Inténtelo de nuevo.',
+  console_preflightTitle: 'Pre-vuelo — armar el recorrido',
+  console_startRun: 'Iniciar run →',
+  console_releaseInject: 'Liberar inject',
+  console_injectReleased: 'Inject liberado ✓',
+  console_phraseRegistry: 'Registro de frases E-BTA/R finales (hot wash)',
+  console_phraseRegistryHint: 'Pegue aquí la frase leída por cada grupo en el hot wash. Se usa para calibrar; no es nota.',
 
   // Professor mode
   prof_panel: 'MODO PROFESOR',
