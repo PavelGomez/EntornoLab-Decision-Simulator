@@ -119,5 +119,45 @@
       "primaryUncertaintyAffected": "actor",
       "facilitatorPrompt": "Réplica del actor: la legitimidad se volvió política. ¿El buffer de confianza comunitaria basta, o el costo ya es de capital político?"
     }
-  ]
+  ],
+  "wargameReplicas": {
+    "actor": "Célula de control: embotelladora (cliente ancla) + ente ambiental + proveedor de resina + comunidad/competidor",
+    "cards": [
+      {
+        "id": "3_R1_operacion",
+        "trigger": "Protegió la operación / aseguró el insumo de resina (M1)",
+        "text": "La embotelladora confirma que internalizará las preformas y un competidor que ya aseguró resina le ofrece un contrato estable: protegiste el suministro para una demanda que se está cayendo.",
+        "assumptionFalls": "‘Asegurar el insumo protege el negocio’ → si el cliente se va, aseguraste producción para una demanda que cae; el peso real estaba en el modelo de negocio.",
+        "anchor": "anchor_client_exit socava M1; reusa la réplica competitor_captures_client"
+      },
+      {
+        "id": "3_R2_cliente",
+        "trigger": "Apostó a retener al cliente ancla (M2)",
+        "text": "Mientras negocias con el cliente, el ente ambiental anuncia una inspección formal y la posible suspensión del permiso de vertido: retener al cliente no sirve de nada si te paran la planta.",
+        "assumptionFalls": "‘El frente del cliente es EL evento’ → la licencia para operar pasa a ser el canal dominante.",
+        "anchor": "environmental_inquiry socava M2"
+      },
+      {
+        "id": "3_R3_permiso",
+        "trigger": "Se anticipó al ente / protegió el permiso (M3)",
+        "text": "Mientras aseguras el permiso, el proveedor extranjero sube el precio y te deja al final de la fila: el inventario de seguridad pasa a cuenta regresiva. Sin resina no hay nada que producir, con permiso o sin él.",
+        "assumptionFalls": "‘La licencia es el frente que ata’ → sin insumo no hay producción; vuelve a mandar el canal operacional.",
+        "anchor": "resin_shock socava M3"
+      },
+      {
+        "id": "3_R4_reconversion",
+        "trigger": "Reconvirtió el modelo / buscó nuevos clientes o productos (M4)",
+        "text": "El golpe de resina llega antes de que el giro madure: los nuevos clientes que cortejaste necesitan producto que no puedes despachar a tiempo, y la salida del cliente ancla ya es una pérdida programada. El pivote necesita una pista que la caja y el suministro no te dan.",
+        "assumptionFalls": "‘Puedo reconvertir a tiempo’ → la ventana de insumo y de caja no alcanza para sostener el giro.",
+        "anchor": "resin_shock socava M4; tradeoffMap: el tiempo no resuelve lo estructural"
+      },
+      {
+        "id": "3_R5_comunidad",
+        "trigger": "Invirtió en legitimidad / abrió diálogo con la comunidad (M5)",
+        "text": "La asamblea consigue que una autoridad local tome el caso como bandera: la controversia deja de ser vecinal y entra en la agenda pública. La ventana para resolver con diálogo técnico se estrecha y la buena voluntad ya cuesta capital político, no solo legitimidad.",
+        "assumptionFalls": "‘La confianza comunitaria basta’ → el costo se vuelve de capital político y el canal se mueve a regulatorio-legal.",
+        "anchor": "reusa la réplica community_politicized; environmental_inquiry favorece M5 pero lo escala"
+      }
+    ]
+  }
 }
