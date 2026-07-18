@@ -1,6 +1,7 @@
 import { fillGraphics } from '../learning/center.js';
 import { HOME_ABOVE, HOME_BELOW } from '../learning/content.js';
 import { sectorGlyph } from '../learning/graphics.js';
+import { SIM_VERSION } from '../canon.js';
 
 // Textos aprobados de cada tarjeta (sin spoilear dominantEventType ni dominantChannel).
 const CASE_CARDS = [
@@ -8,9 +9,9 @@ const CASE_CARDS = [
     order: 'A',
     heading: 'Caso A — Vala Pagos · Fintech de pagos y remesas',
     description: 'Una plataforma de pagos y remesas enfrenta un cambio regulatorio repentino en un entorno cambiario tensionado.',
-    role: 'Caso ancla: el ciclo completo y más rico, y la base del memo evaluable.',
+    role: 'Caso ancla: el ciclo completo y más rico. Práctica; no es la entrega evaluable.',
     time: '~180 min',
-    tip: 'Recomendado si es tu primera vez o si vas a escribir el memo.',
+    tip: 'Recomendado si es tu primera vez para recorrer el ciclo completo.',
     isDefault: true,
   },
   {
@@ -89,7 +90,7 @@ export async function mountScreen00(container, _caseData, nav) {
 
   const caseHeading = document.createElement('p');
   caseHeading.className = 'case-guidance';
-  caseHeading.textContent = 'Empieza por el Caso A si es tu primera vez o si harás el memo. Usa B o C para practicar la transferencia del marco a otros sectores.';
+  caseHeading.textContent = 'Empieza por el Caso A si es tu primera vez para recorrer el ciclo completo. B y C practican la transferencia del marco a otros sectores. La entrega evaluable es el Caso 3.';
   caseSection.appendChild(caseHeading);
 
   const cardsWrapper = document.createElement('div');
@@ -181,7 +182,7 @@ export async function mountScreen00(container, _caseData, nav) {
   // ---- Pie de página ----
   const footer = document.createElement('footer');
   footer.className = 'landing-footer';
-  footer.textContent = 'Diseño y dirección académica: Pável Gómez · IESA · 2026 · EntornoLab v1.5';
+  footer.textContent = `Diseño y dirección académica: Pável Gómez · IESA · 2026 · EntornoLab ${SIM_VERSION}`;
   body.appendChild(footer);
 
   container.appendChild(landing);
