@@ -1,6 +1,5 @@
 import { state } from './state.js';
 import { T } from './i18n.js';
-import { isConsoleUnlocked, renderConsoleBoard, getFacilitatorData } from './console.js';
 
 export function isProfessorMode() {
   return new URLSearchParams(window.location.search).get('modo') === 'profesor' ||
@@ -23,10 +22,8 @@ export function isProfessorMode() {
 export function renderProfessorPanel(caseData, nav) {
   const st = state.get();
 
-  if (isConsoleUnlocked() && st.runConfig) {
-    return renderConsoleBoard(getFacilitatorData(caseData.order), nav);
-  }
-
+  // La consola y los datos del facilitador NO están en la build pública
+  // (split de capa privada). Aquí solo se muestra un panel mínimo sin secretos.
   const panel = document.createElement('div');
   panel.className = 'professor-panel';
   panel.innerHTML = `<div class="professor-panel-title">&#127891; ${T.prof_panel}</div>`;
