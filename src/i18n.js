@@ -156,9 +156,25 @@ export const T = {
   s6_realOptionTriggerHint: 'Qué señal define ejercer, abandonar o seguir esperando.',
   s6_waitPista: 'Esperar es opción real solo si dices qué proteges mientras esperas, qué incertidumbre buscas resolver y bajo qué señal dejas de esperar.',
 
+  // P6 — tarjeta de acción táctica (rediseño A7 / N0.2)
+  s6_actionCardTitle: 'Tarjeta de acción: Qué · Quién · Primer hito · Cuándo · No haré',
+  s6_action: 'Qué haremos (verbo + objeto)',
+  s6_actionHint: 'Un verbo que comprometa recursos, con su objeto. Ej.: «constituir un fideicomiso parcial», «renegociar la custodia».',
+  s6_owner: 'Quién responde',
+  s6_ownerHint: 'Una persona o función nombrable. «La empresa» no basta.',
+  s6_firstMilestone: 'Primer hito / primer movimiento',
+  s6_firstMilestoneHint: 'La primera acción concreta y verificable.',
+  s6_deadline: 'Cuándo (plazo)',
+  s6_deadlineHint: 'Fecha o ventana. Ej.: «antes del día 30».',
+  s6_rejectedAlt: 'Qué NO haré (alternativa rechazada)',
+  s6_rejectedAltHint: 'Una alternativa plausible que descartas, para hacer explícita la apuesta.',
+  s6_aspirationalHint: '«%V» por sí solo informa u observa, pero no compromete recursos. Añade un objeto y un verbo de acción (activar, suspender, renegociar, pilotar, migrar, abandonar…) para que sea un curso ejecutable.',
+  s6_actionTooltip: 'Acción táctica: un curso ejecutable dentro del horizonte; no una aspiración ni un indicador.',
+
   // Screen 7
-  s7_review: 'Revise y confirme sus indicadores',
-  s7_hint: 'Estos indicadores y el umbral definen cuándo revisitará su decisión. Puede ajustarlos antes de continuar.',
+  s7_review: 'Contrato de monitoreo',
+  s7_hint: 'Define dos señales que puedas observar a tiempo y un umbral que dispare una acción concreta. Un umbral sin acción asociada es solo una alarma.',
+  s7_thresholdActionHint: 'Une el umbral a una acción: «Si se cruza T, entonces…».',
 
   // Screen 8
   s8_title: 'INJECT DEL FACILITADOR',
@@ -221,7 +237,8 @@ export const T = {
     buffer: 'Un recurso solo cuenta como buffer si protege un canal específico y tiene costo de activación y de oportunidad.',
     incertidumbre: 'No escribas "VUCA" como conclusión. Tradúcelo a una fuente: ocurrencia, magnitud, duración o actor.',
     tradeoff: 'Formula: protejo X, sacrifico Y, queda el riesgo residual Z.',
-    accion: 'Define dos indicadores y un umbral. Sin umbral no hay revisión.',
+    accion: 'Ahora decide. Usa un verbo que comprometa recursos: activar, suspender, renegociar, pilotar, migrar o abandonar. «Analizar» por sí solo no es una acción.',
+    monitoreo: 'Elige señales que puedas observar antes de que sea demasiado tarde. Un umbral sin una acción asociada es solo una alarma.',
     revision: 'Ante el inject, no ajustes al margen: declara qué supuesto mantienes, abandonas o inviertes.',
   },
 };

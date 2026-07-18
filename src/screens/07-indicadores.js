@@ -24,7 +24,7 @@ export async function mountScreen07(container, caseData, nav) {
 
   const microcopy = document.createElement('p');
   microcopy.className = 'screen-microcopy';
-  microcopy.textContent = T.microcopy.accion;
+  microcopy.textContent = T.microcopy.monitoreo;
   container.appendChild(microcopy);
 
   // Show the complete phrase for reference
@@ -68,8 +68,9 @@ export async function mountScreen07(container, caseData, nav) {
   thresholdGroup.className = 'field-group';
   thresholdGroup.innerHTML = `
     <label class="field-label" for="rev-threshold">${T.s6_threshold}</label>
-    <textarea id="rev-threshold" class="field-textarea">${st.s6_threshold || ''}</textarea>
+    <textarea id="rev-threshold" class="field-textarea" placeholder="Ej: si no hay carta bancaria al día 30, iniciar la migración de custodia">${st.s6_threshold || ''}</textarea>
     <p class="field-hint">${T.s6_thresholdHint}</p>
+    <p class="field-hint" style="font-weight:600">${T.s7_thresholdActionHint}</p>
   `;
   reviewCard.appendChild(thresholdGroup);
 
