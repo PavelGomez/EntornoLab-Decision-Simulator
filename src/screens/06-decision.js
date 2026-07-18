@@ -2,8 +2,7 @@ import { state } from '../state.js';
 import { T } from '../i18n.js';
 import { renderNavFooter, escapeHtml } from './helpers.js';
 import { renderProfessorPanel } from '../professor.js';
-import { assemblePhrase, getPhraseFields, isPhraseComplete } from '../ebtaPhrase.js';
-import { attachSoftHints, makeSoftHintBox } from '../softHints.js';
+import { assemblePhrase, isActionComplete, isAspirationalAction } from '../ebtaPhrase.js';
 
 export async function mountScreen06(container, caseData, nav) {
   const st = state.get();
@@ -38,41 +37,41 @@ export async function mountScreen06(container, caseData, nav) {
   `;
   container.appendChild(phraseCard);
 
-  // Indicators card
-  const indicatorsCard = document.createElement('div');
-  indicatorsCard.className = 'card';
-
-  // I1
-  const i1Group = document.createElement('div');
-  i1Group.className = 'field-group';
-  i1Group.innerHTML = `
-    <label class="field-label" for="i1">${T.s6_i1}</label>
-    <input type="text" id="i1" class="field-input" placeholder="Ej: Publicación oficial de la circular en Gaceta" value="${st.s6_i1 || ''}">
-    <p class="field-hint">${T.s6_i1Hint}</p>
+  // ── Tarjeta de acción táctica (Qué / Quién / Primer hito / Cuándo / No haré) ──
+  const actionCard = document.createElement('div');
+  actionCard.className = 'card';
+  actionCard.innerHTML = `
+    <div class="card-header">
+      <h2 class="card-title" title="${escapeHtml(T.s6_actionTooltip)}">${T.s6_actionCardTitle}</h2>
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="s6-action">${T.s6_action}</label>
+      <textarea id="s6-action" class="field-textarea" placeholder="Ej: constituir un fideicomiso parcial documentado">${escapeHtml(st.s6_action || '')}</textarea>
+      <p class="field-hint">${T.s6_actionHint}</p>
+      <div id="s6-aspirational" class="soft-hint" style="display:none;color:var(--color-warning,#a15c00);margin-top:6px;font-size:13px"></div>
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="s6-owner">${T.s6_owner}</label>
+      <input type="text" id="s6-owner" class="field-input" placeholder="Ej: Finanzas y Legal" value="${escapeHtml(st.s6_owner || '')}">
+      <p class="field-hint">${T.s6_ownerHint}</p>
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="s6-milestone">${T.s6_firstMilestone}</label>
+      <input type="text" id="s6-milestone" class="field-input" placeholder="Ej: obtener carta bancaria por el saldo" value="${escapeHtml(st.s6_firstMilestone || '')}">
+      <p class="field-hint">${T.s6_firstMilestoneHint}</p>
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="s6-deadline">${T.s6_deadline}</label>
+      <input type="text" id="s6-deadline" class="field-input" placeholder="Ej: antes del día 30" value="${escapeHtml(st.s6_deadline || '')}">
+      <p class="field-hint">${T.s6_deadlineHint}</p>
+    </div>
+    <div class="field-group" style="margin-bottom:0">
+      <label class="field-label" for="s6-rejalt">${T.s6_rejectedAlt}</label>
+      <textarea id="s6-rejalt" class="field-textarea" placeholder="Ej: esperar a que se publique la circular sin cubrir el saldo">${escapeHtml(st.s6_rejectedAlt || '')}</textarea>
+      <p class="field-hint">${T.s6_rejectedAltHint}</p>
+    </div>
   `;
-  indicatorsCard.appendChild(i1Group);
-
-  // I2
-  const i2Group = document.createElement('div');
-  i2Group.className = 'field-group';
-  i2Group.innerHTML = `
-    <label class="field-label" for="i2">${T.s6_i2}</label>
-    <input type="text" id="i2" class="field-input" placeholder="Ej: Movimiento de saldos de usuarios hacia competidores" value="${st.s6_i2 || ''}">
-    <p class="field-hint">${T.s6_i2Hint}</p>
-  `;
-  indicatorsCard.appendChild(i2Group);
-
-  // Threshold
-  const thresholdGroup = document.createElement('div');
-  thresholdGroup.className = 'field-group';
-  thresholdGroup.innerHTML = `
-    <label class="field-label" for="threshold">${T.s6_threshold}</label>
-    <textarea id="threshold" class="field-textarea" placeholder="Ej: Si la circular se publica con plazo menor a 60 días...">${st.s6_threshold || ''}</textarea>
-    <p class="field-hint">${T.s6_thresholdHint}</p>
-  `;
-  indicatorsCard.appendChild(thresholdGroup);
-
-  container.appendChild(indicatorsCard);
+  container.appendChild(actionCard);
 
   // ── Tipo de jugada (opción real) — opcional (v1.5) ──
   const realOptCard = document.createElement('div');
@@ -130,11 +129,9 @@ export async function mountScreen06(container, caseData, nav) {
 
   const nextBtn = footer.querySelector('.btn-primary');
   const phrasePreview = container.querySelector('#phrase-preview');
+  const el = (sel) => container.querySelector(sel);
 
   function getCurrentFields() {
-    const i1 = container.querySelector('#i1').value;
-    const i2 = container.querySelector('#i2').value;
-    const threshold = container.querySelector('#threshold').value;
     const currentSt = state.get();
     return {
       eventTypes: currentSt.s2_eventTypes,
@@ -145,48 +142,63 @@ export async function mountScreen06(container, caseData, nav) {
       caseData,
       protects: currentSt.s5_protects,
       sacrifices: currentSt.s5_sacrifices,
-      i1,
-      i2,
-      threshold,
+      residualRisk: currentSt.s5_residualRisk,
+      action: el('#s6-action').value,
+      owner: el('#s6-owner').value,
+      firstMilestone: el('#s6-milestone').value,
+      deadline: el('#s6-deadline').value,
+      rejectedAlt: el('#s6-rejalt').value,
+      // I1/I2/umbral se capturan en la Pantalla 7; para la vista previa se leen del estado.
+      i1: currentSt.s6_i1,
+      i2: currentSt.s6_i2,
+      threshold: currentSt.s6_threshold,
     };
   }
 
   function updatePhrase() {
-    const fields = getCurrentFields();
-    phrasePreview.innerHTML = assemblePhrase(fields, true);
+    phrasePreview.innerHTML = assemblePhrase(getCurrentFields(), true);
+  }
+
+  function updateAspirationalHint() {
+    const box = el('#s6-aspirational');
+    const val = el('#s6-action').value;
+    const first = String(val || '').trim().split(/[\s,;.:]+/)[0] || '';
+    if (val.trim() && isAspirationalAction(val)) {
+      box.textContent = T.s6_aspirationalHint.replace('%V', first);
+      box.style.display = '';
+    } else {
+      box.style.display = 'none';
+      box.textContent = '';
+    }
   }
 
   function validate() {
-    const fields = getCurrentFields();
-    const complete = isPhraseComplete(fields);
+    const complete = isActionComplete(getCurrentFields());
     nextBtn.disabled = !complete;
     return complete;
   }
 
   function saveState() {
     state.set({
-      s6_i1: container.querySelector('#i1').value,
-      s6_i2: container.querySelector('#i2').value,
-      s6_threshold: container.querySelector('#threshold').value,
+      s6_action: el('#s6-action').value,
+      s6_owner: el('#s6-owner').value,
+      s6_firstMilestone: el('#s6-milestone').value,
+      s6_deadline: el('#s6-deadline').value,
+      s6_rejectedAlt: el('#s6-rejalt').value,
     });
   }
 
-  // Wire up
-  ['#i1', '#i2', '#threshold'].forEach(sel => {
+  ['#s6-action', '#s6-owner', '#s6-milestone', '#s6-deadline', '#s6-rejalt'].forEach(sel => {
     container.querySelector(sel).addEventListener('input', () => {
       saveState();
+      updateAspirationalHint();
       updatePhrase();
       validate();
     });
   });
 
-  // Pista blanda en el umbral (necesita valor + ventana de tiempo)
-  const thresholdEl = container.querySelector('#threshold');
-  const thresholdBox = makeSoftHintBox();
-  thresholdEl.parentElement.appendChild(thresholdBox);
-  attachSoftHints(thresholdEl, ['umbral'], thresholdBox);
-
   // Initial render
+  updateAspirationalHint();
   updatePhrase();
   validate();
 }

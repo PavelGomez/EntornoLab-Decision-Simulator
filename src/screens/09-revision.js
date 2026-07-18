@@ -243,6 +243,14 @@ export async function mountScreen09(container, caseData, nav) {
       caseData,
       protects: container.querySelector('#rev-protects').value || currentSt.s5_protects,
       sacrifices: container.querySelector('#rev-sacrifices').value || currentSt.s5_sacrifices,
+      residualRisk: currentSt.s9_revisedResidualRisk || currentSt.s5_residualRisk,
+      // La acción (P6) aún no se revisa en P9 (llega en el Paquete B): se hereda
+      // para que la frase la muestre y la puerta de continuación funcione.
+      action: currentSt.s6_action,
+      owner: currentSt.s6_owner,
+      firstMilestone: currentSt.s6_firstMilestone,
+      deadline: currentSt.s6_deadline,
+      rejectedAlt: currentSt.s6_rejectedAlt,
       i1: container.querySelector('#rev-i1-09').value || currentSt.s6_i1,
       i2: container.querySelector('#rev-i2-09').value || currentSt.s6_i2,
       threshold: container.querySelector('#rev-threshold-09').value || currentSt.s6_threshold,
