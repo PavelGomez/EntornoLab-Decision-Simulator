@@ -53,7 +53,7 @@ const defaultState = () => ({
   // S7 (contrato de monitoreo — I1/I2/umbral, capturados en la pantalla 7)
   s6_i1: '',
   s6_i2: '',
-  s6_threshold: ''
+  s6_threshold: '',
 
   // S9
   s9_maintains: '',
