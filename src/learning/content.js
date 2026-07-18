@@ -53,7 +53,7 @@ export const ORIENTACION = [
   { p: 6, name: 'Decisión y frase', funcion: 'formular la decisión.', primerPaso: 'arma la frase E-BTA/R con lo capturado.', limite: 'que sea completa y consistente.', cierre: 'una frase defendible ante un comité.', terms: ['frase'] },
   { p: 7, name: 'Indicadores', funcion: 'definir cómo revisarás.', primerPaso: 'elige dos señales medibles.', limite: 'no dejes el umbral vago.', cierre: 'I1, I2 y un umbral T específico.', terms: ['indicador', 'umbral'] },
   { p: 8, name: 'Inject', funcion: 'recibir información latente.', primerPaso: 'léela con atención.', limite: 'desde aquí no se vuelve atrás.', cierre: 'identifica qué cambia.', terms: ['inject'] },
-  { p: 9, name: 'Revisión', funcion: 'reabrir la decisión.', primerPaso: 'localiza el supuesto que la sostenía.', limite: 'no ajustes al margen; reabre.', cierre: 'mantengo / abandono / invierto + nueva frase + clasifica si fue bucle simple o doble bucle. (En modo wargame: anticipa la réplica del actor, recíbela y haz una segunda revisión.)', terms: ['revision', 'inject'] },
+  { p: 9, name: 'Revisión', funcion: 'reabrir la decisión.', primerPaso: 'localiza el supuesto que la sostenía.', limite: 'no ajustes al margen; reabre.', cierre: 'mantengo / abandono / invierto + nueva frase + clasifica si fue bucle simple o doble bucle.', terms: ['revision', 'inject'] },
   { p: 10, name: 'Export', funcion: 'llevarte el razonamiento.', primerPaso: 'genera el PDF.', limite: 'no es un puntaje, es tu insumo.', cierre: 'úsalo para el memo.', terms: [] },
 ];
 
@@ -302,7 +302,7 @@ export const HOME_BELOW = `
     <li><strong>Componentes</strong> — una página por pieza: Evento, Canales, Buffer, Incertidumbre, Trade-off, Acción e indicadores, Revisión (cada una: qué es, base teórica, cómo se reconoce, error frecuente y ejemplo).</li>
     <li><strong>Ejemplos</strong> — una decisión resuelta paso a paso.</li>
     <li><strong>Casos</strong> — los tres escenarios disponibles (A, B, C).</li>
-    <li><strong>Guía de uso</strong> — las 10 pantallas, las reglas y las modalidades (tabletop y wargame).</li>
+    <li><strong>Guía de uso</strong> — las 10 pantallas y las reglas del recorrido (modalidad TTX).</li>
     <li><strong>Glosario</strong> y <strong>Referencias</strong> — vocabulario del marco y su base bibliográfica.</li>
   </ul>
   <p>Y el botón <strong>Iniciar recorrido</strong> te lleva a la <strong>ruta de decisión</strong>: 10 pantallas, lineal, que termina en un PDF (el insumo de tu memo). <strong>Dos reglas de navegación</strong> que conviene tener claras desde ya: (1) puedes <strong>consultar cualquier sección de referencia mientras decides</strong>, sin perder tu progreso; (2) una vez que aparece el <strong>inject</strong>, <strong>no se vuelve atrás</strong> —la revisión es reapertura, no edición—. Esa es, justamente, la disciplina que el laboratorio entrena.</p>
@@ -404,12 +404,8 @@ export const SECTIONS = {
         <li>El recorrido termina en un <strong>PDF</strong> con todo tu razonamiento. Es el insumo de tu <strong>memo</strong> (1.200–1.500 palabras), el único entregable evaluable.</li>
       </ul>
       <p><strong>El simulador no te evalúa.</strong> Captura tu razonamiento; la evaluación la hace el facilitador con una rúbrica.</p>
-      <h3 class="lc-h3">Modalidades del recorrido</h3>
-      <p>El facilitador puede correr el laboratorio en dos modos:</p>
-      <ul class="lc-list">
-        <li><strong>Tabletop (TTX):</strong> un único inject guionado, revisión y hot wash. Es el modo por defecto.</li>
-        <li><strong>Wargame:</strong> además del inject, el actor <strong>replica</strong> tu decisión. Antes de ver su reacción, anticipas cómo crees que responderá; luego el facilitador revela la réplica y haces una segunda revisión. Entrena el pensamiento de segundo orden: el otro también juega.</li>
-      </ul>
+      <h3 class="lc-h3">Modalidad del recorrido</h3>
+      <p>Esta edición corre en modalidad <strong>Tabletop (TTX)</strong>: un único inject guionado, una revisión y el hot wash. El simulador no puntúa.</p>
       <h3 class="lc-h3">La R tiene dos formas</h3>
       <p>Al revisar (Pantalla 9) clasificarás tu revisión: <strong>bucle simple</strong> —ajustas la ejecución, mantienes el encuadre— o <strong>doble bucle</strong> —reabres el encuadre: cambia el tipo de evento, el canal dominante o qué cuenta como buffer—. Hacer visible esa diferencia distingue cuándo fallaste al <em>actuar</em> de cuándo fallaste al <em>definir</em> lo que ocurría.</p>`,
   },
