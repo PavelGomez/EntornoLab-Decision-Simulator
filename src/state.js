@@ -41,12 +41,19 @@ const defaultState = () => ({
   s5_sacrifices: '',
   s5_residualRisk: '',
 
-  // S6 (indicators - captured in screen 6 to complete the phrase)
-  s6_i1: '',
-  s6_i2: '',
-  s6_threshold: '',
+  // S6 (acción táctica — capturada en la pantalla 6)
+  s6_action: '',          // verbo + objeto que compromete recursos
+  s6_owner: '',           // responsable nombrable
+  s6_firstMilestone: '',  // primer movimiento / hito
+  s6_deadline: '',        // plazo
+  s6_rejectedAlt: '',     // alternativa plausible rechazada ("no haré")
   s6_realOption: '',         // tipo de jugada (opción real), opcional
   s6_realOptionTrigger: '',  // gatillo de ejercicio de la opción real
+
+  // S7 (contrato de monitoreo — I1/I2/umbral, capturados en la pantalla 7)
+  s6_i1: '',
+  s6_i2: '',
+  s6_threshold: ''
 
   // S9
   s9_maintains: '',
@@ -161,6 +168,7 @@ function integrityPayload() {
     's3_rivalInterpretations', 's3_discriminatingEvidence',
     's4_selectedBuffers', 's4_bufferDetails',
     's5_protects', 's5_sacrifices', 's5_residualRisk',
+    's6_action', 's6_owner', 's6_firstMilestone', 's6_deadline', 's6_rejectedAlt',
     's6_i1', 's6_i2', 's6_threshold', 's6_realOption', 's6_realOptionTrigger',
     's9_maintains', 's9_abandons', 's9_inverts', 's9_loopType', 's9_loopWhy',
     's9_revisedEventTypes', 's9_revisedDemarcation', 's9_revisedUncertaintySource',
@@ -229,6 +237,7 @@ export const state = {
       's3_rivalInterpretations', 's3_discriminatingEvidence',
       's4_selectedBuffers', 's4_bufferDetails',
       's5_protects', 's5_sacrifices', 's5_residualRisk',
+      's6_action', 's6_owner', 's6_firstMilestone', 's6_deadline', 's6_rejectedAlt',
       's6_i1', 's6_i2', 's6_threshold', 's6_realOption', 's6_realOptionTrigger',
     ];
     const snap = {};
