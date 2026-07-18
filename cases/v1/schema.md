@@ -8,21 +8,12 @@ Los campos `dossier`, `facilitatorAnalysis` y `replies` son **opcionales** (v1.1
 
 Para no exponer datos del facilitador en el navegador del alumno, **cada caso se divide en dos archivos**:
 
-- `caso-X.json` — **seguro para el alumno**. Lo carga `caseLoader.loadCase()` en el flujo del alumno. NO contiene: `context.dominantEventType/dominantChannel/secondaryChannel`, `availableBuffers[].notesForFacilitator`, `facilitatorNotes`, `facilitatorAnalysis`, `replies`, `dossier._visibility`, ni los injects completos (los `injects[]` se reducen a `{ id, text }`). Conserva todo el contenido evaluable (briefing, buffers visibles, dossier visible incl. `plausibleMoves`).
-- `caso-X.facilitator.<sufijo>.json` — **solo-consola**. Lo carga `loadFacilitatorCase()` SOLO tras el gate de la consola (`?vista=consola`). Contiene: `injects[]` completos (`latentInformation`, `primaryUncertaintyAffected`, `facilitatorPrompt`), `facilitatorNotes`, `facilitatorAnalysis`, `bufferNotes[]` (`{id, notesForFacilitator}`), `dossierVisibility`, `replies` (si aplica) y el bloque **`wargameReplicas`** (réplicas calibradas por movida; el actor responde y se nombra el supuesto que cae — nunca "ganó/perdió").
+- `caso-X.json` — **seguro para el alumno**, y es lo único que se publica. Lo carga `caseLoader.loadCase()`. NO contiene: `context.dominantEventType/dominantChannel/secondaryChannel`, `availableBuffers[].notesForFacilitator`, `facilitatorNotes`, `facilitatorAnalysis`, `replies`, `dossier._visibility`, ni los injects completos (los `injects[]` se reducen a `{ id, text }`). Conserva todo el contenido evaluable (briefing, buffers visibles, dossier visible incl. `plausibleMoves`).
+- `caso-X.facilitator.<sufijo>.json` — **datos del facilitador**: injects completos, notas, análisis, `bufferNotes[]`, `dossierVisibility`, réplicas. **NO forman parte de la build pública.**
 
-El mapa de archivos del facilitador vive en `src/caseLoader.js` (`FACILITATOR_FILES`). El sufijo poco adivinable sube el costo del acceso directo; **no es seguridad fuerte** (Fase 1 estática). La privacidad estricta (gate validado en servidor) es Fase 2.
+**Split de capa privada (jul 2026).** Los archivos del facilitador, la consola (`console.js`) y sus cargadores se **retiraron de la rama pública** que sirve GitHub Pages, junto con la ruta de la consola y cualquier frase/hash de acceso. Ninguna ruta ni metadato privado aparece ya en el bundle público. La capa docente completa (consola + datos del facilitador) vive en la rama **`consola-docente`**, que **no es la fuente de Pages** y se ejecuta en local (`python3 -m http.server`). Así el facilitador conserva la consola sin exponerla en línea.
 
 El validador del alumno (`validateCase`) trata los campos solo-facilitador como **opcionales**: un JSON sin dividir sigue validando; un JSON dividido valida con `injects[]` reducidos.
-
-### Gate de la consola
-La ruta `?vista=consola` (no enlazada) exige una frase de acceso cuyo `sha256` se compara con `CONSOLE_GATE_HASH` en `src/console.js`. Para fijar una frase propia:
-
-```bash
-node -e "console.log(require('crypto').createHash('sha256').update(process.argv[1]).digest('hex'))" "MI-FRASE-SECRETA"
-```
-
-y reemplazar `CONSOLE_GATE_HASH`. La frase por defecto es `entornolab-facilitador-2026`.
 
 ## Campos base (v1.0)
 
