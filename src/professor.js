@@ -40,7 +40,7 @@ export function renderProfessorPanel(caseData, nav) {
   modalityDiv.innerHTML = `<div style="margin-bottom:8px;font-size:13px;opacity:.8">${T.prof_modality}</div>`;
   const modeRow = document.createElement('div');
   modeRow.style.cssText = 'display:flex;gap:8px;';
-  [{ key: 'ttx', label: 'Tabletop (TTX)' }, { key: 'wargame', label: 'Wargame' }].forEach(m => {
+  [{ key: 'ttx', label: 'Tabletop (TTX)' }].forEach(m => {
     const active = (st.modality || 'ttx') === m.key;
     const btn = document.createElement('button');
     btn.type = 'button';
