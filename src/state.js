@@ -1,5 +1,6 @@
 // Versión del simulador — entra en las huellas de integridad y en el pie del PDF.
-export const SIM_VERSION = 'v1.7';
+import { SIM_VERSION as _CANON_VERSION } from './canon.js';
+export const SIM_VERSION = _CANON_VERSION; // fuente única: canon.js
 
 // Persistencia: localStorage (antes sessionStorage). La clave concreta depende
 // del runId (`entornolab_v1_state__<runId|'anon'>`); un puntero estable apunta
