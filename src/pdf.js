@@ -217,6 +217,14 @@ export function generatePdf(caseData, st) {
     addText(sanitize(st.s5_protects));
     addLabel('\u00bfQu\u00e9 se sacrifica?');
     addText(sanitize(st.s5_sacrifices));
+    addLabel('\u00bfQui\u00e9n soporta el costo?');
+    addText(sanitize(st.s5_costBearer));
+    addLabel('\u00bfCu\u00e1ndo aparece el costo?');
+    addText(sanitize(st.s5_costTiming));
+    addLabel('\u00bfHasta cu\u00e1ndo es reversible?');
+    addText(sanitize(st.s5_reversibility));
+    addLabel('Piso no negociable:');
+    addText(sanitize(st.s5_floor));
     addLabel('Riesgo residual:');
     addText(sanitize(st.s5_residualRisk));
 

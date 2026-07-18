@@ -36,9 +36,13 @@ const defaultState = () => ({
   s4_selectedBuffers: [],  // array of buffer ids (max 2)
   s4_bufferDetails: {},    // { bufferId: { potencia, duracion, costo } }
 
-  // S5
+  // S5 (trade-off distribuido)
   s5_protects: '',
   s5_sacrifices: '',
+  s5_costBearer: '',      // portador: quién soporta el costo
+  s5_costTiming: '',      // momento: cuándo aparece el costo
+  s5_reversibility: '',   // hasta cuándo es reversible
+  s5_floor: '',           // piso no negociable (o "no aplica" justificado)
   s5_residualRisk: '',
 
   // S6 (acción táctica — capturada en la pantalla 6)
@@ -167,7 +171,7 @@ function integrityPayload() {
     's3_dominantChannel', 's3_secondaryChannel', 's3_impact1', 's3_impact2',
     's3_rivalInterpretations', 's3_discriminatingEvidence',
     's4_selectedBuffers', 's4_bufferDetails',
-    's5_protects', 's5_sacrifices', 's5_residualRisk',
+    's5_protects', 's5_sacrifices', 's5_costBearer', 's5_costTiming', 's5_reversibility', 's5_floor', 's5_residualRisk',
     's6_action', 's6_owner', 's6_firstMilestone', 's6_deadline', 's6_rejectedAlt',
     's6_i1', 's6_i2', 's6_threshold', 's6_realOption', 's6_realOptionTrigger',
     's9_maintains', 's9_abandons', 's9_inverts', 's9_loopType', 's9_loopWhy',
@@ -236,7 +240,7 @@ export const state = {
       's3_dominantChannel', 's3_secondaryChannel', 's3_impact1', 's3_impact2',
       's3_rivalInterpretations', 's3_discriminatingEvidence',
       's4_selectedBuffers', 's4_bufferDetails',
-      's5_protects', 's5_sacrifices', 's5_residualRisk',
+      's5_protects', 's5_sacrifices', 's5_costBearer', 's5_costTiming', 's5_reversibility', 's5_floor', 's5_residualRisk',
       's6_action', 's6_owner', 's6_firstMilestone', 's6_deadline', 's6_rejectedAlt',
       's6_i1', 's6_i2', 's6_threshold', 's6_realOption', 's6_realOptionTrigger',
     ];
