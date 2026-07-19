@@ -28,6 +28,11 @@ export async function mountScreen03(container, caseData, nav) {
   microcopy.textContent = T.microcopy.canal;
   container.appendChild(microcopy);
 
+  const channelRule = document.createElement('p');
+  channelRule.setAttribute('style', 'style="background:rgba(20,40,70,.05);border-left:3px solid var(--navy);padding:8px 12px;border-radius:6px;margin:0 0 var(--sp-4);font-size:var(--text-sm);line-height:1.5"'.slice(7, -1));
+  channelRule.innerHTML = `<strong>${T.s3_channelRule}</strong>`;
+  container.appendChild(channelRule);
+
   // Panel de consulta del dossier (actores + incertidumbre)
   const consultPanel = renderDossierConsultPanel(caseData.dossier);
   if (consultPanel) container.appendChild(consultPanel);

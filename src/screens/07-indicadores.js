@@ -27,6 +27,11 @@ export async function mountScreen07(container, caseData, nav) {
   microcopy.textContent = T.microcopy.monitoreo;
   container.appendChild(microcopy);
 
+  const notSum = document.createElement('p');
+  notSum.setAttribute('style', 'style="background:rgba(20,40,70,.05);border-left:3px solid var(--navy);padding:8px 12px;border-radius:6px;margin:0 0 var(--sp-4);font-size:var(--text-sm);line-height:1.5"'.slice(7, -1));
+  notSum.innerHTML = `<strong>${T.s7_notSum}</strong>`;
+  container.appendChild(notSum);
+
   // Show the complete phrase for reference
   const phraseCard = document.createElement('div');
   phraseCard.className = 'card';
@@ -75,6 +80,11 @@ export async function mountScreen07(container, caseData, nav) {
   reviewCard.appendChild(thresholdGroup);
 
   container.appendChild(reviewCard);
+
+  const tmplBox = document.createElement('div');
+  tmplBox.className = 'card';
+  tmplBox.innerHTML = `<p class="field-hint" style="margin:0 0 8px"><strong>${T.s7_template}</strong></p><p class="field-hint" style="margin:0;opacity:.9">${T.s7_example}</p>`;
+  container.appendChild(tmplBox);
 
   // Nav footer
   const footer = renderNavFooter({

@@ -34,6 +34,12 @@ export async function mountScreen04(container, caseData, nav) {
 
   container.appendChild(makeFrequentErrorsNote('recurso ≠ buffer · sin canal y costo (directo y de oportunidad) es contexto.'));
 
+  const bufferRule = document.createElement('div');
+  bufferRule.setAttribute('style', 'style="background:rgba(20,40,70,.05);border-left:3px solid var(--navy);padding:8px 12px;border-radius:6px;margin:0 0 var(--sp-4);font-size:var(--text-sm);line-height:1.5"'.slice(7, -1));
+  const declaredCh = st.s3_dominantChannel ? (T.channels[st.s3_dominantChannel] || st.s3_dominantChannel) : null;
+  bufferRule.innerHTML = `<div style="margin-bottom:4px">${declaredCh ? T.s4_declaredChannelPrefix + ' <strong>' + escapeHtml(declaredCh) + '</strong>' : T.s4_declaredChannelNone}</div><div><strong>${T.s4_bufferRule}</strong></div>`;
+  container.appendChild(bufferRule);
+
   // Max-reached warning
   const maxWarning = document.createElement('div');
   maxWarning.className = 'validation-msg';
