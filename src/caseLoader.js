@@ -70,6 +70,22 @@ function validateCase(data) {
   return true;
 }
 
+// Valida el archivo del FACILITADOR (`caso-X.facilitator.<sufijo>.json`).
+// Contiene los injects completos, notas y análisis. Solo lo invoca la consola.
+function validateFacilitatorCase(data) {
+  required(data, 'caseId', 'string');
+  if (!Array.isArray(data.injects) || data.injects.length !== 3) throw new Error('"injects" (facilitador) debe tener 3 elementos');
+  data.injects.forEach((inj, i) => {
+    if (!inj.id) throw new Error(`Inject ${i}: falta "id"`);
+    if (!inj.text) throw new Error(`Inject ${i}: falta "text"`);
+    if (!inj.latentInformation) throw new Error(`Inject ${i}: falta "latentInformation"`);
+    if (!VALID_UNCERTAINTY.has(inj.primaryUncertaintyAffected)) throw new Error(`Inject "${inj.id}": primaryUncertaintyAffected inválido`);
+    if (!inj.facilitatorPrompt) throw new Error(`Inject ${i}: falta "facilitatorPrompt"`);
+  });
+  required(data, 'facilitatorNotes', 'string');
+  return true;
+}
+
 export async function loadCase(caseFile) {
   const url = `./cases/v1/${caseFile}`;
   let data;
@@ -100,9 +116,54 @@ export const CASE_FILES = {
   '3': 'caso-3.json',
 };
 
-// NOTA DE SEGURIDAD (split de capa privada — jul 2026).
-// Los archivos del facilitador (`caso-X.facilitator.*.json`), la consola y sus
-// cargadores (loadFacilitatorCase/mergeFacilitator/FACILITATOR_FILES) fueron
-// RETIRADOS de la build pública. Ninguna ruta ni sufijo privado aparece ya en
-// el bundle servido por GitHub Pages. La consola del facilitador vive en la
-// rama `consola-docente`, que NO es la fuente de Pages y se ejecuta local.
+// Archivos del facilitador (solo-consola). El sufijo poco adivinable sube el
+// costo del acceso directo; NUNCA se referencian desde el flujo del alumno.
+export const FACILITATOR_FILES = {
+  A: 'caso-A.facilitator.7f3a.json',
+  B: 'caso-B.facilitator.9c2e.json',
+  C: 'caso-C.facilitator.b5d1.json',
+  '3': 'caso-3.facilitator.a4e8.json',
+};
+
+// Carga el archivo del facilitador para un caso. SOLO debe llamarse desde la
+// consola, tras pasar el gate de acceso. El flujo del alumno jamás lo invoca.
+export async function loadFacilitatorCase(order) {
+  const facFile = FACILITATOR_FILES[order] || FACILITATOR_FILES.A;
+  const url = `./cases/v1/${facFile}`;
+  let data;
+  try {
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status} al cargar ${url}`);
+    data = await resp.json();
+  } catch (e) {
+    throw new Error(`No se pudo cargar el archivo del facilitador "${facFile}": ${e.message}`);
+  }
+  try {
+    validateFacilitatorCase(data);
+  } catch (e) {
+    throw new Error(`El archivo del facilitador "${facFile}" está malformado: ${e.message}`);
+  }
+  return data;
+}
+
+// Fusiona en memoria los datos del alumno con los del facilitador para que la
+// consola disponga de la vista completa. No persiste.
+export function mergeFacilitator(studentData, facData) {
+  if (!facData) return studentData;
+  const notesById = {};
+  (facData.bufferNotes || []).forEach(b => { notesById[b.id] = b.notesForFacilitator; });
+  const availableBuffers = (studentData.availableBuffers || []).map(b => (
+    notesById[b.id] != null ? { ...b, notesForFacilitator: notesById[b.id] } : { ...b }
+  ));
+  return {
+    ...studentData,
+    context: { ...studentData.context, ...(facData.context || {}) },
+    availableBuffers,
+    injects: facData.injects || studentData.injects,
+    facilitatorNotes: facData.facilitatorNotes,
+    facilitatorAnalysis: facData.facilitatorAnalysis,
+    replies: facData.replies || studentData.replies,
+    wargameReplicas: facData.wargameReplicas || null,
+    dossier: { ...studentData.dossier, _visibility: facData.dossierVisibility },
+  };
+}
