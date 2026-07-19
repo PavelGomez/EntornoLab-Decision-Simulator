@@ -96,7 +96,25 @@ async function boot() {
       state.set({ professorMode: profMode });
     }
 
-    state.set({ caseId: caseData.caseId });
+    // ── Enlace de recorrido preconfigurado (multidispositivo, edición TTX) ──
+    // Parámetros admitidos: ?caso=A&inject=<id>&modo=ttx&sesion=<token>.
+    // Se validan contra el caso; los inválidos se ignoran y caen en un valor
+    // seguro. NUNCA transporta datos del facilitador (notas, análisis, clave).
+    const injectParam = params.get('inject');
+    const sesionParam = params.get('sesion');
+    const validInject = (injectParam && Array.isArray(caseData.injects) &&
+      caseData.injects.some(i => i.id === injectParam)) ? injectParam : null;
+
+    // Freshness de sesión: un token nuevo reinicia el recorrido para que una
+    // sesión previa en este navegador no contamine la del enlace recién abierto.
+    if (sesionParam && state.get().linkSession !== sesionParam) {
+      state.reset();
+      state.set({ professorMode: profMode, linkSession: sesionParam });
+    }
+
+    // Esta edición es TTX: se fuerza la modalidad con independencia del enlace.
+    state.set({ caseId: caseData.caseId, modality: 'ttx' });
+    if (validInject) state.set({ selectedInjectId: validInject });
     // Si llegó por URL directa sin sesión, ir a pantalla 1
     if (state.get().currentScreen === 0) state.set({ currentScreen: 1 });
 
