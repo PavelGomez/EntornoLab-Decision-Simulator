@@ -49,7 +49,7 @@ export function cycleDiagram() {
 
 // 2. Tira de la ruta de 10 pasos → home y "Guía de uso"
 export function pathStrip() {
-  return figure(`<svg viewBox="0 0 1010 110" role="img" aria-label="Ruta de 10 pantallas: Briefing, Clasificación, Impacto, Buffers, Trade-off, Decisión, Indicadores, Inject (paso 8, punto de no retorno), Revisión y Export (PDF)." xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
+  return figure(`<svg viewBox="0 0 1010 110" role="img" aria-label="Ruta de 10 pantallas: Briefing, Clasificación, Impacto, Buffers, Trade-off, Decisión, Indicadores, Inject (paso 8, punto de no retorno), Revisión y Export (PDF + JSON)." xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
   <line x1="40" y1="40" x2="970" y2="40" stroke="#D8E0EA" stroke-width="2"/>
   <g text-anchor="middle">
     <g><circle cx="40"  cy="40" r="16" fill="#2D6EA3"/><text x="40"  y="45" fill="#fff" font-size="13" font-weight="700">1</text><text x="40"  y="74" fill="#1C2A35" font-size="9">Briefing</text></g>

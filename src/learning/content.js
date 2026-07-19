@@ -305,7 +305,7 @@ export const HOME_BELOW = `
     <li><strong>Guía de uso</strong> — las 10 pantallas y las reglas del recorrido (modalidad TTX).</li>
     <li><strong>Glosario</strong> y <strong>Referencias</strong> — vocabulario del marco y su base bibliográfica.</li>
   </ul>
-  <p>Y el botón <strong>Iniciar recorrido</strong> te lleva a la <strong>ruta de decisión</strong>: 10 pantallas, lineal, que termina en un PDF (el insumo de tu memo). <strong>Dos reglas de navegación</strong> que conviene tener claras desde ya: (1) puedes <strong>consultar cualquier sección de referencia mientras decides</strong>, sin perder tu progreso; (2) una vez que aparece el <strong>inject</strong>, <strong>no se vuelve atrás</strong> —la revisión es reapertura, no edición—. Esa es, justamente, la disciplina que el laboratorio entrena.</p>
+  <p>Y el botón <strong>Iniciar recorrido</strong> te lleva a la <strong>ruta de decisión</strong>: 10 pantallas, lineal, que termina en la descarga de un PDF + un JSON con el mismo verifyCode (el insumo de tu memo). <strong>Dos reglas de navegación</strong> que conviene tener claras desde ya: (1) puedes <strong>consultar cualquier sección de referencia mientras decides</strong>, sin perder tu progreso; (2) una vez que aparece el <strong>inject</strong>, <strong>no se vuelve atrás</strong> —la revisión es reapertura, no edición—. Esa es, justamente, la disciplina que el laboratorio entrena.</p>
   {{STRIP}}
   <blockquote class="lc-quote"><strong>Antes de empezar.</strong> Recorre <strong>El marco E-BTA/R</strong> y, si quieres, los <strong>Componentes</strong>. Cuando estés listo, elige un caso y pulsa <strong>Iniciar recorrido</strong>.</blockquote>`;
 
@@ -384,17 +384,17 @@ export const SECTIONS = {
     html: `
       <p>Tres casos, anclados en el contexto venezolano (alta variabilidad regulatoria, fricción cambiaria, escasez de buffers convencionales). El selector vive en <strong>Inicio</strong>.</p>
       <ul class="lc-list">
-        <li><strong>Caso A — Vala Pagos · Fintech de pagos y remesas.</strong> "Una plataforma de pagos y remesas enfrenta un cambio regulatorio repentino en un entorno cambiario tensionado." Caso ancla: el ciclo completo y más rico, base del memo evaluable. ~180 min. Recomendado para empezar.</li>
+        <li><strong>Caso A — Vala Pagos · Fintech de pagos y remesas.</strong> "Una plataforma de pagos y remesas enfrenta un cambio regulatorio repentino en un entorno cambiario tensionado." Caso ancla: el ciclo completo y más rico. Práctica; no es la entrega evaluable. ~180 min. Recomendado para empezar.</li>
         <li><strong>Caso B — Provista · Alimentos de consumo masivo.</strong> "Una empresa de alimentos descubre que su cliente histórico ya no puede pagar su producto." Caso de transferencia, ciclo comprimido. ~60 min.</li>
         <li><strong>Caso C — Rauda · Plataforma de reparto.</strong> "Una app de delivery enfrenta una crisis pública que estalla tras un caso viral." Caso portable, ciclo comprimido. ~60 min.</li>
       </ul>
-      <p><em>Empieza por el Caso A si es tu primera vez o si harás el memo. Usa B o C para practicar la transferencia del marco a otros sectores.</em> (El selector no muestra el tipo de evento ni el canal dominante: eso es justo lo que tú debes deducir.)</p>
+      <p><em>Empieza por el Caso A si es tu primera vez, para recorrer el ciclo completo. B y C practican la transferencia del marco a otros sectores. La entrega individual evaluable es el Caso 3.</em> (El selector no muestra el tipo de evento ni el canal dominante: eso es justo lo que tú debes deducir.)</p>
       <p><button class="btn btn-secondary lc-goto-selector" type="button" data-goto-selector>Ir al selector en Inicio ↓</button></p>`,
   },
   guia: {
     nav: 'Guía de uso', title: 'Guía de uso', anchor: 'guia',
     html: `
-      <p><strong>El recorrido tiene 10 pantallas, lineales:</strong> 1) Briefing y dossier del caso · 2) Clasificación del evento · 3) Mapa de impacto · 4) Buffer Board · 5) Trade-off · 6) Decisión y frase E-BTA/R · 7) Indicadores y umbral · 8) <strong>Inject</strong> (punto de no retorno) · 9) Revisión forzada · 10) Export (PDF).</p>
+      <p><strong>El recorrido tiene 10 pantallas, lineales:</strong> 1) Briefing y dossier del caso · 2) Clasificación del evento · 3) Mapa de impacto · 4) Buffer Board · 5) Trade-off · 6) Decisión y frase E-BTA/R · 7) Indicadores y umbral · 8) <strong>Inject</strong> (punto de no retorno) · 9) Revisión forzada · 10) Export (PDF + JSON).</p>
       {{STRIP}}
       <h3 class="lc-h3">Reglas</h3>
       <ul class="lc-list">

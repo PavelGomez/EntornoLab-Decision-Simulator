@@ -45,7 +45,7 @@ EntornoLab es **autocontenido**: todo lo que necesitas está aquí, sin document
 - **Guía de uso** — las 10 pantallas, las reglas y las modalidades (tabletop y wargame).
 - **Glosario** y **Referencias** — vocabulario del marco y su base bibliográfica.
 
-Y el botón **Iniciar recorrido** te lleva a la **ruta de decisión**: 10 pantallas, lineal, que termina en un PDF (el insumo de tu memo). **Dos reglas de navegación** que conviene tener claras desde ya: (1) puedes **consultar cualquier sección de referencia mientras decides**, sin perder tu progreso; (2) una vez que aparece el **inject**, **no se vuelve atrás** —la revisión es reapertura, no edición—. Esa es, justamente, la disciplina que el laboratorio entrena.
+Y el botón **Iniciar recorrido** te lleva a la **ruta de decisión**: 10 pantallas, lineal, que termina en la descarga de un PDF + un JSON con el mismo verifyCode (el insumo de tu memo). **Dos reglas de navegación** que conviene tener claras desde ya: (1) puedes **consultar cualquier sección de referencia mientras decides**, sin perder tu progreso; (2) una vez que aparece el **inject**, **no se vuelve atrás** —la revisión es reapertura, no edición—. Esa es, justamente, la disciplina que el laboratorio entrena.
 
 > **Antes de empezar.** Recorre **El marco E-BTA/R** y, si quieres, los **Componentes**. Cuando estés listo, elige un caso abajo y pulsa **Iniciar recorrido**.
 
@@ -194,17 +194,17 @@ En el Caso A, una fintech recibe un borrador de circular un viernes por la tarde
 
 Tres casos, anclados en el contexto venezolano (alta variabilidad regulatoria, fricción cambiaria, escasez de buffers convencionales). El selector vive en **Inicio**.
 
-- **Caso A — Vala Pagos · Fintech de pagos y remesas.** "Una plataforma de pagos y remesas enfrenta un cambio regulatorio repentino en un entorno cambiario tensionado." Caso ancla: el ciclo completo y más rico, base del memo evaluable. ~180 min. Recomendado para empezar.
+- **Caso A — Vala Pagos · Fintech de pagos y remesas.** "Una plataforma de pagos y remesas enfrenta un cambio regulatorio repentino en un entorno cambiario tensionado." Caso ancla: el ciclo completo y más rico. Práctica; no es la entrega evaluable. ~180 min. Recomendado para empezar.
 - **Caso B — Provista · Alimentos de consumo masivo.** "Una empresa de alimentos descubre que su cliente histórico ya no puede pagar su producto." Caso de transferencia, ciclo comprimido. ~60 min.
 - **Caso C — Rauda · Plataforma de reparto.** "Una app de delivery enfrenta una crisis pública que estalla tras un caso viral." Caso portable, ciclo comprimido. ~60 min.
 
-*Empieza por el Caso A si es tu primera vez o si harás el memo. Usa B o C para practicar la transferencia del marco a otros sectores.* (El selector no muestra el tipo de evento ni el canal dominante: eso es justo lo que tú debes deducir.)
+*Empieza por el Caso A si es tu primera vez, para recorrer el ciclo completo. B y C practican la transferencia del marco a otros sectores. La entrega individual evaluable es el Caso 3.* (El selector no muestra el tipo de evento ni el canal dominante: eso es justo lo que tú debes deducir.)
 
 ---
 
 # 6. Guía de uso
 
-**El recorrido tiene 10 pantallas, lineales:** 1) Briefing y dossier del caso · 2) Clasificación del evento · 3) Mapa de impacto · 4) Buffer Board · 5) Trade-off · 6) Decisión y frase E-BTA/R · 7) Indicadores y umbral · 8) **Inject** (punto de no retorno) · 9) Revisión forzada · 10) Export (PDF).
+**El recorrido tiene 10 pantallas, lineales:** 1) Briefing y dossier del caso · 2) Clasificación del evento · 3) Mapa de impacto · 4) Buffer Board · 5) Trade-off · 6) Decisión y frase E-BTA/R · 7) Indicadores y umbral · 8) **Inject** (punto de no retorno) · 9) Revisión forzada · 10) Export (PDF + JSON).
 
 **Reglas:**
 - No puedes avanzar con campos obligatorios vacíos.

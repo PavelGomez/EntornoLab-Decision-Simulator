@@ -1,7 +1,7 @@
 import { fillGraphics } from '../learning/center.js';
 import { HOME_ABOVE, HOME_BELOW } from '../learning/content.js';
 import { sectorGlyph } from '../learning/graphics.js';
-import { SIM_VERSION } from '../canon.js';
+import { SIM_VERSION, CONTRACT_SHORT } from '../canon.js';
 
 // Textos aprobados de cada tarjeta (sin spoilear dominantEventType ni dominantChannel).
 const CASE_CARDS = [
@@ -58,6 +58,21 @@ export async function mountScreen00(container, _caseData, nav) {
     </div>
   `;
   landing.appendChild(hero);
+
+  // ---- P0: síntesis de tres minutos (divulgación progresiva, antes del selector) ----
+  const p0 = document.createElement('section');
+  p0.className = 'landing-p0 lc-article';
+  p0.innerHTML = `
+    <h2 class="landing-p0-title">Antes de empezar · 2–3 min</h2>
+    <p>En diez pasos construyes una decisión defendible y luego la reabres ante información nueva. No hay respuesta única ni puntaje automático. Antes del inject puedes volver y afinar; después, la decisión inicial queda sellada. Al finalizar descargas un PDF y un JSON.</p>
+    <ul class="landing-p0-list">
+      <li><strong>Qué caso elegir:</strong> A, B y C son práctica; el <strong>Caso 3</strong> es la entrega individual.</li>
+      <li><strong>Qué produces:</strong> PDF + JSON con el mismo <code>verifyCode</code>. El memo de 1.200–1.500 palabras es lo único calificado.</li>
+      <li><strong>Punto de no retorno:</strong> al llegar al inject (paso 8) la decisión inicial queda sellada; la revisión reabre, no reescribe.</li>
+    </ul>
+    <p class="landing-p0-contract"><strong>${CONTRACT_SHORT}</strong></p>
+  `;
+  landing.appendChild(p0);
 
   // ---- Cuerpo: Acerca de + mapa del sitio + gráficos (contenido canónico) ----
   const body = document.createElement('div');

@@ -4,7 +4,7 @@ Simulador web **estático** que da soporte estructurado a una decisión gerencia
 
 **El simulador no es un juego y no produce puntaje.** Acompaña al participante por un ciclo de decisión bajo el marco **E-BTA/R**, captura su razonamiento en campos de texto estructurados, lo somete a un *inject* que reabre la decisión, y exporta todo a PDF. La evaluación ocurre **fuera del motor**, a cargo de un facilitador con una rúbrica.
 
-> **Estado del repositorio.** Esta es la base de datos y documentación del simulador: los tres casos calibrados (`cases/v1/`), el esquema y las guías. La aplicación web (las 10 pantallas) se construye a partir del prompt de desarrollo que acompaña a la entrega (`PROMPT_Claude_Code_EntornoLab.md`). Mientras el motor no exista, los casos se pueden ejecutar en papel sin perder nada esencial: el marco es independiente del simulador.
+> **Estado del repositorio.** Esta es la base de datos y documentación del simulador: los tres casos calibrados (`cases/v1/`), el esquema y las guías. La aplicación web (las 10 pantallas) ya está implementada y desplegada en GitHub Pages (edición TTX, v1.8). Si el motor fallara, los casos se pueden ejecutar en papel sin perder nada esencial: el marco es independiente del simulador.
 
 ## Estructura
 
