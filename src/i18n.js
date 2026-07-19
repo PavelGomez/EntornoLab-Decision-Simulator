@@ -152,11 +152,11 @@ export const T = {
   // Screen 6
   s6_phraseTitle: 'Frase E-BTA/R',
   s6_phraseHint: 'Esta frase se construye a partir de sus respuestas anteriores. Complete los indicadores para cerrar la frase.',
-  s6_i1: 'Indicador I1',
+  s6_i1: 'I1 — señal adelantada',
   s6_i1Hint: 'Primer indicador que monitoreará para detectar cambios relevantes.',
-  s6_i2: 'Indicador I2',
+  s6_i2: 'I2 — señal de resultado o daño',
   s6_i2Hint: 'Segundo indicador de seguimiento.',
-  s6_threshold: 'Umbral de revisión (T)',
+  s6_threshold: 'T — umbral de revisión + acción',
   s6_thresholdHint: 'Condición o valor que, al cruzarse, dispara una revisión de la decisión. Ej: "Si la circular se publica con plazo menor a 60 días..."',
   // Opción real (v1.5) — opcional, en Decisión
   s6_realOption: 'Tipo de jugada (opción real) — opcional',
@@ -185,6 +185,13 @@ export const T = {
   s7_review: 'Contrato de monitoreo',
   s7_hint: 'Define dos señales que puedas observar a tiempo y un umbral que dispare una acción concreta. Un umbral sin acción asociada es solo una alarma.',
   s7_thresholdActionHint: 'Une el umbral a una acción: «Si se cruza T, entonces…».',
+  s7_notSum: 'I1 + I2 + T no es una suma ni un puntaje. I1 avisa antes (señal adelantada); I2 muestra si el resultado o daño empieza a materializarse; T define cuándo reabrir la decisión y qué acción ejecutar.',
+  s7_template: 'Plantilla: «Si [condición observable] ocurre / no ocurre antes de [fecha o ventana], entonces [acción de revisión o contingencia]».',
+  s7_example: 'Ejemplo de forma (no es la respuesta del caso): I1: confirmación escrita del proveedor antes del día 10. I2: quiebre de stock superior a 5 %. T: si no llega la confirmación al día 10, activar el proveedor alternativo.',
+  s3_channelRule: 'Canal = por dónde viaja el golpe hasta producir daño. Compruébalo narrando la cadena: evento → canal → impacto de primera ronda → impacto de segunda ronda.',
+  s4_bufferRule: 'Buffer = capacidad que activas para amortiguar un canal nombrable, a un costo y dentro de un plazo. Pregunta clave: ¿este buffer alcanza a actuar sobre el canal que declaraste antes de que ocurra el daño?',
+  s4_declaredChannelPrefix: 'Canal dominante que declaraste antes:',
+  s4_declaredChannelNone: 'Aún no fijaste un canal dominante en la pantalla anterior.',
 
   // Screen 8
   s8_title: 'INJECT DEL FACILITADOR',
