@@ -12,6 +12,7 @@ const ACTIVE_KEY_PTR = 'entornolab_v1_active_key';
 const defaultState = () => ({
   caseId: null,
   currentScreen: 0, // 0 = portada; 1-10 = flujo del simulador
+  linkSession: null,   // token del enlace docente preconfigurado (freshness de sesión)
   postInject: false,
   selectedInjectId: null,
   professorMode: false,
