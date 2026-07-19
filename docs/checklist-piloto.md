@@ -24,4 +24,4 @@ Impacto en la decisión real del participante en su organización · retención 
 
 ## Plan B
 
-Si el motor no está listo o falla un P0 en el smoke test del día 25: ejecutar la primera cohorte con **plantillas en papel para el Caso A** y prometer el simulador para la siguiente. El marco pedagógico es independiente del simulador.
+Fechas de esta cohorte: **lunes 20 y miércoles 22 de julio de 2026**. El motor está desplegado (TTX, v1.8). Plan B si falla un P0 en el smoke test preclase: ejecutar la sesión con el **sitio público e inject por defecto**; si el motor completo falla, usar **plantillas en papel para el Caso A** y la plantilla E-BTA/R. El marco pedagógico es independiente del simulador.

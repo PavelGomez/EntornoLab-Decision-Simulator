@@ -1,5 +1,7 @@
 # Guía del facilitador — EntornoLab (1 página)
 
+**Edición y contrato.** Esta edición es **Tabletop (TTX)**: un inject y una revisión. Los casos A–C son práctica; el **Caso 3** es la entrega individual. El recorrido exporta **PDF + JSON** con el mismo `verifyCode`; el **memo** es lo único calificado.
+
 **Qué hace el simulador y qué no.** EntornoLab estructura y exporta el razonamiento del participante; **no lo califica**. La evaluación es tuya, con la rúbrica del memo. No des la respuesta: pregunta, sintetiza patrones, no califiques decisiones ex cathedra.
 
 **Antes de la sesión.** Revisa las hipótesis previas que cada grupo entregó (evento, canal dominante, buffer candidato). Te dicen qué errores son más prevalentes y con cuál inject conviene golpear a cada grupo.

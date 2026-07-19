@@ -43,7 +43,7 @@
 ## 2. Tira de la ruta de 10 pasos (lineal, con inject y no-retorno)  → home y "Guía de uso"
 
 ```html
-<svg viewBox="0 0 1010 110" role="img" aria-label="Ruta de 10 pantallas: Briefing, Clasificación, Impacto, Buffers, Trade-off, Decisión, Indicadores, Inject (paso 8, punto de no retorno), Revisión y Export (PDF)." xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
+<svg viewBox="0 0 1010 110" role="img" aria-label="Ruta de 10 pantallas: Briefing, Clasificación, Impacto, Buffers, Trade-off, Decisión, Indicadores, Inject (paso 8, punto de no retorno), Revisión y Export (PDF + JSON)." xmlns="http://www.w3.org/2000/svg" font-family="Inter, system-ui, sans-serif">
   <!-- línea base -->
   <line x1="40" y1="40" x2="970" y2="40" stroke="#D8E0EA" stroke-width="2"/>
   <!-- 10 nodos: cx = 40 + i*103.3 -->
