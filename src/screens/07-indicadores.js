@@ -86,6 +86,12 @@ export async function mountScreen07(container, caseData, nav) {
   tmplBox.innerHTML = `<p class="field-hint" style="margin:0 0 8px"><strong>${T.s7_template}</strong></p><p class="field-hint" style="margin:0;opacity:.9">${T.s7_example}</p>`;
   container.appendChild(tmplBox);
 
+  // Aviso de retención antes del punto de no retorno (control verbal del inject).
+  const ponrWarn = document.createElement('div');
+  ponrWarn.setAttribute('style', 'background:#fdf1f1;border-left:4px solid #a12020;padding:12px 14px;border-radius:6px;margin:0 0 var(--sp-4);font-size:14px;line-height:1.55;color:#7a1a1a');
+  ponrWarn.innerHTML = '<strong>Detente aquí.</strong> No pulses «Continuar» hasta que el profesor lo indique. La pantalla siguiente (8) revela el <strong>inject</strong> y <strong>sella tu decisión inicial</strong>: desde ese momento no se puede volver atrás ni editarla, solo revisarla.';
+  container.appendChild(ponrWarn);
+
   // Nav footer
   const footer = renderNavFooter({
     showBack: true,
