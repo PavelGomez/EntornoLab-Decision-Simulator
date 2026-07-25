@@ -115,6 +115,16 @@ async function boot() {
     // Esta edición es TTX: se fuerza la modalidad con independencia del enlace.
     state.set({ caseId: caseData.caseId, modality: 'ttx' });
     if (validInject) state.set({ selectedInjectId: validInject });
+
+    // ── Retención del inject para el flujo de DOS ENTREGAS (Caso 3) ──
+    // `?reten=1` mantiene el inject oculto en P8 (Entrega 1: el alumno decide y
+    // exporta su decisión ANTES de conocer el inject). El SEGUNDO enlace, misma
+    // sesión y SIN `reten`, marca el inject como liberado y revela P8 (Entrega 2).
+    if (params.get('reten') === '1') {
+      state.set({ runConfig: { mode: 'ttx', order: caseOrder, injectId: validInject || null, revealPolicy: 'facilitator', phase: 'demo' }, injectReleased: false });
+    } else if (state.get().runConfig?.revealPolicy === 'facilitator') {
+      state.set({ injectReleased: true });
+    }
     // Si llegó por URL directa sin sesión, ir a pantalla 1
     if (state.get().currentScreen === 0) state.set({ currentScreen: 1 });
 
