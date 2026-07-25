@@ -60,6 +60,9 @@ const defaultState = () => ({
   s6_i2: '',
   s6_threshold: '',
 
+  // S8 (supuesto decisivo nombrado ANTES del inject — anti-retrospectiva)
+  s8_assumption: '',
+
   // S9
   s9_maintains: '',
   s9_abandons: '',
@@ -175,6 +178,7 @@ function integrityPayload() {
     's5_protects', 's5_sacrifices', 's5_costBearer', 's5_costTiming', 's5_reversibility', 's5_floor', 's5_residualRisk',
     's6_action', 's6_owner', 's6_firstMilestone', 's6_deadline', 's6_rejectedAlt',
     's6_i1', 's6_i2', 's6_threshold', 's6_realOption', 's6_realOptionTrigger',
+    's8_assumption',
     's9_maintains', 's9_abandons', 's9_inverts', 's9_loopType', 's9_loopWhy',
     's9_revisedEventTypes', 's9_revisedDemarcation', 's9_revisedUncertaintySource',
     's9_revisedDominantChannel', 's9_revisedI1', 's9_revisedI2', 's9_revisedThreshold',
@@ -244,6 +248,7 @@ export const state = {
       's5_protects', 's5_sacrifices', 's5_costBearer', 's5_costTiming', 's5_reversibility', 's5_floor', 's5_residualRisk',
       's6_action', 's6_owner', 's6_firstMilestone', 's6_deadline', 's6_rejectedAlt',
       's6_i1', 's6_i2', 's6_threshold', 's6_realOption', 's6_realOptionTrigger',
+      's8_assumption',
     ];
     const snap = {};
     snapshotKeys.forEach(k => { snap[k] = s[k]; });

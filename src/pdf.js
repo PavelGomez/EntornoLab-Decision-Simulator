@@ -14,7 +14,7 @@ function fmtDuration(aIso, bIso) {
   return m > 0 ? `${m} min ${s} s` : `${s} s`;
 }
 
-export function generatePdf(caseData, st) {
+export function generatePdf(caseData, st, opts = {}) {
   try {
     const { jsPDF } = window.jspdf;
     if (!jsPDF) throw new Error('jsPDF not loaded');
@@ -304,7 +304,8 @@ export function generatePdf(caseData, st) {
     }
 
     const runTag = st.runId && st.runId !== 'DEMO' ? st.runId : `DEMO-${Date.now()}`;
-    doc.save(`recorrido-${runTag}.pdf`);
+    const filePrefix = opts.preInject ? 'antes-del-inject' : 'recorrido';
+    doc.save(`${filePrefix}-${runTag}.pdf`);
     return true;
   } catch (e) {
     console.error('PDF generation failed:', e);
@@ -315,11 +316,12 @@ export function generatePdf(caseData, st) {
 // Export JSON (máquina) — segunda pata de la trazabilidad. Recomputar el hash
 // del payload canónico incrustado debe reproducir el verifyCode impreso en el
 // PDF; editar cualquier campo del recorrido rompe el cotejo (huella de manipulación).
-export function generateJson(caseData, st) {
+export function generateJson(caseData, st, opts = {}) {
   try {
     const cfg = st.runConfig || {};
     const payload = getIntegrityPayload();
     const out = {
+      phase: opts.preInject ? 'pre-inject (Entrega 1: antes del inject)' : 'completo',
       simVersion: SIM_VERSION,
       caseId: caseData.caseId,
       caseTitle: caseData.title,
@@ -365,7 +367,8 @@ export function generateJson(caseData, st) {
     const a = document.createElement('a');
     const runTag = st.runId && st.runId !== 'DEMO' ? st.runId : `DEMO-${Date.now()}`;
     a.href = url;
-    a.download = `recorrido-${runTag}.json`;
+    const filePrefix = opts.preInject ? 'antes-del-inject' : 'recorrido';
+    a.download = `${filePrefix}-${runTag}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
