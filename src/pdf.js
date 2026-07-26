@@ -135,7 +135,7 @@ export function generatePdf(caseData, st, opts = {}) {
     const metaPairs = [
       ['Caso', cfg.order || caseData.order || '\u2014'],
       ['Modalidad', (st.modality || cfg.mode || 'ttx') === 'wargame' ? 'Wargame' : 'Tabletop (TTX)'],
-      ['Inject', injectId],
+      ['Inject', opts.preInject ? '\u2014 (retenido hasta la liberaci\u00f3n del facilitador)' : injectId],
       ['Versi\u00f3n del simulador', SIM_VERSION],
       ['C\u00f3digo de sesi\u00f3n', cfg.sessionCode || '\u2014'],
       ['Alias', cfg.alias || '\u2014'],
@@ -245,6 +245,8 @@ export function generatePdf(caseData, st, opts = {}) {
     const phraseText = assemblePhrase(phraseFields, false);
     addPhrase(sanitize(phraseText));
 
+    // ── Desde aquí: solo en el export COMPLETO; el pre-inject (Entrega 1) no revela inject ni revisión ──
+    if (!opts.preInject) {
     // Inject
     addSection('Inject Revelado');
     const inject = caseData.injects.find(i => i.id === st.selectedInjectId) || caseData.injects[0];
@@ -277,6 +279,8 @@ export function generatePdf(caseData, st, opts = {}) {
       addLabel('Tipo de revisión:'); addText(sanitize(wgLoop));
       if (st.wg_loopWhy) { addLabel('¿Por qué? (bucle):'); addText(sanitize(st.wg_loopWhy)); }
     }
+
+    } // fin if(!opts.preInject)
 
     // \u2500\u2500 Sello de integridad (al final del contenido) \u2500\u2500
     checkPage(40);
