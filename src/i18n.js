@@ -213,7 +213,7 @@ export const T = {
   // Screen 10
   s10_title: 'Exportar resultados',
   s10_hint: 'Su ciclo de decisión está completo. Descargue el registro para compartirlo con el facilitador.',
-  s10_pdfNote: 'El PDF incluye todas sus respuestas, la frase E-BTA/R inicial y revisada, y el inject revelado.',
+  s10_pdfNote: 'El PDF incluye todas sus respuestas, la frase E-BTA/R inicial y revisada, y el inject revelado. Antes de enviar, renombra los dos archivos con tu apellido y nombre (por ejemplo, Casanova-Francisco).',
 
   // ── Capa de Gobierno e Integridad — textos fijos net-new (ANEXO §4) ──
   integrityLegend: 'Este reporte documenta el recorrido realizado en sesión. Su edición posterior debe declararse.',
