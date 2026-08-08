@@ -34,7 +34,7 @@ export async function mountScreen08(container, caseData, nav) {
   const warningEl = document.createElement('div');
   warningEl.className = 'ponr-warning';
   warningEl.innerHTML = `
-    <div class="ponr-warning-title">Punto de no retorno</div>
+    <div class="ponr-warning-title">Antes de continuar</div>
     <div class="ponr-warning-text">${T.s8_warning}</div>
   `;
   container.appendChild(warningEl);

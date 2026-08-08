@@ -195,7 +195,7 @@ export const T = {
 
   // Screen 8
   s8_title: 'INJECT DEL FACILITADOR',
-  s8_warning: 'A partir de este momento no podrá regresar a las pantallas anteriores. Lea con atención.',
+  s8_warning: 'Al continuar, sellas tu decisión inicial y se muestra el inject. Después podrás revisarla (pantalla 9), pero no editar las pantallas anteriores.',
   s8_readBtn: 'He leído el inject — continuar →',
 
   // Screen 9
